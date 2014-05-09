@@ -7,6 +7,7 @@ import controller.CtrExperienciaProfissional;
 import controller.CtrFormacaoAcademica;
 import controller.CtrProfessor;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -23,6 +24,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -33,10 +35,12 @@ import javax.swing.UIManager;
 import javax.swing.text.Document;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.html.HTMLEditorKit;
+
 import model.Coordenador;
 import model.Diretor;
 import model.Disciplina;
 import model.DisciplinaPreferencial;
+import model.Enum.EnumStates;
 import model.Enum.SituProfessor;
 import model.Enum.TipoProfessor;
 import model.ExperienciaProfissional;
@@ -105,7 +109,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void listarUfs() {
-        this.cUf.setModel(new javax.swing.DefaultComboBoxModel(Util.listarUfs()));
+        this.cUf.setModel(new javax.swing.DefaultComboBoxModel(EnumStates.values()));
         this.cUf.setSelectedIndex(0);
     }
 
