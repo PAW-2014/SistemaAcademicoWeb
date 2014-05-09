@@ -23,7 +23,7 @@ public class CoordenadorDAO extends Conexao implements ICoordenador {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM professor WHERE nome LIKE ? ORDER BY nome ASC");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setString(1, "%" + nome);
             rs = stmt.executeQuery();
@@ -54,7 +54,7 @@ public class CoordenadorDAO extends Conexao implements ICoordenador {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM disciplina WHERE nome LIKE ? ORDER BY nome ASC");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setString(1, "%"+nome);
             rs = stmt.executeQuery();

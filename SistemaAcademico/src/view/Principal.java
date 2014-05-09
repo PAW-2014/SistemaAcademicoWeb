@@ -46,6 +46,8 @@ import model.Enum.TipoProfessor;
 import model.ProfessionalExperience;
 import model.AcademicFormation;
 import model.Professor;
+import util.FormatProfessorToHtml;
+import util.MessageUtil;
 import view.Model.DisciplinaDataModel;
 import view.Model.DisciplinaPreferencialListModel;
 import view.Model.DisciplinaListModel;
@@ -56,9 +58,6 @@ import view.Model.ProfessorDataModel;
 
 public class Principal extends javax.swing.JFrame {
 
-    /**
-     * Variáveis
-     */
     private Professor prof = null;
     private AcademicFormation formacao;
     private ProfessionalExperience experiencia;
@@ -2010,13 +2009,13 @@ public class Principal extends javax.swing.JFrame {
             profSele.setFormacoesAcademicas(CtrFormacaoAcademica.getFormacoes(profSele.getId()));
             HTMLEditorKit kit = new HTMLEditorKit();
             editor.setEditorKit(kit);
-            String html = gerarStringHtml();
+            String html = FormatProfessorToHtml.format(profSele);
             if (html.length() != 0) {
                 kit.getStyleSheet().addRule("h2.h2{background-color: #4daec1; width: 450px;}");
                 kit.getStyleSheet().addRule("h2.noinfo{font-color: red;}");
                 Document doc = kit.createDefaultDocument();
                 editor.setDocument(doc);
-                editor.setText(gerarStringHtml());
+                editor.setText(html);
                 gerarCurriculo = true;
             }
 
@@ -2026,7 +2025,7 @@ public class Principal extends javax.swing.JFrame {
     private void bSalvarPDFMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalvarPDFMousePressed
         if (profSele != null && gerarCurriculo) {
             if (CtrCoordenador.generatePDFFromHtml(profSele.getNome(), gerarStringHtml())) {
-                JOptionPane.showMessageDialog(dialogoCurriculo, Util.msgCurriculoCriadoSucesso(profSele.getNome()));
+                JOptionPane.showMessageDialog(dialogoCurriculo, MessageUtil.msgCurriculoCriadoSucesso(profSele.getNome()));
                 gerarCurriculo = false;
             }
             dialogoProgressBar.setVisible(false);
@@ -2057,18 +2056,18 @@ public class Principal extends javax.swing.JFrame {
         profSele = (Professor) cListaProfessores.getModel().getSelectedItem();
         if (profSele != null) {
             if (isPromover) {
-                if (JOptionPane.showConfirmDialog(dialogoAcao, Util.msgAcao(profSele.getNome(), "promover")) == 0) {
+                if (JOptionPane.showConfirmDialog(dialogoAcao, MessageUtil.msgAcao(profSele.getNome(), "promover")) == 0) {
                     if (CtrDiretor.promoverProfessor(profSele)) {
-                        JOptionPane.showMessageDialog(dialogoAcao, Util.msgSucesso(profSele.getNome(), "promovido"));
+                        JOptionPane.showMessageDialog(dialogoAcao, MessageUtil.msgSucesso(profSele.getNome(), "promovido"));
                         dialogoAcao.setVisible(false);
                     }
                 }
             }
             if (isExcluir) {
                 profSele = CtrProfessor.getProfessor(profSele.getId());
-                if (JOptionPane.showConfirmDialog(dialogoAcao, Util.msgAcao(profSele.getNome(), "excluir")) == 0) {
+                if (JOptionPane.showConfirmDialog(dialogoAcao, MessageUtil.msgAcao(profSele.getNome(), "excluir")) == 0) {
                     if (CtrDiretor.excluirProfessor(profSele)) {
-                        JOptionPane.showMessageDialog(dialogoAcao, Util.msgSucesso(profSele.getNome(), "excluído"));
+                        JOptionPane.showMessageDialog(dialogoAcao, MessageUtil.msgSucesso(profSele.getNome(), "excluído"));
                     }
                     dialogoAcao.setVisible(false);
                 }
@@ -2100,7 +2099,7 @@ public class Principal extends javax.swing.JFrame {
     private void bImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bImportarActionPerformed
         if (cLoginImportar.getText().equals("admin") && new String(cSenhaImportar.getPassword()).equals("admin")) {
             if (CtrDiretor.importarDados()) {
-                JOptionPane.showMessageDialog(cLoginImportar, Util.msgSucessoMult("importados"));
+                JOptionPane.showMessageDialog(cLoginImportar, MessageUtil.msgSucessoMult("importados"));
             } else {
                 JOptionPane.showMessageDialog(cLoginImportar, "Registros já foram importados");
             }
@@ -2136,9 +2135,9 @@ public class Principal extends javax.swing.JFrame {
                 msg = "ativado";
             }
 
-            if (JOptionPane.showConfirmDialog(dialogoStatus, Util.msgConfirmacao(profSele.getNome(), acao)) == 0) {
+            if (JOptionPane.showConfirmDialog(dialogoStatus, MessageUtil.msgConfirmacao(profSele.getNome(), acao)) == 0) {
                 if (CtrProfessor.alterarProfessor(profSele)) {
-                    JOptionPane.showMessageDialog(dialogoStatus, Util.msgSucesso(profSele.getNome(), msg));
+                    JOptionPane.showMessageDialog(dialogoStatus, MessageUtil.msgSucesso(profSele.getNome(), msg));
                 }
             }
         }
@@ -2186,7 +2185,7 @@ public class Principal extends javax.swing.JFrame {
             listaExcluir = CtrDisciplina.getDisciplinas(prof.getId());
             listaExcluir.removeAll(prof.getDisciplinasPreferenciais());
             if (CtrDisciplina.salvarDisciplinasPreferenciais(prof.getDisciplinasPreferenciais(), listaExcluir)) {
-                JOptionPane.showMessageDialog(null, Util.msgSucessoMult("incluídos"));
+                JOptionPane.showMessageDialog(null, MessageUtil.msgSucessoMult("incluídos"));
             }
             initDisciplinas();
         }
@@ -2253,9 +2252,9 @@ public class Principal extends javax.swing.JFrame {
             if (validarCamposExperiencia()) {
                 setarExperiencia();
                 if (CtrExperienciaProfissional.verificarExperiencia(experiencia)) {
-                    JOptionPane.showMessageDialog(null, Util.msgJaCadastrada("Experiência Profissional"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgJaCadastrada("Experiência Profissional"));
                 } else if (CtrExperienciaProfissional.salvarOuAtualizarExperiencia(experiencia)) {
-                    JOptionPane.showMessageDialog(null, Util.msgSucesso(experiencia.getEmpresa(), "editado"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getEmpresa(), "editado"));
                     initExpProfissional();
                 }
             }
@@ -2263,9 +2262,9 @@ public class Principal extends javax.swing.JFrame {
             if (validarCamposExperiencia()) {
                 setarExperiencia();;
                 if (CtrExperienciaProfissional.verificarExperiencia(experiencia)) {
-                    JOptionPane.showMessageDialog(null, Util.msgJaCadastrada("Experiência Profissional"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgJaCadastrada("Experiência Profissional"));
                 } else if (CtrExperienciaProfissional.salvarOuAtualizarExperiencia(experiencia)) {
-                    JOptionPane.showMessageDialog(null, Util.msgSucesso(experiencia.getEmpresa(), "incluído"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getEmpresa(), "incluído"));
                     initExpProfissional();
                 }
             }
@@ -2297,9 +2296,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void bExcluirExpSeleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirExpSeleActionPerformed
         if (experiencia != null) {
-            if (JOptionPane.showConfirmDialog(null, Util.msgConfirmacao(experiencia.getEmpresa(), "excluir")) == 0) {
+            if (JOptionPane.showConfirmDialog(null, MessageUtil.msgConfirmacao(experiencia.getEmpresa(), "excluir")) == 0) {
                 if (CtrExperienciaProfissional.excluir(experiencia)) {
-                    JOptionPane.showMessageDialog(null, Util.msgSucesso(experiencia.getEmpresa(), "excluido"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getEmpresa(), "excluido"));
                     CtrProfessor.alterarProfessor(prof);
                     limparCamposExperiencia();
                     carregarExperiencias();
@@ -2329,9 +2328,9 @@ public class Principal extends javax.swing.JFrame {
             if (validarCamposFormacao()) {
                 setarFormacao();
                 if (CtrFormacaoAcademica.verificarFormacao(formacao)) {
-                    JOptionPane.showMessageDialog(null, Util.msgJaCadastrada("Formação"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgJaCadastrada("Formação"));
                 } else if (CtrFormacaoAcademica.salvarOuAtualizarFormacao(formacao)) {
-                    JOptionPane.showMessageDialog(null, Util.msgSucesso(formacao.getNomeCurso(), "editado"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getNomeCurso(), "editado"));
                     initFormacaoAcademica();
                 }
             }
@@ -2339,9 +2338,9 @@ public class Principal extends javax.swing.JFrame {
             if (validarCamposFormacao()) {
                 setarFormacao();
                 if (CtrFormacaoAcademica.verificarFormacao(formacao)) {
-                    JOptionPane.showMessageDialog(null, Util.msgJaCadastrada("Formação"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgJaCadastrada("Formação"));
                 } else if (CtrFormacaoAcademica.salvarOuAtualizarFormacao(formacao)) {
-                    JOptionPane.showMessageDialog(null, Util.msgSucesso(formacao.getNomeCurso(), "incluído"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getNomeCurso(), "incluído"));
                     initFormacaoAcademica();
                 }
             }
@@ -2373,9 +2372,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void bExcluirFormaSeleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirFormaSeleActionPerformed
         if (formacao != null) {
-            if (JOptionPane.showConfirmDialog(null, Util.msgConfirmacao(formacao.getNomeCurso(), "excluir")) == 0) {
+            if (JOptionPane.showConfirmDialog(null, MessageUtil.msgConfirmacao(formacao.getNomeCurso(), "excluir")) == 0) {
                 if (CtrFormacaoAcademica.excluir(formacao)) {
-                    JOptionPane.showMessageDialog(null, Util.msgSucesso(formacao.getNomeCurso(), "excluido"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getNomeCurso(), "excluido"));
                     carregarFormacoes();
                     limparCamposFormacao();
                     formacao = new AcademicFormation();
@@ -2421,7 +2420,7 @@ public class Principal extends javax.swing.JFrame {
         if (validarCamposDados()) {
             setarDados();
             if (CtrProfessor.alterarProfessor(prof)) {
-                JOptionPane.showMessageDialog(null, Util.msgSucesso(prof.getNome(), "editado"));
+                JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(prof.getNome(), "editado"));
                 if (prof instanceof Professor) {
                     rendCamposDados();
                 }
@@ -2717,12 +2716,12 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public boolean validarCamposDados() {
-        String msg = Util.initHtml();
+        String msg = MessageUtil.initHtml();
         boolean validate = true;
         if (getNome().equals("")) {
             validate &= false;
             this.lNome.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lNome.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lNome.getText());
         } else {
             this.lNome.setForeground(Color.black);
         }
@@ -2730,7 +2729,7 @@ public class Principal extends javax.swing.JFrame {
         if (getRg().contains("_")) {
             validate &= false;
             this.lRg.setForeground(Color.red);
-            msg += Util.msgCampoInvalido(this.lRg.getText());
+            msg += MessageUtil.msgCampoInvalido(this.lRg.getText());
         } else {
             this.lRg.setForeground(Color.black);
         }
@@ -2738,7 +2737,7 @@ public class Principal extends javax.swing.JFrame {
         if (getCpf().contains("_")) {
             validate &= false;
             this.lCpf.setForeground(Color.red);
-            msg += Util.msgCampoInvalido(this.lCpf.getText());
+            msg += MessageUtil.msgCampoInvalido(this.lCpf.getText());
         } else {
             this.lCpf.setForeground(Color.black);
         }
@@ -2746,7 +2745,7 @@ public class Principal extends javax.swing.JFrame {
         if (getTelefone().contains("_")) {
             validate &= false;
             this.lTelefone.setForeground(Color.red);
-            msg += Util.msgCampoInvalido(this.lTelefone.getText());
+            msg += MessageUtil.msgCampoInvalido(this.lTelefone.getText());
         } else {
             this.lTelefone.setForeground(Color.black);
         }
@@ -2754,7 +2753,7 @@ public class Principal extends javax.swing.JFrame {
         if (getDataNascimento() == null) {
             validate &= false;
             this.lData.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lData.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lData.getText());
         } else {
             this.lData.setForeground(Color.black);
         }
@@ -2762,7 +2761,7 @@ public class Principal extends javax.swing.JFrame {
         if (getEndereco().equals("")) {
             validate &= false;
             this.lEndereco.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lEndereco.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lEndereco.getText());
         } else {
             this.lEndereco.setForeground(Color.black);
         }
@@ -2770,11 +2769,11 @@ public class Principal extends javax.swing.JFrame {
         if (getNumero() == null) {
             validate &= false;
             this.lNumero.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lNumero.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lNumero.getText());
         } else if (getNumero() == -1) {
             validate &= false;
             this.lNumero.setForeground(Color.red);
-            msg += Util.msgOnlyNumbers(this.lNumero.getText());
+            msg += MessageUtil.msgOnlyNumbers(this.lNumero.getText());
         } else {
             this.lNumero.setForeground(Color.black);
         }
@@ -2782,7 +2781,7 @@ public class Principal extends javax.swing.JFrame {
         if (getCep().contains("_")) {
             validate &= false;
             this.lCep.setForeground(Color.red);
-            msg += Util.msgCampoInvalido(this.lCep.getText());
+            msg += MessageUtil.msgCampoInvalido(this.lCep.getText());
         } else {
             this.lCep.setForeground(Color.black);
         }
@@ -2790,7 +2789,7 @@ public class Principal extends javax.swing.JFrame {
         if (getBairro().equals("")) {
             validate &= false;
             this.lBairro.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lBairro.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lBairro.getText());
         } else {
             this.lBairro.setForeground(Color.black);
         }
@@ -2799,7 +2798,7 @@ public class Principal extends javax.swing.JFrame {
         if (getCidade().equals("")) {
             validate &= false;
             this.lCidade.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lCidade.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lCidade.getText());
         } else {
             this.lCidade.setForeground(Color.black);
         }
@@ -2807,19 +2806,19 @@ public class Principal extends javax.swing.JFrame {
         if (getUf().equals("")) {
             validate &= false;
             this.lUf.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lUf.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lUf.getText());
         } else {
             this.lUf.setForeground(Color.black);
         }
         if (cImg.getIcon().toString().contains("empty")) {
             validate &= false;
             this.lFoto.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lFoto.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lFoto.getText());
         } else {
             this.lFoto.setForeground(Color.black);
         }
 
-        msg += Util.endHtml();
+        msg += MessageUtil.endHtml();
         lMsg.setVisible(true);
         this.lMsg.setText(msg);
         return validate;
@@ -2945,12 +2944,12 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public boolean validarCamposFormacao() {
-        String msg = Util.initHtml();
+        String msg = MessageUtil.initHtml();
         boolean validate = true;
         if (getNomeCurso().equals("")) {
             validate &= false;
             this.lNomeFormacao.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lNomeFormacao.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lNomeFormacao.getText());
         } else {
             this.lNomeFormacao.setForeground(Color.black);
         }
@@ -2958,7 +2957,7 @@ public class Principal extends javax.swing.JFrame {
         if (getInstituicao().equals("")) {
             validate &= false;
             this.lInstituicao.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lInstituicao.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lInstituicao.getText());
         } else {
             this.lInstituicao.setForeground(Color.black);
         }
@@ -2966,7 +2965,7 @@ public class Principal extends javax.swing.JFrame {
         if (getDataInicial() == null) {
             validate &= false;
             this.lDataInicial.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lDataInicial.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lDataInicial.getText());
         } else {
             this.lDataInicial.setForeground(Color.black);
         }
@@ -2974,7 +2973,7 @@ public class Principal extends javax.swing.JFrame {
         if (getDataFim() == null) {
             validate &= false;
             this.lDataFim.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lDataFim.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lDataFim.getText());
         } else {
             this.lDataFim.setForeground(Color.black);
         }
@@ -2984,14 +2983,14 @@ public class Principal extends javax.swing.JFrame {
                 validate &= false;
                 this.lDataFim.setForeground(Color.red);
                 this.lDataInicial.setForeground(Color.red);
-                msg += Util.msgDatasInvalidas(this.lDataInicial.getText(), this.lDataFim.getText());
+                msg += MessageUtil.msgDatasInvalidas(this.lDataInicial.getText(), this.lDataFim.getText());
             } else {
                 this.lDataFim.setForeground(Color.black);
                 this.lDataInicial.setForeground(Color.black);
             }
         }
 
-        msg += Util.endHtml();
+        msg += MessageUtil.endHtml();
         lMsg1.setVisible(true);
         this.lMsg1.setText(msg);
         return validate;
@@ -3061,12 +3060,12 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public boolean validarCamposExperiencia() {
-        String msg = Util.initHtml();
+        String msg = MessageUtil.initHtml();
         boolean validate = true;
         if (getEmpresa().equals("")) {
             validate &= false;
             this.lEmpresa.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lEmpresa.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lEmpresa.getText());
         } else {
             this.lEmpresa.setForeground(Color.black);
         }
@@ -3074,7 +3073,7 @@ public class Principal extends javax.swing.JFrame {
         if (getFuncao().equals("")) {
             validate &= false;
             this.lFuncao.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lFuncao.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lFuncao.getText());
         } else {
             this.lFuncao.setForeground(Color.black);
         }
@@ -3082,7 +3081,7 @@ public class Principal extends javax.swing.JFrame {
         if (getDataInicialExp() == null) {
             validate &= false;
             this.lDataInicialExp.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lDataInicialExp.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lDataInicialExp.getText());
         } else {
             this.lDataInicialExp.setForeground(Color.black);
         }
@@ -3090,7 +3089,7 @@ public class Principal extends javax.swing.JFrame {
         if (getDataFimExp() == null) {
             validate &= false;
             this.lDataFimExp.setForeground(Color.red);
-            msg += Util.msgCampoObrigatorio(this.lDataFimExp.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lDataFimExp.getText());
         } else {
             this.lDataFimExp.setForeground(Color.black);
         }
@@ -3100,14 +3099,14 @@ public class Principal extends javax.swing.JFrame {
                 validate &= false;
                 this.lDataFimExp.setForeground(Color.red);
                 this.lDataInicialExp.setForeground(Color.red);
-                msg += Util.msgDatasInvalidas(this.lDataInicialExp.getText(), this.lDataFimExp.getText());
+                msg += MessageUtil.msgDatasInvalidas(this.lDataInicialExp.getText(), this.lDataFimExp.getText());
             } else {
                 this.lDataFimExp.setForeground(Color.black);
                 this.lDataInicialExp.setForeground(Color.black);
             }
         }
 
-        msg += Util.endHtml();
+        msg += MessageUtil.endHtml();
         lMsg2.setVisible(true);
         this.lMsg2.setText(msg);
         return validate;
@@ -3164,45 +3163,6 @@ public class Principal extends javax.swing.JFrame {
         List<Professor> lista = null;
         lista = CtrCoordenador.consultarProfessor(filtro);
         return lista;
-    }
-
-    //############ GERAR CURRICULO #################### 
-    public String gerarStringHtml() {
-        StringBuilder html = new StringBuilder();
-        if (profSele.getCpf() != null) {
-            html.append(Util.initHtml());
-            html.append("<center><h1>").append(profSele.getNome()).append("</h1><hr/></center>")
-                    .append("<div align='center'><b>Endereço: </b>").append(profSele.getEndereco().getLogradouro()).append(", ").append(prof.getEndereco().getNumero()).append(" - ").append(prof.getEndereco().getCidade()).append(" - ")
-                    .append(profSele.getEndereco().getCep())
-                    .append("<br/><b>Email: </b>").append(profSele.getEmail())
-                    .append("<br/><b>Telefone: </b>").append(profSele.getTelefone())
-                    .append("<br/></div>");
-            if (!profSele.getFormacoesAcademicas().isEmpty()) {
-                html.append("<center><h2 class='h2'>Formação</h2></center><ul>");
-                for (AcademicFormation form : profSele.getFormacoesAcademicas()) {
-                    html.append("<li>").append(form.getNomeCurso()).append(" na instiuição de ensino ").append(form.getInstituicao()).append("</li>");
-                }
-                html.append("</ul><br/>");
-            }
-
-            if (!profSele.getExperienciasProfissionais().isEmpty()) {
-                html.append("<center><h2 class='h2'>Experiências Profissionais</h2></center><ul>");
-                for (ProfessionalExperience exp : profSele.getExperienciasProfissionais()) {
-                    Calendar cal = new GregorianCalendar();
-                    cal.setTime(exp.getDataInicio());
-                    html.append("<li>").append(cal.get(Calendar.YEAR)).append(" - ").append(exp.getFuncao()).append(" na empresa ")
-                            .append(exp.getEmpresa()).append("</li>");
-                }
-                html.append("</ul><br/>");
-            }
-
-            if (profSele.getOutrasInformacoes() != null && !profSele.getOutrasInformacoes().equals("")) {
-                html.append("<center><h2 class='h2'>Outras Informações</h2></center><ul>")
-                        .append("<li>").append(profSele.getOutrasInformacoes()).append("</li>").append("</ul><br/>");
-            }
-            html.append(Util.endHtml());
-        }
-        return html.toString();
     }
 
     //############ PROMOVER UTIL #################### 

@@ -18,11 +18,10 @@ public class Conexao {
 	private static String usuario = "root";
 	private static String senha = "root";
 	
-	public static Connection pegaCon() throws SQLException, ClassNotFoundException {
+	public static Connection connectToDataBase() throws SQLException, ClassNotFoundException {
 		
 		Class.forName(driverName);
-		Connection conn = DriverManager.getConnection(url, usuario, senha);
+		return DriverManager.getConnection(url, usuario, senha);
 		
-		return conn;
 	}	
 }

@@ -27,7 +27,7 @@ public class DisciplinaDAO extends Conexao implements IDisciplina {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM disciplina ORDER BY nome ASC");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             rs = stmt.executeQuery();
 
@@ -53,7 +53,7 @@ public class DisciplinaDAO extends Conexao implements IDisciplina {
         sql.append("SELECT * FROM disciplinaPreferencial dp INNER JOIN disciplina d WHERE dp.idProfessor = ? ")
                 .append("AND dp.idDisciplina = d.idDisciplina");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, idProfessor);
             rs = stmt.executeQuery();
@@ -83,7 +83,7 @@ public class DisciplinaDAO extends Conexao implements IDisciplina {
         try {
             sql.append("INSERT INTO disciplinapreferencial(idDisciplina,idProfessor) ")
                     .append("VALUES(?,?)");
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             conn.setAutoCommit(false);
             for (DisciplinaPreferencial d : disciplinas) {
                 if(d.getId() != null){

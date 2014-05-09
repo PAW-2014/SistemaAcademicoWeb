@@ -7,10 +7,14 @@ package view;
 
 import controller.CtrProfessor;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
+
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+
+import util.MessageUtil;
 import model.Enum.SituProfessor;
 import model.Professor;
 
@@ -172,12 +176,12 @@ public class AlterarSenha extends javax.swing.JFrame {
         boolean validate = true;
         if (getNovaSenha().equals("")) {
             validate &= false;
-            msg += Util.msgCampoObrigatorio(this.lNovaSenha.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lNovaSenha.getText());
         } 
 
         if (getConfirmacao().equals("")) {
             validate &= false;
-            msg += Util.msgCampoObrigatorio(this.lConfirmacao.getText());
+            msg += MessageUtil.msgCampoObrigatorio(this.lConfirmacao.getText());
         }
 
         msg += "</body></html>";

@@ -32,7 +32,7 @@ public class RhDAO extends Conexao {
 
         for (Disciplina disciplina : disciplinas) {
             try {
-                conn = Conexao.pegaCon();
+                conn = Conexao.connectToDataBase();
                 stmt = conn.prepareStatement(sql.toString());
                 stmt.setString(1, disciplina.getNome());
                 stmt.executeUpdate();
@@ -41,7 +41,7 @@ public class RhDAO extends Conexao {
             } catch (Exception e) {
                 e.printStackTrace();
                 try {
-                    pegaCon().rollback();
+                    connectToDataBase().rollback();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -57,7 +57,7 @@ public class RhDAO extends Conexao {
                 StringBuilder sql = new StringBuilder();
                 sql.append("INSERT INTO professor(nome,login,senha,status,tipo) VALUES(?,?,?,?,?)");
 
-                conn = Conexao.pegaCon();
+                conn = Conexao.connectToDataBase();
                 stmt = conn.prepareStatement(sql.toString());
                 stmt.setString(1, professor.getNome());
                 stmt.setString(2, professor.getLogin());
@@ -85,7 +85,7 @@ public class RhDAO extends Conexao {
             } catch (Exception e) {
                 e.printStackTrace();
                 try {
-                    pegaCon().rollback();
+                    connectToDataBase().rollback();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

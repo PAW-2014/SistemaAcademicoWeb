@@ -21,7 +21,7 @@ public class DiretorDAO extends Conexao implements IDiretor {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE professor p SET p.tipo = ? WHERE p.IdProfessor = ?");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, TipoProfessor.Coordenador.ordinal());
@@ -59,7 +59,7 @@ public class DiretorDAO extends Conexao implements IDiretor {
     public void delete(Professor p) {
         StringBuilder sql = new StringBuilder();
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             conn.setAutoCommit(false);
             if (p.getEndereco() != null && p.getEndereco().getIdEndereco() != null) {
                 excluirEndereco(p.getEndereco().getIdEndereco());

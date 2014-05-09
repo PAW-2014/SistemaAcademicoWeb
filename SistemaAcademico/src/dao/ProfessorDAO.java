@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Endereco;
+import model.Address;
 import model.Enum.SituProfessor;
 import model.Enum.TipoProfessor;
 import model.Professor;
@@ -25,7 +25,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         sql.append("SELECT idProfessor FROM professor ")
                 .append("WHERE login=? AND senha=? AND status = 0");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setString(1, login);
             stmt.setString(2, senha);
@@ -51,7 +51,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         sql.append("SELECT * FROM professor ")
                 .append("WHERE idProfessor=?");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -78,7 +78,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
             conn.close();
             p.setEndereco(recuperarEndereco(idEnd));
             if (p.getEndereco() == null) {
-                p.setEndereco(new Endereco());
+                p.setEndereco(new Address());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,19 +86,19 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         return p;
     }
 
-    private Endereco recuperarEndereco(Integer id) {
-        Endereco e = null;
+    private Address recuperarEndereco(Integer id) {
+        Address e = null;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM endereco ")
                 .append("WHERE idEndereco=?");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                e = new Endereco();
+                e = new Address();
                 e.setIdEndereco(rs.getInt("idEndereco"));
                 e.setNumero((Integer) rs.getObject("numero"));
                 e.setBairro(rs.getString("bairro"));
@@ -120,7 +120,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         StringBuilder sql = new StringBuilder();
 
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             conn.setAutoCommit(false);
             salvarOuAtualizarEndereco(p.getEndereco());
             sql.append("UPDATE professor SET nome=?,senha=?,login=?,telefone=?,email=?, ")
@@ -187,7 +187,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         sql.append("SELECT MAX(idprofessor) as last FROM professor");
         Integer id = null;
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -201,7 +201,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         return id;
     }
 
-    private void salvarOuAtualizarEndereco(Endereco e) {
+    private void salvarOuAtualizarEndereco(Address e) {
         StringBuilder sql = new StringBuilder();
         try {
             if (e.getIdEndereco() == null) {
@@ -238,7 +238,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.IdProfessor, p.nome, p.status FROM professor p WHERE p.tipo = ? ORDER BY p.nome ASC");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, TipoProfessor.Professor.ordinal());
             rs = stmt.executeQuery();
@@ -266,7 +266,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.idProfessor, p.nome FROM professor p ORDER BY p.nome ASC");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             rs = stmt.executeQuery();
 

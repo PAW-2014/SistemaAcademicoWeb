@@ -1,6 +1,6 @@
-package view;
+package util;
 
-public class Util {
+public class MessageUtil {
 
     public static String initHtml() {
         return "<html><body>";

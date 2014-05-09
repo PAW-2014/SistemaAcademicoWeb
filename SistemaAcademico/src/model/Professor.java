@@ -24,7 +24,7 @@ public class Professor implements Serializable, Comparable<Professor> {
     private String outrasInformacoes;
     private SituProfessor status;
     private TipoProfessor tipo;
-    private Endereco endereco;
+    private Address endereco;
     private List<ProfessionalExperience> experienciasProfissionais;
     private List<AcademicFormation> formacoesAcademicas;
     private List<DisciplinaPreferencial> disciplinasPreferenciais;
@@ -32,7 +32,7 @@ public class Professor implements Serializable, Comparable<Professor> {
     public Professor() {
         this.experienciasProfissionais = new ArrayList<ProfessionalExperience>();
         this.formacoesAcademicas = new ArrayList<AcademicFormation>();
-        this.endereco = new Endereco();
+        this.endereco = new Address();
         this.disciplinasPreferenciais = new ArrayList<DisciplinaPreferencial>();
     }
     
@@ -174,11 +174,11 @@ public class Professor implements Serializable, Comparable<Professor> {
         this.tipo = tipo;
     }
 
-    public Endereco getEndereco() {
+    public Address getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(Endereco endereco) {
+    public void setEndereco(Address endereco) {
         this.endereco = endereco;
     }
 

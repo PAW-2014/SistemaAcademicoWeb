@@ -21,7 +21,7 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM formacaoAcademica WHERE idProfessor = ?");
         try{
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt= conn.prepareStatement(sql.toString());
             stmt.setInt(1, idProfessor);
             rs = stmt.executeQuery();
@@ -46,7 +46,7 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
    public void save(AcademicFormation f) {
         StringBuilder sql = new StringBuilder();
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             if (f.getIdFormacaoAcademica() == null) {
                 sql.append("INSERT INTO formacaoacademica(dataInicio,dataFim,nomeCurso,instituicao,idProfessor) ")
                         .append("VALUES(?,?,?,?,?)");
@@ -78,7 +78,7 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
          if(form.getIdFormacaoAcademica() != null)
              sql.append("AND idFormacaoAcademica <> ?");
         try{
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setString(1, form.getNomeCurso());
             stmt.setString(2, form.getInstituicao());
@@ -106,7 +106,7 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM formacaoAcademica WHERE idFormacaoAcademica =? ");
         try {
-            conn = Conexao.pegaCon();
+            conn = Conexao.connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, f.getIdFormacaoAcademica());
             stmt.executeUpdate();

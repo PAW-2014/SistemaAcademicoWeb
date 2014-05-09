@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Endereco implements Serializable{
+public class Address implements Serializable{
 	private static final long serialVersionUID = 1214404202282130103L;
 	private Integer idEndereco;
 	private String logradouro;
