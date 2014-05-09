@@ -1,13 +1,5 @@
 package view;
 
-import controller.CtrCoordenador;
-import controller.CtrDiretor;
-import controller.CtrDisciplina;
-import controller.CtrExperienciaProfissional;
-import controller.CtrFormacaoAcademica;
-import controller.CtrProfessor;
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -17,18 +9,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -36,25 +24,30 @@ import javax.swing.text.Document;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.html.HTMLEditorKit;
 
-import model.Coordenador;
-import model.Diretor;
+import model.AcademicFormation;
 import model.Disciplina;
 import model.DisciplinaPreferencial;
+import model.ProfessionalExperience;
+import model.Professor;
 import model.Enum.EnumStates;
 import model.Enum.SituProfessor;
 import model.Enum.TipoProfessor;
-import model.ProfessionalExperience;
-import model.AcademicFormation;
-import model.Professor;
 import util.FormatProfessorToHtml;
 import util.MessageUtil;
 import view.Model.DisciplinaDataModel;
-import view.Model.DisciplinaPreferencialListModel;
 import view.Model.DisciplinaListModel;
+import view.Model.DisciplinaPreferencialListModel;
 import view.Model.ExperienciaDataModel;
 import view.Model.FormacaoDataModel;
 import view.Model.ProfessorComboModel;
 import view.Model.ProfessorDataModel;
+import controller.CtrCoordenador;
+import controller.CtrDiretor;
+import controller.CtrDisciplina;
+import controller.CtrExperienciaProfissional;
+import controller.CtrFormacaoAcademica;
+import controller.CtrProfessor;
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -2024,14 +2017,14 @@ public class Principal extends javax.swing.JFrame {
 
     private void bSalvarPDFMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalvarPDFMousePressed
         if (profSele != null && gerarCurriculo) {
-            if (CtrCoordenador.generatePDFFromHtml(profSele.getNome(), gerarStringHtml())) {
+            if (CtrCoordenador.generatePDFFromHtml(profSele.getNome(), FormatProfessorToHtml.format(profSele))) {
                 JOptionPane.showMessageDialog(dialogoCurriculo, MessageUtil.msgCurriculoCriadoSucesso(profSele.getNome()));
                 gerarCurriculo = false;
             }
             dialogoProgressBar.setVisible(false);
             progress = 0;
         }
-    }//GEN-LAST:event_bSalvarPDFMousePressed
+    }
 
     private void cSeleProfCurricuItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cSeleProfCurricuItemStateChanged
         gerarCurriculo = false;
