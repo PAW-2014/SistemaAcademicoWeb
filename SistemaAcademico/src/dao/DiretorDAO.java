@@ -17,7 +17,7 @@ public class DiretorDAO extends Conexao implements IDiretor {
     private ResultSet rs = null;
 
     @Override
-    public void promoverProfessor(Integer idProfessor) {
+    public void promove(Integer idProfessor) {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE professor p SET p.tipo = ? WHERE p.IdProfessor = ?");
         try {
@@ -56,7 +56,7 @@ public class DiretorDAO extends Conexao implements IDiretor {
     }
 
     @Override
-    public void excluirProfessor(Professor p) {
+    public void delete(Professor p) {
         StringBuilder sql = new StringBuilder();
         try {
             conn = Conexao.pegaCon();

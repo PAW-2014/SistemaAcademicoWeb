@@ -6,18 +6,19 @@ import java.util.List;
 import model.Professor;
 
 public class CtrProfessor {
+	
     static IProfessor pd = new ProfessorDAO();
+    
     /**
      * Método de alteração de senha do professor
      * @param pro
      * @param senha
      * @return 
      */
-
     public static boolean alterarSenha(Professor pro, String senha) {
         try {
             pro.setSenha(senha);
-            pd.atualizarDados(pro);
+            pd.updateData(pro);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,7 +34,7 @@ public class CtrProfessor {
 
     public static boolean alterarProfessor(Professor pro) {
         try {
-            pd.atualizarDados(pro);
+            pd.updateData(pro);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,7 +52,7 @@ public class CtrProfessor {
     public static Professor getProfessor(Integer id){
         Professor p;
        try {
-            p = pd.getProfessor(id);
+            p = pd.recoverProfessor(id);
            return p;
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,7 +68,7 @@ public class CtrProfessor {
     public static List<Professor> listarApenasProfessores() {
         List<Professor> professores = null;
         try {
-           professores = pd.listarApenasProfessores();
+           professores = pd.listProfessors();
         } catch (Exception e) {
             return null;
         }
@@ -77,7 +78,7 @@ public class CtrProfessor {
     public static List<Professor> listarTodos() {
         List<Professor> professores = null;
         try {
-           professores = pd.listarTodos();
+           professores = pd.listAll();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

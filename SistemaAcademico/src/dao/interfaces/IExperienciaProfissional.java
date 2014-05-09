@@ -1,12 +1,16 @@
 package dao.interfaces;
 
 import java.util.List;
-import model.ExperienciaProfissional;
+import model.ProfessionalExperience;
 
 public interface IExperienciaProfissional {
-void excluirExperiencia(ExperienciaProfissional ep);
-List<ExperienciaProfissional> getExperienciasProfissionais(Integer idProfessor);
-void salvarOuAtualizarExperiencia(ExperienciaProfissional ep);
+	
+	public List<ProfessionalExperience> recoverProfessionalExperiences(Integer idProfessor);
+	
+	public void save(ProfessionalExperience professionalExperience);
+	
+	public boolean verify(ProfessionalExperience professionalExperience);
 
-    public boolean verificarExperiencia(ExperienciaProfissional ex);
+    public void delete(ProfessionalExperience professionalExperience);
+    
 }

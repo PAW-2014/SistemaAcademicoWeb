@@ -5,13 +5,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexao {
-	static String url = "jdbc:mysql://localhost:3306/sistema academico";
-	static String usuario = "root";
-	static String senha = "root";
+	
+	private static String host = "localhost";
+	private static String port = "3306";
+	private static String schemaName = "sistema academico";
+	
+	private static String baseUrl = "jdbc:mysql://{0}:{1}/{2}";
+	
+	private static String url = String.format(baseUrl, host, port, schemaName);
+	private static String driverName = "com.mysql.jdbc.Driver";
+	
+	private static String usuario = "root";
+	private static String senha = "root";
 	
 	public static Connection pegaCon() throws SQLException, ClassNotFoundException {
-		Class.forName("com.mysql.jdbc.Driver");
+		
+		Class.forName(driverName);
 		Connection conn = DriverManager.getConnection(url, usuario, senha);
+		
 		return conn;
 	}	
 }

@@ -4,8 +4,8 @@ import model.Professor;
 
 public interface IDiretor {
 
-    public void promoverProfessor(Integer idProfessor);
+    public void promove(Integer idProfessor);
 
-    public void excluirProfessor(Professor p);
+    public void delete(Professor professor);
 
 }

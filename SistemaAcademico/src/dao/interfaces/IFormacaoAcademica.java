@@ -1,11 +1,16 @@
 package dao.interfaces;
 
 import java.util.List;
-import model.FormacaoAcademica;
+import model.AcademicFormation;
 
 public interface IFormacaoAcademica {
-  List<FormacaoAcademica> getFormcaoesAcademicas(Integer idProfessor);
-  void salvarOuAtualizarFormacao(FormacaoAcademica f);
-  boolean verificarFormacao(FormacaoAcademica form);
-  void excluirFormacao(FormacaoAcademica f);
+	
+  public List<AcademicFormation> recoverAcademicFormations(Integer idProfessor);
+  
+  public void save(AcademicFormation academicFormation);
+  
+  public boolean verify(AcademicFormation academicFormation);
+  
+  public void delete(AcademicFormation academicFormation);
+  
 }

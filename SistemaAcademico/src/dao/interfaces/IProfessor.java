@@ -4,13 +4,15 @@ import java.util.List;
 import model.Professor;
 
 public interface IProfessor {
-    Professor validarLogin(String login, String senha);
+	
+    public Professor validateLogin(String login, String senha);
 
-    public void atualizarDados(Professor pro);
+    public void updateData(Professor pro);
 
-    public Professor getProfessor(Integer id);
+    public Professor recoverProfessor(Integer id);
     
-    List<Professor> listarApenasProfessores();
+    public List<Professor> listProfessors();
 
-    public List<Professor> listarTodos();
+    public List<Professor> listAll();
+    
 }

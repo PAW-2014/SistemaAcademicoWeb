@@ -10,6 +10,7 @@ import model.Enum.TipoProfessor;
 public class Professor implements Serializable, Comparable<Professor> {
 
     private static final long serialVersionUID = 4466417793771253444L;
+    
     private Integer id;
     private String nome;
     private String senha;
@@ -24,13 +25,13 @@ public class Professor implements Serializable, Comparable<Professor> {
     private SituProfessor status;
     private TipoProfessor tipo;
     private Endereco endereco;
-    private List<ExperienciaProfissional> experienciasProfissionais;
-    private List<FormacaoAcademica> formacoesAcademicas;
+    private List<ProfessionalExperience> experienciasProfissionais;
+    private List<AcademicFormation> formacoesAcademicas;
     private List<DisciplinaPreferencial> disciplinasPreferenciais;
 
     public Professor() {
-        this.experienciasProfissionais = new ArrayList<ExperienciaProfissional>();
-        this.formacoesAcademicas = new ArrayList<FormacaoAcademica>();
+        this.experienciasProfissionais = new ArrayList<ProfessionalExperience>();
+        this.formacoesAcademicas = new ArrayList<AcademicFormation>();
         this.endereco = new Endereco();
         this.disciplinasPreferenciais = new ArrayList<DisciplinaPreferencial>();
     }
@@ -181,20 +182,20 @@ public class Professor implements Serializable, Comparable<Professor> {
         this.endereco = endereco;
     }
 
-    public List<ExperienciaProfissional> getExperienciasProfissionais() {
+    public List<ProfessionalExperience> getExperienciasProfissionais() {
         return experienciasProfissionais;
     }
 
     public void setExperienciasProfissionais(
-            List<ExperienciaProfissional> experienciasProfissionais) {
+            List<ProfessionalExperience> experienciasProfissionais) {
         this.experienciasProfissionais = experienciasProfissionais;
     }
 
-    public List<FormacaoAcademica> getFormacoesAcademicas() {
+    public List<AcademicFormation> getFormacoesAcademicas() {
         return formacoesAcademicas;
     }
 
-    public void setFormacoesAcademicas(List<FormacaoAcademica> formacoesAcademicas) {
+    public void setFormacoesAcademicas(List<AcademicFormation> formacoesAcademicas) {
         this.formacoesAcademicas = formacoesAcademicas;
     }
 

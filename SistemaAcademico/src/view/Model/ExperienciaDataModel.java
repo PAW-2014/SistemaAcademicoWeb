@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.ExperienciaProfissional;
+import model.ProfessionalExperience;
 
 public class ExperienciaDataModel extends AbstractTableModel {
 
-    private List<ExperienciaProfissional> linhas;
+    private List<ProfessionalExperience> linhas;
     private String[] colunas = new String[]{
         "Empresa", "Instituição", "Data Inicial", "Data Fim"};
 
     public ExperienciaDataModel() {
-        linhas = new ArrayList<ExperienciaProfissional>();
+        linhas = new ArrayList<ProfessionalExperience>();
     }
 
-    public ExperienciaDataModel(List<ExperienciaProfissional> lista) {
-        linhas = new ArrayList<ExperienciaProfissional>(lista);
+    public ExperienciaDataModel(List<ProfessionalExperience> lista) {
+        linhas = new ArrayList<ProfessionalExperience>(lista);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ExperienciaDataModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ExperienciaProfissional experiencia = linhas.get(rowIndex);
+        ProfessionalExperience experiencia = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return experiencia.getEmpresa();
@@ -68,11 +68,11 @@ public class ExperienciaDataModel extends AbstractTableModel {
         }
     }
     
-    public ExperienciaProfissional getExperiencia(int indiceLinha) {
+    public ProfessionalExperience getExperiencia(int indiceLinha) {
         return linhas.get(indiceLinha);
     }
 
-    public void addExperiencia(ExperienciaProfissional exp) {
+    public void addExperiencia(ProfessionalExperience exp) {
         linhas.add(exp);
         int ultimoIndice = getRowCount() - 1;
         fireTableRowsInserted(ultimoIndice, ultimoIndice);
@@ -83,7 +83,7 @@ public class ExperienciaDataModel extends AbstractTableModel {
         fireTableRowsDeleted(indiceLinha, indiceLinha);
     }
 
-    public void addListaDeFormacao(List<ExperienciaProfissional> experiencias) {
+    public void addListaDeFormacao(List<ProfessionalExperience> experiencias) {
         int tamanhoAntigo = getRowCount();
         linhas.addAll(experiencias);
         fireTableRowsInserted(tamanhoAntigo, getRowCount() - 1);

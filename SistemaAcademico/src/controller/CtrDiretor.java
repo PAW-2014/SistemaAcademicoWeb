@@ -14,7 +14,7 @@ private static IDiretor dao = new DiretorDAO();
     
     public static boolean excluirProfessor(Professor pro) {
         try {
-           dao.excluirProfessor(pro);
+           dao.delete(pro);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,7 +30,7 @@ private static IDiretor dao = new DiretorDAO();
     
     public static boolean promoverProfessor(Professor pro) {
         try {
-            dao.promoverProfessor(pro.getId());
+            dao.promove(pro.getId());
             return true;
         } catch (Exception e) {
             e.printStackTrace();

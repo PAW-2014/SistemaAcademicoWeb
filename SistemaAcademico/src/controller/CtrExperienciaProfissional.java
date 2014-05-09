@@ -3,7 +3,7 @@ package controller;
 import dao.ExperienciaProfissionalDAO;
 import dao.interfaces.IExperienciaProfissional;
 import java.util.List;
-import model.ExperienciaProfissional;
+import model.ProfessionalExperience;
 
 public class CtrExperienciaProfissional {
     private static IExperienciaProfissional dao = new ExperienciaProfissionalDAO();
@@ -13,9 +13,9 @@ public class CtrExperienciaProfissional {
      * @return 
      */
     
-    public static boolean salvarOuAtualizarExperiencia(ExperienciaProfissional ex) {
+    public static boolean salvarOuAtualizarExperiencia(ProfessionalExperience ex) {
         try {
-            dao.salvarOuAtualizarExperiencia(ex);
+            dao.save(ex);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,9 +28,9 @@ public class CtrExperienciaProfissional {
      * @param id professor
      * @return 
      */
-    public static List<ExperienciaProfissional> getExperiencias(Integer id){
+    public static List<ProfessionalExperience> getExperiencias(Integer id){
         try{
-          return dao.getExperienciasProfissionais(id);
+          return dao.recoverProfessionalExperiences(id);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -43,9 +43,9 @@ public class CtrExperienciaProfissional {
      * @return 
      */
     
-     public static boolean verificarExperiencia(ExperienciaProfissional ex) {
+     public static boolean verificarExperiencia(ProfessionalExperience ex) {
         try {
-            return dao.verificarExperiencia(ex);
+            return dao.verify(ex);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -57,9 +57,9 @@ public class CtrExperienciaProfissional {
      * @param exp
      * @return 
      */
-     public static boolean excluir(ExperienciaProfissional exp) {
+     public static boolean excluir(ProfessionalExperience exp) {
         try {
-            dao.excluirExperiencia(exp);
+            dao.delete(exp);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

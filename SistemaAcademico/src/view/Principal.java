@@ -43,8 +43,8 @@ import model.DisciplinaPreferencial;
 import model.Enum.EnumStates;
 import model.Enum.SituProfessor;
 import model.Enum.TipoProfessor;
-import model.ExperienciaProfissional;
-import model.FormacaoAcademica;
+import model.ProfessionalExperience;
+import model.AcademicFormation;
 import model.Professor;
 import view.Model.DisciplinaDataModel;
 import view.Model.DisciplinaPreferencialListModel;
@@ -60,8 +60,8 @@ public class Principal extends javax.swing.JFrame {
      * Variáveis
      */
     private Professor prof = null;
-    private FormacaoAcademica formacao;
-    private ExperienciaProfissional experiencia;
+    private AcademicFormation formacao;
+    private ProfessionalExperience experiencia;
     private boolean isEdit = false;
     private boolean isExcluir = false;
     private boolean isPromover = false;
@@ -194,7 +194,7 @@ public class Principal extends javax.swing.JFrame {
     // ##################################### FORMAÇÂO ACADÊMICA ##########################################
     public void initFormacaoAcademica() {
         this.lMsg1.setVisible(false);
-        formacao = new FormacaoAcademica();
+        formacao = new AcademicFormation();
         bExcluirFormaSele.setVisible(false);
         isEdit = false;
         carregarFormacoes();
@@ -239,7 +239,7 @@ public class Principal extends javax.swing.JFrame {
     // ##################################### EXPERIÊNCIA PROFICIONAL ########################################## 
     public void initExpProfissional() {
         this.lMsg2.setVisible(false);
-        experiencia = new ExperienciaProfissional();
+        experiencia = new ProfessionalExperience();
         bExcluirExpSele.setVisible(false);
         isEdit = false;
         carregarExperiencias();
@@ -2025,7 +2025,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void bSalvarPDFMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalvarPDFMousePressed
         if (profSele != null && gerarCurriculo) {
-            if (CtrCoordenador.gerarPDF(profSele.getNome(), gerarStringHtml())) {
+            if (CtrCoordenador.generatePDFFromHtml(profSele.getNome(), gerarStringHtml())) {
                 JOptionPane.showMessageDialog(dialogoCurriculo, Util.msgCurriculoCriadoSucesso(profSele.getNome()));
                 gerarCurriculo = false;
             }
@@ -2243,7 +2243,7 @@ public class Principal extends javax.swing.JFrame {
         habilitarCamposExperiencia();
         disableBotoesExperiencia();
         cTabelaExp.setEnabled(false);
-        experiencia = new ExperienciaProfissional();
+        experiencia = new ProfessionalExperience();
         experiencia.setProfessor(new Professor());
         experiencia.getProfessor().setId(prof.getId());
     }//GEN-LAST:event_bIncluirExpActionPerformed
@@ -2319,7 +2319,7 @@ public class Principal extends javax.swing.JFrame {
         habilitarCamposFormacao();
         disableBotoesFormacao();
         cTabela.setEnabled(false);
-        formacao = new FormacaoAcademica();
+        formacao = new AcademicFormation();
         formacao.setProfessor(new Professor());
         formacao.getProfessor().setId(prof.getId());
     }//GEN-LAST:event_bIncluirFormActionPerformed
@@ -2378,7 +2378,7 @@ public class Principal extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, Util.msgSucesso(formacao.getNomeCurso(), "excluido"));
                     carregarFormacoes();
                     limparCamposFormacao();
-                    formacao = new FormacaoAcademica();
+                    formacao = new AcademicFormation();
                 }
             }
         }
@@ -3179,7 +3179,7 @@ public class Principal extends javax.swing.JFrame {
                     .append("<br/></div>");
             if (!profSele.getFormacoesAcademicas().isEmpty()) {
                 html.append("<center><h2 class='h2'>Formação</h2></center><ul>");
-                for (FormacaoAcademica form : profSele.getFormacoesAcademicas()) {
+                for (AcademicFormation form : profSele.getFormacoesAcademicas()) {
                     html.append("<li>").append(form.getNomeCurso()).append(" na instiuição de ensino ").append(form.getInstituicao()).append("</li>");
                 }
                 html.append("</ul><br/>");
@@ -3187,7 +3187,7 @@ public class Principal extends javax.swing.JFrame {
 
             if (!profSele.getExperienciasProfissionais().isEmpty()) {
                 html.append("<center><h2 class='h2'>Experiências Profissionais</h2></center><ul>");
-                for (ExperienciaProfissional exp : profSele.getExperienciasProfissionais()) {
+                for (ProfessionalExperience exp : profSele.getExperienciasProfissionais()) {
                     Calendar cal = new GregorianCalendar();
                     cal.setTime(exp.getDataInicio());
                     html.append("<li>").append(cal.get(Calendar.YEAR)).append(" - ").append(exp.getFuncao()).append(" na empresa ")

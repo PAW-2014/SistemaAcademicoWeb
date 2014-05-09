@@ -3,7 +3,7 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class ExperienciaProfissional implements Serializable {
+public class ProfessionalExperience implements Serializable {
 
     private static final long serialVersionUID = 4936612376428359672L;
     private Integer idExperiencia;

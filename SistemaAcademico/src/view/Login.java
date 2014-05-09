@@ -142,7 +142,7 @@ public class Login extends javax.swing.JFrame {
 
     private void bEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEntrarActionPerformed
        Professor prof = null;
-       prof = CtrLogin.autenticar(getLogin(), getSenha());
+       prof = CtrLogin.authenticate(getLogin(), getSenha());
         if (prof != null) {
             this.setVisible(false);
             if (getLogin().equals(getSenha())) {

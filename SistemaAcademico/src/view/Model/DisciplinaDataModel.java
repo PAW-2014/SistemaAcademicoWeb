@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import model.Disciplina;
-import model.FormacaoAcademica;
+import model.AcademicFormation;
 
 public class DisciplinaDataModel extends AbstractTableModel {
 

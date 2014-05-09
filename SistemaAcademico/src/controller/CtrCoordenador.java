@@ -19,18 +19,18 @@ private static ICoordenador dao = new CoordenadorDAO();
     /**
      * Método para gerar o currículo do Professor em formato PDF
      *
-     * @param nome
-     * @param html
+     * @param documentName
+     * @param documentContent
      * @return
      */
-    public static boolean gerarPDF(String nome, String html) {
+    public static boolean generatePDFFromHtml(String documentName, String documentContent) {
         try {
-            OutputStream file = new FileOutputStream(new File("curriculos\\" + nome + ".pdf"));
+            OutputStream file = new FileOutputStream(new File("curriculos\\" + documentName + ".pdf"));
             Document document = new Document() {
             };
             PdfWriter writer = PdfWriter.getInstance(document, file);
             document.open();
-            InputStream is = new ByteArrayInputStream(html.getBytes());
+            InputStream is = new ByteArrayInputStream(documentContent.getBytes());
             XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
             document.close();
             file.close();

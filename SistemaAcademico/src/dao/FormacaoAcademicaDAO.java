@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import model.FormacaoAcademica;
+import model.AcademicFormation;
 import model.Professor;
 
 public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
@@ -16,8 +16,8 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
     private ResultSet rs = null;
     
     @Override
-    public List<FormacaoAcademica> getFormcaoesAcademicas(Integer idProfessor){
-        List<FormacaoAcademica> lista = new ArrayList<FormacaoAcademica>();
+    public List<AcademicFormation> recoverAcademicFormations(Integer idProfessor){
+        List<AcademicFormation> lista = new ArrayList<AcademicFormation>();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM formacaoAcademica WHERE idProfessor = ?");
         try{
@@ -26,7 +26,7 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
             stmt.setInt(1, idProfessor);
             rs = stmt.executeQuery();
             while(rs.next()){
-                FormacaoAcademica form = new FormacaoAcademica();
+                AcademicFormation form = new AcademicFormation();
                 form.setIdFormacaoAcademica(rs.getInt("idFormacaoAcademica"));
                 form.setDataFim(rs.getDate("dataFim"));
                 form.setDataInicio(rs.getDate("dataInicio"));
@@ -43,7 +43,7 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
         return lista;
     }
     @Override
-   public void salvarOuAtualizarFormacao(FormacaoAcademica f) {
+   public void save(AcademicFormation f) {
         StringBuilder sql = new StringBuilder();
         try {
             conn = Conexao.pegaCon();
@@ -70,7 +70,7 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
     }
     
     @Override
-    public boolean verificarFormacao(FormacaoAcademica form){
+    public boolean verify(AcademicFormation form){
         Integer id = null;
          StringBuilder sql = new StringBuilder();
          sql.append("SELECT idFormacaoAcademica FROM formacaoacademica WHERE UPPER(nomeCurso) = UPPER(?) ")
@@ -102,7 +102,7 @@ public class FormacaoAcademicaDAO extends Conexao implements IFormacaoAcademica{
     }
     
     @Override
-   public void excluirFormacao(FormacaoAcademica f) {
+   public void delete(AcademicFormation f) {
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM formacaoAcademica WHERE idFormacaoAcademica =? ");
         try {

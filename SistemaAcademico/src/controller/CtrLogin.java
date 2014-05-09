@@ -5,21 +5,24 @@ import dao.interfaces.IProfessor;
 import model.Professor;
 
 public class CtrLogin {
-  static IProfessor ip = new ProfessorDAO();
+	
+  static IProfessor professorDAO = new ProfessorDAO();
     /**
      * Método que valida a autenticação do usuário no sistema
      * @param login
-     * @param senha
+     * @param password
      * @return 
      */
     
-    public static Professor autenticar(String login, String senha) {
-        Professor p = null;
+    public static Professor authenticate(String login, String password) {
+        Professor professor = null;
+        
         try {
-           p = ip.validarLogin(login, senha);
+           professor = professorDAO.validateLogin(login, password);
         } catch (Exception e) {
             return null;
         }
-        return p;
+        
+        return professor;
     }
 }

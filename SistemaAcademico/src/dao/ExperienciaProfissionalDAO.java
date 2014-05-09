@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import model.ExperienciaProfissional;
+import model.ProfessionalExperience;
 import model.Professor;
 
 public class ExperienciaProfissionalDAO extends Conexao implements IExperienciaProfissional {
@@ -15,8 +15,8 @@ private Connection conn = null;
     private ResultSet rs = null;
     
     @Override
-    public List<ExperienciaProfissional> getExperienciasProfissionais(Integer idProfessor){
-        List<ExperienciaProfissional> lista = new ArrayList<ExperienciaProfissional>();
+    public List<ProfessionalExperience> recoverProfessionalExperiences(Integer idProfessor){
+        List<ProfessionalExperience> lista = new ArrayList<ProfessionalExperience>();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM experienciaprofissional WHERE idProfessor = ?");
         try{
@@ -25,7 +25,7 @@ private Connection conn = null;
             stmt.setInt(1, idProfessor);
             rs = stmt.executeQuery();
             while(rs.next()){
-                ExperienciaProfissional exp = new ExperienciaProfissional();
+                ProfessionalExperience exp = new ProfessionalExperience();
                 exp.setIdExperiencia(rs.getInt("idExperienciaProfissional"));
                 exp.setDataFim(rs.getDate("dataFim"));
                 exp.setDataInicio(rs.getDate("dataInicio"));
@@ -42,7 +42,7 @@ private Connection conn = null;
         return lista;
     }
     @Override
-   public void salvarOuAtualizarExperiencia(ExperienciaProfissional ep) {
+   public void save(ProfessionalExperience ep) {
         StringBuilder sql = new StringBuilder();
         try {
             conn = Conexao.pegaCon();
@@ -69,7 +69,7 @@ private Connection conn = null;
     }
     
      @Override
-    public boolean verificarExperiencia(ExperienciaProfissional exp){
+    public boolean verify(ProfessionalExperience exp){
         Integer id = null;
          StringBuilder sql = new StringBuilder();
          sql.append("SELECT idExperienciaProfissional FROM experienciaprofissional WHERE UPPER(empresa) = UPPER(?) ")
@@ -101,7 +101,7 @@ private Connection conn = null;
     }
     
     @Override
-   public void excluirExperiencia(ExperienciaProfissional ep) {
+   public void delete(ProfessionalExperience ep) {
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM experienciaprofissional WHERE idExperienciaProfissional =? ");
         try {

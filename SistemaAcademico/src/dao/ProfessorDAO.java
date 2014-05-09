@@ -19,7 +19,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
     private ResultSet rs = null;
 
     @Override
-    public Professor validarLogin(String login, String senha) {
+    public Professor validateLogin(String login, String senha) {
         Integer id = null;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT idProfessor FROM professor ")
@@ -40,11 +40,11 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return (id != null) ? getProfessor(id) : null;
+        return (id != null) ? recoverProfessor(id) : null;
     }
 
     @Override
-    public Professor getProfessor(Integer id) {
+    public Professor recoverProfessor(Integer id) {
         Professor p = null;
         Integer idEnd = null;
         StringBuilder sql = new StringBuilder();
@@ -116,7 +116,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
     }
 
     @Override
-    public void atualizarDados(Professor p) {
+    public void updateData(Professor p) {
         StringBuilder sql = new StringBuilder();
 
         try {
@@ -232,7 +232,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
     }
 
     @Override
-    public List<Professor> listarApenasProfessores() {
+    public List<Professor> listProfessors() {
         Professor p = new Professor();
         List<Professor> professores = new ArrayList<Professor>();
         StringBuilder sql = new StringBuilder();
@@ -260,7 +260,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
     }
 
     @Override
-    public List<Professor> listarTodos() {
+    public List<Professor> listAll() {
         Professor p = new Professor();
         List<Professor> professores = new ArrayList<Professor>();
         StringBuilder sql = new StringBuilder();

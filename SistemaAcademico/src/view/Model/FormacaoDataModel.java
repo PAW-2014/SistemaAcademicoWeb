@@ -4,20 +4,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.FormacaoAcademica;
+import model.AcademicFormation;
 
 public class FormacaoDataModel extends AbstractTableModel {
 
-    private List<FormacaoAcademica> linhas;
+    private List<AcademicFormation> linhas;
     private String[] colunas = new String[]{
         "Nome Curso", "Instituição", "Data Inicial", "Data Fim"};
 
     public FormacaoDataModel() {
-        linhas = new ArrayList<FormacaoAcademica>();
+        linhas = new ArrayList<AcademicFormation>();
     }
 
-    public FormacaoDataModel(List<FormacaoAcademica> lista) {
-        linhas = new ArrayList<FormacaoAcademica>(lista);
+    public FormacaoDataModel(List<AcademicFormation> lista) {
+        linhas = new ArrayList<AcademicFormation>(lista);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class FormacaoDataModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        FormacaoAcademica formacao = linhas.get(rowIndex);
+        AcademicFormation formacao = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return formacao.getNomeCurso();
@@ -70,11 +70,11 @@ public class FormacaoDataModel extends AbstractTableModel {
         }
     }
     
-    public FormacaoAcademica getFormacao(int indiceLinha) {
+    public AcademicFormation getFormacao(int indiceLinha) {
         return linhas.get(indiceLinha);
     }
 
-    public void addFormacao(FormacaoAcademica forma) {
+    public void addFormacao(AcademicFormation forma) {
         linhas.add(forma);
         int ultimoIndice = getRowCount() - 1;
         fireTableRowsInserted(ultimoIndice, ultimoIndice);
@@ -85,7 +85,7 @@ public class FormacaoDataModel extends AbstractTableModel {
         fireTableRowsDeleted(indiceLinha, indiceLinha);
     }
 
-    public void addListaDeFormacao(List<FormacaoAcademica> formacoes) {
+    public void addListaDeFormacao(List<AcademicFormation> formacoes) {
         int tamanhoAntigo = getRowCount();
         linhas.addAll(formacoes);
         fireTableRowsInserted(tamanhoAntigo, getRowCount() - 1);

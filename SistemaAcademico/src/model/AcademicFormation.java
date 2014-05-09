@@ -3,7 +3,8 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class FormacaoAcademica implements Serializable {
+public class AcademicFormation implements Serializable {
+	
     private static final long serialVersionUID = 2793663142281056249L;
     private Integer idFormacaoAcademica;
     private Date dataInicio;
@@ -72,14 +73,14 @@ public class FormacaoAcademica implements Serializable {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
+    public boolean equals(Object obj) { // TODO Adjust the Equals Function
+    	
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final FormacaoAcademica other = (FormacaoAcademica) obj;
+        
         return true;
     }
 
