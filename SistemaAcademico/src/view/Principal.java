@@ -6,11 +6,9 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +17,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 import javax.swing.text.Document;
 import javax.swing.text.MaskFormatter;
 import javax.swing.text.html.HTMLEditorKit;
@@ -47,11 +44,12 @@ import controller.CtrDisciplina;
 import controller.CtrExperienciaProfissional;
 import controller.CtrFormacaoAcademica;
 import controller.CtrProfessor;
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 
 public class Principal extends javax.swing.JFrame {
 
-    private Professor prof = null;
+	private static final long serialVersionUID = 63758805679582043L;
+	
+	private Professor prof = null;
     private AcademicFormation formacao;
     private ProfessionalExperience experiencia;
     private boolean isEdit = false;
@@ -62,8 +60,7 @@ public class Principal extends javax.swing.JFrame {
     private Disciplina disciplina;
     private Professor profSele;
     private boolean gerarCurriculo = false;
-    private int progress = 0;
-
+    
     public Principal(Professor prof) {
         this.prof = prof;
         initComponents();
@@ -108,7 +105,7 @@ public class Principal extends javax.swing.JFrame {
     public void carregarDadosProfessor() {
         cNome.setText(prof.getNome());
         cRg.setText(prof.getRg());
-        cDataNascimento.setDate(prof.getDataNascimento());
+//        cDataNascimento.setDate(prof.getDataNascimento());
         cBairro.setText(prof.getEndereco().getBairro());
         cCep.setText(prof.getEndereco().getCep());
         cCidade.setText(prof.getEndereco().getCidade());
@@ -134,7 +131,7 @@ public class Principal extends javax.swing.JFrame {
         prof.setRg(getRg());
         prof.setCpf(getCpf());
         prof.setEmail(getEmail());
-        prof.setDataNascimento(getDataNascimento());
+//        prof.setDataNascimento(getDataNascimento());
         prof.setTelefone(getTelefone());
         prof.getEndereco().setLogradouro(getEndereco());
         prof.getEndereco().setBairro(getBairro());
@@ -199,8 +196,8 @@ public class Principal extends javax.swing.JFrame {
     public void setarFormacao() {
         formacao.setNomeCurso(getNomeCurso());
         formacao.setInstituicao(getInstituicao());
-        formacao.setDataInicio(getDataInicial());
-        formacao.setDataFim(getDataFim());
+//        formacao.setDataInicio(getDataInicial());
+//        formacao.setDataFim(getDataFim());
     }
 
     public void carregarFormacoes() {
@@ -216,8 +213,8 @@ public class Principal extends javax.swing.JFrame {
     public void preencherCamposFormacao() {
         cNomeFormacao.setText(formacao.getNomeCurso());
         cInstituicao.setText(formacao.getInstituicao());
-        cDataInicial.setDate(formacao.getDataInicio());
-        cDataFim.setDate(formacao.getDataFim());
+//        cDataInicial.setDate(formacao.getDataInicio());
+//        cDataFim.setDate(formacao.getDataFim());
     }
 
     public void resetColorsFormacao() {
@@ -244,8 +241,8 @@ public class Principal extends javax.swing.JFrame {
     public void setarExperiencia() {
         experiencia.setEmpresa(getEmpresa());
         experiencia.setFuncao(getFuncao());
-        experiencia.setDataInicio(getDataInicialExp());
-        experiencia.setDataFim(getDataFimExp());
+//        experiencia.setDataInicio(getDataInicialExp());
+//        experiencia.setDataFim(getDataFimExp());
     }
 
     public void carregarExperiencias() {
@@ -261,8 +258,8 @@ public class Principal extends javax.swing.JFrame {
     public void preencherCamposExperiencia() {
         cEmpresa.setText(experiencia.getEmpresa());
         cFuncao.setText(experiencia.getFuncao());
-        cDataInicialExp.setDate(experiencia.getDataInicio());
-        cDataFImExp.setDate(experiencia.getDataFim());
+//        cDataInicialExp.setDate(experiencia.getDataInicio());
+//        cDataFImExp.setDate(experiencia.getDataFim());
     }
 
     public void resetColorsExperiencia() {
@@ -285,8 +282,6 @@ public class Principal extends javax.swing.JFrame {
         cListaSele.setModel(dplm);
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         dialogConsulta = new javax.swing.JDialog();
@@ -372,7 +367,7 @@ public class Principal extends javax.swing.JFrame {
         cTelefone = new javax.swing.JFormattedTextField();
         cNumero = new javax.swing.JFormattedTextField();
         bProcurar = new javax.swing.JButton();
-        cDataNascimento = new de.javasoft.swing.DateComboBox();
+//        cDataNascimento = new de.javasoft.swing.DateComboBox();
         lFoto = new javax.swing.JLabel();
         cImg = new javax.swing.JLabel();
         tabFormacaoAcademica = new javax.swing.JPanel();
@@ -387,9 +382,9 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         cTabela = new javax.swing.JTable();
-        bExcluirFormaSele = new javax.swing.JButton();
-        cDataInicial = new de.javasoft.swing.DateComboBox();
-        cDataFim = new de.javasoft.swing.DateComboBox();
+//        bExcluirFormaSele = new javax.swing.JButton();
+//        cDataInicial = new de.javasoft.swing.DateComboBox();
+//        cDataFim = new de.javasoft.swing.DateComboBox();
         divMenu1 = new javax.swing.JPanel();
         bExcluirForm = new javax.swing.JButton();
         lMsg1 = new javax.swing.JLabel();
@@ -410,8 +405,8 @@ public class Principal extends javax.swing.JFrame {
         cTabelaExp = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         bExcluirExpSele = new javax.swing.JButton();
-        cDataInicialExp = new de.javasoft.swing.DateComboBox();
-        cDataFImExp = new de.javasoft.swing.DateComboBox();
+//        cDataInicialExp = new de.javasoft.swing.DateComboBox();
+//        cDataFImExp = new de.javasoft.swing.DateComboBox();
         divMenu2 = new javax.swing.JPanel();
         bExcluirExp = new javax.swing.JButton();
         lMsg2 = new javax.swing.JLabel();
@@ -880,7 +875,7 @@ public class Principal extends javax.swing.JFrame {
         tabDadosGerais.setMaximumSize(new java.awt.Dimension(32767, 500));
         tabDadosGerais.setPreferredSize(new java.awt.Dimension(800, 624));
 
-        bCancelar.setLabel("Cancelar");
+        bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancelarActionPerformed(evt);
@@ -997,8 +992,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        cDataNascimento.setForeground(new java.awt.Color(0, 102, 255));
-        cDataNascimento.setSelectedItem(null);
+//        cDataNascimento.setForeground(new java.awt.Color(0, 102, 255));
+//        cDataNascimento.setSelectedItem(null);
 
         lFoto.setText("Foto:");
 
@@ -1046,8 +1041,8 @@ public class Principal extends javax.swing.JFrame {
                                                     .addGap(119, 119, 119))
                                                 .addComponent(cCpf)))
                                         .addGroup(divOneLayout.createSequentialGroup()
-                                            .addComponent(cDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, Short.MAX_VALUE))))
+                                            /*.addComponent(cDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(0, 0, Short.MAX_VALUE)*/)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, divOneLayout.createSequentialGroup()
                                     .addGroup(divOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(cBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1115,7 +1110,7 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(cEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, divOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                /*.addComponent(cDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)*/))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(divOneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lEndereco)
@@ -1240,11 +1235,11 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        cDataInicial.setForeground(new java.awt.Color(0, 102, 255));
-        cDataInicial.setSelectedItem(null);
-
-        cDataFim.setForeground(new java.awt.Color(0, 102, 255));
-        cDataFim.setSelectedItem(null);
+//        cDataInicial.setForeground(new java.awt.Color(0, 102, 255));
+//        cDataInicial.setSelectedItem(null);
+//
+//        cDataFim.setForeground(new java.awt.Color(0, 102, 255));
+//        cDataFim.setSelectedItem(null);
 
         javax.swing.GroupLayout divOne1Layout = new javax.swing.GroupLayout(divOne1);
         divOne1.setLayout(divOne1Layout);
@@ -1258,13 +1253,13 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(divOne1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(divOne1Layout.createSequentialGroup()
                                 .addGroup(divOne1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                                    .addComponent(cDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lDataInicial))
                                 .addGap(18, 18, 18)
                                 .addGroup(divOne1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lDataFim)
                                     .addGroup(divOne1Layout.createSequentialGroup()
-                                        .addComponent(cDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                                        .addComponent(cDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(26, 26, 26)
                                         .addComponent(bExcluirFormaSele))))
                             .addComponent(lNomeFormacao)
@@ -1293,8 +1288,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(lDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(divOne1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                    .addComponent(cDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                    .addComponent(cDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bExcluirFormaSele))
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1)
@@ -1318,7 +1313,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(0, 19, Short.MAX_VALUE))
         );
 
-        bExcluirForm.setLabel("Excluir");
+        bExcluirForm.setText("Excluir");
         bExcluirForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bExcluirFormActionPerformed(evt);
@@ -1335,14 +1330,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        bCancelarForm.setLabel("Cancelar");
+        bCancelarForm.setText("Cancelar");
         bCancelarForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancelarFormActionPerformed(evt);
             }
         });
 
-        bGravarForm.setLabel("Gravar");
+        bGravarForm.setText("Gravar");
         bGravarForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGravarFormActionPerformed(evt);
@@ -1454,7 +1449,10 @@ public class Principal extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
+        	
+			private static final long serialVersionUID = 3826531427776003894L;
+			
+			boolean[] canEdit = new boolean [] {
                 false, false, false, false
             };
 
@@ -1481,9 +1479,9 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        cDataInicialExp.setForeground(new java.awt.Color(0, 102, 255));
-
-        cDataFImExp.setForeground(new java.awt.Color(0, 102, 255));
+//        cDataInicialExp.setForeground(new java.awt.Color(0, 102, 255));
+//
+//        cDataFImExp.setForeground(new java.awt.Color(0, 102, 255));
 
         javax.swing.GroupLayout divOne2Layout = new javax.swing.GroupLayout(divOne2);
         divOne2.setLayout(divOne2Layout);
@@ -1503,12 +1501,12 @@ public class Principal extends javax.swing.JFrame {
                             .addGroup(divOne2Layout.createSequentialGroup()
                                 .addGroup(divOne2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lDataInicialExp)
-                                    .addComponent(cDataInicialExp, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    /*.addComponent(cDataInicialExp, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)*/)
                                 .addGap(32, 32, 32)
                                 .addGroup(divOne2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lDataFimExp)
                                     .addGroup(divOne2Layout.createSequentialGroup()
-                                        .addComponent(cDataFImExp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+//                                        .addComponent(cDataFImExp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(64, 64, 64)
                                         .addComponent(bExcluirExpSele)))))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1532,8 +1530,8 @@ public class Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(divOne2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bExcluirExpSele)
-                    .addComponent(cDataInicialExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cDataFImExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    /*.addComponent(cDataInicialExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cDataFImExp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)*/)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1557,7 +1555,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        bExcluirExp.setLabel("Excluir");
+        bExcluirExp.setText("Excluir");
         bExcluirExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bExcluirExpActionPerformed(evt);
@@ -1574,14 +1572,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        bCancelarExp.setLabel("Cancelar");
+        bCancelarExp.setText("Cancelar");
         bCancelarExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancelarExpActionPerformed(evt);
             }
         });
 
-        bGravarExp.setLabel("Gravar");
+        bGravarExp.setText("Gravar");
         bGravarExp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGravarExpActionPerformed(evt);
@@ -1691,7 +1689,9 @@ public class Principal extends javax.swing.JFrame {
         });
 
         cListaSele.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+			private static final long serialVersionUID = 7455487037513591842L;
+			
+			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1699,7 +1699,9 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane7.setViewportView(cListaSele);
 
         cListaAll.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+			private static final long serialVersionUID = -6805562308606687274L;
+			
+			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -1744,14 +1746,14 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        bGravarDisci.setLabel("Gravar");
+        bGravarDisci.setText("Gravar");
         bGravarDisci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bGravarDisciActionPerformed(evt);
             }
         });
 
-        bCancelarDisci.setLabel("Cancelar");
+        bCancelarDisci.setText("Cancelar");
         bCancelarDisci.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCancelarDisciActionPerformed(evt);
@@ -2022,7 +2024,6 @@ public class Principal extends javax.swing.JFrame {
                 gerarCurriculo = false;
             }
             dialogoProgressBar.setVisible(false);
-            progress = 0;
         }
     }
 
@@ -2464,13 +2465,10 @@ public class Principal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    	System.out.println("Teste");
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+            	new Principal(new Professor());
             }
         });
     }
@@ -2518,11 +2516,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField cCep;
     private javax.swing.JTextField cCidade;
     private javax.swing.JFormattedTextField cCpf;
-    private de.javasoft.swing.DateComboBox cDataFImExp;
-    private de.javasoft.swing.DateComboBox cDataFim;
-    private de.javasoft.swing.DateComboBox cDataInicial;
-    private de.javasoft.swing.DateComboBox cDataInicialExp;
-    private de.javasoft.swing.DateComboBox cDataNascimento;
+//    private de.javasoft.swing.DateComboBox cDataFImExp;
+//    private de.javasoft.swing.DateComboBox cDataFim;
+//    private de.javasoft.swing.DateComboBox cDataInicial;
+//    private de.javasoft.swing.DateComboBox cDataInicialExp;
+//    private de.javasoft.swing.DateComboBox cDataNascimento;
     private javax.swing.JTextField cEmail;
     private javax.swing.JTextField cEmpresa;
     private javax.swing.JTextField cEnderecoWeb;
@@ -2668,7 +2666,6 @@ public class Principal extends javax.swing.JFrame {
 
     public void makeFoto(String path) {
         File image = new File(path);
-        FileInputStream fis;
         try {
             BufferedImage bImage = ImageIO.read(image);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -2704,9 +2701,9 @@ public class Principal extends javax.swing.JFrame {
         return cTelefone.getText();
     }
 
-    public Date getDataNascimento() {
-        return cDataNascimento.getDate();
-    }
+//    public Date getDataNascimento() {
+//        return cDataNascimento.getDate();
+//    }
 
     public boolean validarCamposDados() {
         String msg = MessageUtil.initHtml();
@@ -2743,13 +2740,13 @@ public class Principal extends javax.swing.JFrame {
             this.lTelefone.setForeground(Color.black);
         }
 
-        if (getDataNascimento() == null) {
-            validate &= false;
-            this.lData.setForeground(Color.red);
-            msg += MessageUtil.msgCampoObrigatorio(this.lData.getText());
-        } else {
-            this.lData.setForeground(Color.black);
-        }
+//        if (getDataNascimento() == null) {
+//            validate &= false;
+//            this.lData.setForeground(Color.red);
+//            msg += MessageUtil.msgCampoObrigatorio(this.lData.getText());
+//        } else {
+//            this.lData.setForeground(Color.black);
+//        }
 
         if (getEndereco().equals("")) {
             validate &= false;
@@ -2825,7 +2822,7 @@ public class Principal extends javax.swing.JFrame {
         cLogradouro.setEnabled(false);
         cNumero.setEnabled(false);
         cCep.setEnabled(false);
-        cDataNascimento.setEnabled(false);
+//        cDataNascimento.setEnabled(false);
         cTelefone.setEnabled(false);
         cBairro.setEnabled(false);
         cCidade.setEnabled(false);
@@ -2846,7 +2843,7 @@ public class Principal extends javax.swing.JFrame {
         cLogradouro.setEnabled(true);
         cNumero.setEnabled(true);
         cCep.setEnabled(true);
-        cDataNascimento.setEnabled(true);
+//        cDataNascimento.setEnabled(true);
         cTelefone.setEnabled(true);
         cBairro.setEnabled(true);
         cCidade.setEnabled(true);
@@ -2886,19 +2883,19 @@ public class Principal extends javax.swing.JFrame {
         return cInstituicao.getText().trim();
     }
 
-    public Date getDataInicial() {
-        return cDataInicial.getDate();
-    }
-
-    public Date getDataFim() {
-        return cDataFim.getDate();
-    }
+//    public Date getDataInicial() {
+//        return cDataInicial.getDate();
+//    }
+//
+//    public Date getDataFim() {
+//        return cDataFim.getDate();
+//    }
 
     public void rendCamposFormacao() {
         cNomeFormacao.setEnabled(false);
         cInstituicao.setEnabled(false);
-        cDataInicial.setEnabled(false);
-        cDataFim.setEnabled(false);
+//        cDataInicial.setEnabled(false);
+//        cDataFim.setEnabled(false);
         cTabela.setEnabled(false);
 
         bGravarForm.setVisible(false);
@@ -2908,8 +2905,8 @@ public class Principal extends javax.swing.JFrame {
     public void habilitarCamposFormacao() {
         cNomeFormacao.setEnabled(true);
         cInstituicao.setEnabled(true);
-        cDataInicial.setEnabled(true);
-        cDataFim.setEnabled(true);
+//        cDataInicial.setEnabled(true);
+//        cDataFim.setEnabled(true);
         cTabela.setEnabled(true);
 
         bGravarForm.setVisible(true);
@@ -2931,9 +2928,9 @@ public class Principal extends javax.swing.JFrame {
     public void limparCamposFormacao() {
         cNomeFormacao.setText("");
         cInstituicao.setText("");
-        Date date = null;
-        cDataInicial.setDate(date);
-        cDataFim.setDate(date);
+//        Date date = null;
+//        cDataInicial.setDate(date);
+//        cDataFim.setDate(date);
     }
 
     public boolean validarCamposFormacao() {
@@ -2955,33 +2952,33 @@ public class Principal extends javax.swing.JFrame {
             this.lInstituicao.setForeground(Color.black);
         }
 
-        if (getDataInicial() == null) {
-            validate &= false;
-            this.lDataInicial.setForeground(Color.red);
-            msg += MessageUtil.msgCampoObrigatorio(this.lDataInicial.getText());
-        } else {
-            this.lDataInicial.setForeground(Color.black);
-        }
+//        if (getDataInicial() == null) {
+//            validate &= false;
+//            this.lDataInicial.setForeground(Color.red);
+//            msg += MessageUtil.msgCampoObrigatorio(this.lDataInicial.getText());
+//        } else {
+//            this.lDataInicial.setForeground(Color.black);
+//        }
 
-        if (getDataFim() == null) {
-            validate &= false;
-            this.lDataFim.setForeground(Color.red);
-            msg += MessageUtil.msgCampoObrigatorio(this.lDataFim.getText());
-        } else {
-            this.lDataFim.setForeground(Color.black);
-        }
+//        if (getDataFim() == null) {
+//            validate &= false;
+//            this.lDataFim.setForeground(Color.red);
+//            msg += MessageUtil.msgCampoObrigatorio(this.lDataFim.getText());
+//        } else {
+//            this.lDataFim.setForeground(Color.black);
+//        }
 
-        if (getDataInicial() != null && getDataFim() != null) {
-            if (getDataInicial().compareTo(getDataFim()) > 0) {
-                validate &= false;
-                this.lDataFim.setForeground(Color.red);
-                this.lDataInicial.setForeground(Color.red);
-                msg += MessageUtil.msgDatasInvalidas(this.lDataInicial.getText(), this.lDataFim.getText());
-            } else {
-                this.lDataFim.setForeground(Color.black);
-                this.lDataInicial.setForeground(Color.black);
-            }
-        }
+//        if (getDataInicial() != null && getDataFim() != null) {
+//            if (getDataInicial().compareTo(getDataFim()) > 0) {
+//                validate &= false;
+//                this.lDataFim.setForeground(Color.red);
+//                this.lDataInicial.setForeground(Color.red);
+//                msg += MessageUtil.msgDatasInvalidas(this.lDataInicial.getText(), this.lDataFim.getText());
+//            } else {
+//                this.lDataFim.setForeground(Color.black);
+//                this.lDataInicial.setForeground(Color.black);
+//            }
+//        }
 
         msg += MessageUtil.endHtml();
         lMsg1.setVisible(true);
@@ -3002,19 +2999,19 @@ public class Principal extends javax.swing.JFrame {
         return cFuncao.getText().trim();
     }
 
-    public Date getDataInicialExp() {
-        return cDataInicialExp.getDate();
-    }
-
-    public Date getDataFimExp() {
-        return cDataFImExp.getDate();
-    }
+//    public Date getDataInicialExp() {
+//        return cDataInicialExp.getDate();
+//    }
+//
+//    public Date getDataFimExp() {
+//        return cDataFImExp.getDate();
+//    }
 
     public void rendCamposExperiencia() {
         cEmpresa.setEnabled(false);
         cFuncao.setEnabled(false);
-        cDataInicialExp.setEnabled(false);
-        cDataFImExp.setEnabled(false);
+//        cDataInicialExp.setEnabled(false);
+//        cDataFImExp.setEnabled(false);
         cTabelaExp.setEnabled(false);
 
         bGravarExp.setVisible(false);
@@ -3024,8 +3021,8 @@ public class Principal extends javax.swing.JFrame {
     public void habilitarCamposExperiencia() {
         cEmpresa.setEnabled(true);
         cFuncao.setEnabled(true);
-        cDataInicialExp.setEnabled(true);
-        cDataFImExp.setEnabled(true);
+//        cDataInicialExp.setEnabled(true);
+//        cDataFImExp.setEnabled(true);
         cTabelaExp.setEnabled(true);
 
         bGravarExp.setVisible(true);
@@ -3047,9 +3044,9 @@ public class Principal extends javax.swing.JFrame {
     public void limparCamposExperiencia() {
         cEmpresa.setText("");
         cFuncao.setText("");
-        Date date = null;
-        cDataInicialExp.setDate(date);
-        cDataFImExp.setDate(date);
+//        Date date = null;
+//        cDataInicialExp.setDate(date);
+//        cDataFImExp.setDate(date);
     }
 
     public boolean validarCamposExperiencia() {
@@ -3071,33 +3068,33 @@ public class Principal extends javax.swing.JFrame {
             this.lFuncao.setForeground(Color.black);
         }
 
-        if (getDataInicialExp() == null) {
-            validate &= false;
-            this.lDataInicialExp.setForeground(Color.red);
-            msg += MessageUtil.msgCampoObrigatorio(this.lDataInicialExp.getText());
-        } else {
-            this.lDataInicialExp.setForeground(Color.black);
-        }
-
-        if (getDataFimExp() == null) {
-            validate &= false;
-            this.lDataFimExp.setForeground(Color.red);
-            msg += MessageUtil.msgCampoObrigatorio(this.lDataFimExp.getText());
-        } else {
-            this.lDataFimExp.setForeground(Color.black);
-        }
-
-        if (getDataInicialExp() != null && getDataFimExp() != null) {
-            if (getDataInicialExp().compareTo(getDataFimExp()) > 0) {
-                validate &= false;
-                this.lDataFimExp.setForeground(Color.red);
-                this.lDataInicialExp.setForeground(Color.red);
-                msg += MessageUtil.msgDatasInvalidas(this.lDataInicialExp.getText(), this.lDataFimExp.getText());
-            } else {
-                this.lDataFimExp.setForeground(Color.black);
-                this.lDataInicialExp.setForeground(Color.black);
-            }
-        }
+//        if (getDataInicialExp() == null) {
+//            validate &= false;
+//            this.lDataInicialExp.setForeground(Color.red);
+//            msg += MessageUtil.msgCampoObrigatorio(this.lDataInicialExp.getText());
+//        } else {
+//            this.lDataInicialExp.setForeground(Color.black);
+//        }
+//
+//        if (getDataFimExp() == null) {
+//            validate &= false;
+//            this.lDataFimExp.setForeground(Color.red);
+//            msg += MessageUtil.msgCampoObrigatorio(this.lDataFimExp.getText());
+//        } else {
+//            this.lDataFimExp.setForeground(Color.black);
+//        }
+//
+//        if (getDataInicialExp() != null && getDataFimExp() != null) {
+//            if (getDataInicialExp().compareTo(getDataFimExp()) > 0) {
+//                validate &= false;
+//                this.lDataFimExp.setForeground(Color.red);
+//                this.lDataInicialExp.setForeground(Color.red);
+//                msg += MessageUtil.msgDatasInvalidas(this.lDataInicialExp.getText(), this.lDataFimExp.getText());
+//            } else {
+//                this.lDataFimExp.setForeground(Color.black);
+//                this.lDataInicialExp.setForeground(Color.black);
+//            }
+//        }
 
         msg += MessageUtil.endHtml();
         lMsg2.setVisible(true);
