@@ -20,7 +20,7 @@ public class FormatToHtmlTest extends FormatToHtml {
 	@Test
 	public void testHTMLTitleEmptyCase() {
 		
-		String expected = "<center><h1></h1><hr/></center>";
+		String expected = "";
 		
 		assertEquals(expected, HTMLTitle(""));
 	}
@@ -28,7 +28,7 @@ public class FormatToHtmlTest extends FormatToHtml {
 	@Test
 	public void testHTMLTitleNullCase() {
 		
-		String expected = "<center><h1>null</h1><hr/></center>";
+		String expected = "";
 		
 		assertEquals(expected, HTMLTitle(null));
 	}
@@ -44,7 +44,7 @@ public class FormatToHtmlTest extends FormatToHtml {
 	@Test
 	public void testHTMLSubTitleEmptyCase() {
 		
-		String expected = "<center><h2 class='h2'></h2></center>";
+		String expected = "";
 		
 		assertEquals(expected, HTMLSubTitle(""));
 	}
@@ -52,7 +52,7 @@ public class FormatToHtmlTest extends FormatToHtml {
 	@Test
 	public void testHTMLSubTitleNullCase() {
 		
-		String expected = "<center><h2 class='h2'>null</h2></center>";
+		String expected = "";
 		
 		assertEquals(expected, HTMLSubTitle(null));
 	}
