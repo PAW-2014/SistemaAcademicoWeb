@@ -12,7 +12,7 @@ import model.Enum.SituProfessor;
 import model.Enum.TipoProfessor;
 import model.Professor;
 
-public class ProfessorDAO extends Conexao implements IProfessor {
+public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor {
 
     private Connection conn = null;
     private PreparedStatement stmt = null;
@@ -25,7 +25,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         sql.append("SELECT idProfessor FROM professor ")
                 .append("WHERE login=? AND senha=? AND status = 0");
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setString(1, login);
             stmt.setString(2, senha);
@@ -51,7 +51,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         sql.append("SELECT * FROM professor ")
                 .append("WHERE idProfessor=?");
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -92,7 +92,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         sql.append("SELECT * FROM endereco ")
                 .append("WHERE idEndereco=?");
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -120,7 +120,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         StringBuilder sql = new StringBuilder();
 
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             conn.setAutoCommit(false);
             salvarOuAtualizarEndereco(p.getEndereco());
             sql.append("UPDATE professor SET nome=?,senha=?,login=?,telefone=?,email=?, ")
@@ -187,7 +187,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         sql.append("SELECT MAX(idprofessor) as last FROM professor");
         Integer id = null;
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -238,7 +238,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.IdProfessor, p.nome, p.status FROM professor p WHERE p.tipo = ? ORDER BY p.nome ASC");
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, TipoProfessor.Professor.ordinal());
             rs = stmt.executeQuery();
@@ -266,7 +266,7 @@ public class ProfessorDAO extends Conexao implements IProfessor {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT p.idProfessor, p.nome FROM professor p ORDER BY p.nome ASC");
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             rs = stmt.executeQuery();
 

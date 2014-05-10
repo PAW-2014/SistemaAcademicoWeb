@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import model.Enum.TipoProfessor;
 import model.Professor;
 
-public class DiretorDAO extends Conexao implements IDiretor {
+public class DiretorDAO extends MySQLDataBaseConnection implements IDiretor {
 
     private Connection conn = null;
     private PreparedStatement stmt = null;
@@ -21,7 +21,7 @@ public class DiretorDAO extends Conexao implements IDiretor {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE professor p SET p.tipo = ? WHERE p.IdProfessor = ?");
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, TipoProfessor.Coordenador.ordinal());
@@ -59,7 +59,7 @@ public class DiretorDAO extends Conexao implements IDiretor {
     public void delete(Professor p) {
         StringBuilder sql = new StringBuilder();
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             conn.setAutoCommit(false);
             if (p.getEndereco() != null && p.getEndereco().getIdEndereco() != null) {
                 excluirEndereco(p.getEndereco().getIdEndereco());

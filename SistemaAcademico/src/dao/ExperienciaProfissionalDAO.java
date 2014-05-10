@@ -9,7 +9,7 @@ import java.util.List;
 import model.ProfessionalExperience;
 import model.Professor;
 
-public class ExperienciaProfissionalDAO extends Conexao implements IExperienciaProfissional {
+public class ExperienciaProfissionalDAO extends MySQLDataBaseConnection implements IExperienciaProfissional {
 private Connection conn = null;
     private PreparedStatement stmt = null;
     private ResultSet rs = null;
@@ -20,7 +20,7 @@ private Connection conn = null;
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM experienciaprofissional WHERE idProfessor = ?");
         try{
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt= conn.prepareStatement(sql.toString());
             stmt.setInt(1, idProfessor);
             rs = stmt.executeQuery();
@@ -45,7 +45,7 @@ private Connection conn = null;
    public void save(ProfessionalExperience ep) {
         StringBuilder sql = new StringBuilder();
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             if (ep.getIdExperiencia() == null) {
                 sql.append("INSERT INTO experienciaprofissional(dataInicio,dataFim,empresa,funcao,idProfessor) ")
                         .append("VALUES(?,?,?,?,?)");
@@ -77,7 +77,7 @@ private Connection conn = null;
          if(exp.getIdExperiencia() != null)
              sql.append("AND idExperienciaProfissional <> ?");
         try{
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setString(1, exp.getEmpresa());
             stmt.setString(2, exp.getFuncao());
@@ -105,7 +105,7 @@ private Connection conn = null;
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM experienciaprofissional WHERE idExperienciaProfissional =? ");
         try {
-            conn = Conexao.connectToDataBase();
+            conn = new MySQLDataBaseConnection().connectToDataBase();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, ep.getIdExperiencia());
             stmt.executeUpdate();

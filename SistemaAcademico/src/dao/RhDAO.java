@@ -13,7 +13,7 @@ import model.Professor;
 import model.Enum.SituProfessor;
 import model.Enum.TipoProfessor;
 
-public class RhDAO extends Conexao {
+public class RhDAO extends MySQLDataBaseConnection {
 
     static Connection conn = null;
     static PreparedStatement stmt = null;
@@ -32,7 +32,7 @@ public class RhDAO extends Conexao {
 
         for (Disciplina disciplina : disciplinas) {
             try {
-                conn = Conexao.connectToDataBase();
+                conn = new MySQLDataBaseConnection().connectToDataBase();
                 stmt = conn.prepareStatement(sql.toString());
                 stmt.setString(1, disciplina.getNome());
                 stmt.executeUpdate();
@@ -41,7 +41,7 @@ public class RhDAO extends Conexao {
             } catch (Exception e) {
                 e.printStackTrace();
                 try {
-                    connectToDataBase().rollback();
+                    conn.rollback();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -57,7 +57,7 @@ public class RhDAO extends Conexao {
                 StringBuilder sql = new StringBuilder();
                 sql.append("INSERT INTO professor(nome,login,senha,status,tipo) VALUES(?,?,?,?,?)");
 
-                conn = Conexao.connectToDataBase();
+                conn = new MySQLDataBaseConnection().connectToDataBase();
                 stmt = conn.prepareStatement(sql.toString());
                 stmt.setString(1, professor.getNome());
                 stmt.setString(2, professor.getLogin());
@@ -85,7 +85,7 @@ public class RhDAO extends Conexao {
             } catch (Exception e) {
                 e.printStackTrace();
                 try {
-                    connectToDataBase().rollback();
+                    conn.rollback();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
