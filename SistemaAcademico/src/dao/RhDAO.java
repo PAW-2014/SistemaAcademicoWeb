@@ -2,7 +2,6 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import model.Professor;
 import model.Enum.SituProfessor;
 import model.Enum.TipoProfessor;
 
-public class RhDAO extends MySQLDataBaseConnection {
+public class RhDAO {
 
     static Connection conn = null;
     static PreparedStatement stmt = null;
@@ -32,7 +31,7 @@ public class RhDAO extends MySQLDataBaseConnection {
 
         for (Disciplina disciplina : disciplinas) {
             try {
-                conn = new MySQLDataBaseConnection().connectToDataBase();
+                conn = new MySQLDataBaseConnection().getConnection();
                 stmt = conn.prepareStatement(sql.toString());
                 stmt.setString(1, disciplina.getNome());
                 stmt.executeUpdate();
@@ -57,7 +56,7 @@ public class RhDAO extends MySQLDataBaseConnection {
                 StringBuilder sql = new StringBuilder();
                 sql.append("INSERT INTO professor(nome,login,senha,status,tipo) VALUES(?,?,?,?,?)");
 
-                conn = new MySQLDataBaseConnection().connectToDataBase();
+                conn = new MySQLDataBaseConnection().getConnection();
                 stmt = conn.prepareStatement(sql.toString());
                 stmt.setString(1, professor.getNome());
                 stmt.setString(2, professor.getLogin());

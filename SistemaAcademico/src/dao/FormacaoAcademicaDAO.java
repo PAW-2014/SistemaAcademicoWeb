@@ -21,7 +21,7 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM formacaoAcademica WHERE idProfessor = ?");
         try{
-            conn = new MySQLDataBaseConnection().connectToDataBase();
+            conn = new MySQLDataBaseConnection().getConnection();
             stmt= conn.prepareStatement(sql.toString());
             stmt.setInt(1, idProfessor);
             rs = stmt.executeQuery();
@@ -46,7 +46,7 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
    public void save(AcademicFormation f) {
         StringBuilder sql = new StringBuilder();
         try {
-            conn = new MySQLDataBaseConnection().connectToDataBase();
+            conn = new MySQLDataBaseConnection().getConnection();
             if (f.getIdFormacaoAcademica() == null) {
                 sql.append("INSERT INTO formacaoacademica(dataInicio,dataFim,nomeCurso,instituicao,idProfessor) ")
                         .append("VALUES(?,?,?,?,?)");
@@ -78,7 +78,7 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
          if(form.getIdFormacaoAcademica() != null)
              sql.append("AND idFormacaoAcademica <> ?");
         try{
-            conn = new MySQLDataBaseConnection().connectToDataBase();
+            conn = new MySQLDataBaseConnection().getConnection();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setString(1, form.getNomeCurso());
             stmt.setString(2, form.getInstituicao());
@@ -106,7 +106,7 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
         StringBuilder sql = new StringBuilder();
         sql.append("DELETE FROM formacaoAcademica WHERE idFormacaoAcademica =? ");
         try {
-            conn = new MySQLDataBaseConnection().connectToDataBase();
+            conn = new MySQLDataBaseConnection().getConnection();
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, f.getIdFormacaoAcademica());
             stmt.executeUpdate();

@@ -1,27 +1,27 @@
 package dao;
 
-import dao.interfaces.IDiretor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Enum.TipoProfessor;
+
 import model.Professor;
+import model.Enum.TipoProfessor;
+import dao.interfaces.IDiretor;
 
 public class DiretorDAO extends MySQLDataBaseConnection implements IDiretor {
 
     private Connection conn = null;
     private PreparedStatement stmt = null;
-    private ResultSet rs = null;
+//    private ResultSet rs = null;
 
     @Override
     public void promove(Integer idProfessor) {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE professor p SET p.tipo = ? WHERE p.IdProfessor = ?");
         try {
-            conn = new MySQLDataBaseConnection().connectToDataBase();
+            conn = new MySQLDataBaseConnection().getConnection();
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql.toString());
             stmt.setInt(1, TipoProfessor.Coordenador.ordinal());
@@ -59,7 +59,7 @@ public class DiretorDAO extends MySQLDataBaseConnection implements IDiretor {
     public void delete(Professor p) {
         StringBuilder sql = new StringBuilder();
         try {
-            conn = new MySQLDataBaseConnection().connectToDataBase();
+            conn = new MySQLDataBaseConnection().getConnection();
             conn.setAutoCommit(false);
             if (p.getEndereco() != null && p.getEndereco().getIdEndereco() != null) {
                 excluirEndereco(p.getEndereco().getIdEndereco());
