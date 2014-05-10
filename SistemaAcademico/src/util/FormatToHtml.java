@@ -2,11 +2,17 @@ package util;
 
 import model.Enum.HTMLBaseTagsEnum;
 
+import static util.Util.isNotValid;
+
 public class FormatToHtml {
 	
 	protected static final String NEW_LINE = "<br/>";
+	protected static final String HORIZONTAL_LINE = "<hr/>";
 
 	protected static String HTMLTitle(String description){
+		
+		if(isNotValid(description))
+			return "";
 		
 		StringBuilder HTMLTitle = new StringBuilder();
 		
@@ -14,13 +20,16 @@ public class FormatToHtml {
 		    .append("<h1>")
 		    .append(description)
 		    .append("</h1>")
-		    .append("<hr/>")
+		    .append(HORIZONTAL_LINE)
 		    .append("</center>");
 		
 		return HTMLTitle.toString();
 	}
 	
 	protected static String HTMLSubTitle(String description){
+		
+		if(isNotValid(description))
+			return "";
 		
 		StringBuilder HTMLSubTitle = new StringBuilder();
 		
@@ -34,6 +43,9 @@ public class FormatToHtml {
 	}
 	
 	protected static String HTMLField(String fieldName, String fieldContent){
+		
+		if(isNotValid(fieldName) || isNotValid(fieldContent))
+			return "";
 		
 		StringBuilder HTMLField = new StringBuilder();
 		
@@ -60,7 +72,7 @@ public class FormatToHtml {
 		envelop.append(String.format(envelopBase.getValue(), "/", ""));
 		
 		return envelop.toString();
-	} 
+	}
 	
 	/*Template
 	protected static String HTMLField(String fieldName, String fieldContent){
