@@ -8,7 +8,9 @@ import model.Professor;
 
 public class ProfessorDataModel extends AbstractTableModel {
 
-    private List<Professor> linhas;
+	private static final long serialVersionUID = -563358903351006439L;
+	
+	private List<Professor> linhas;
     private String[] colunas = new String[]{
         "Nome", "CPF", "Email", "Telefone", "Status" };
 

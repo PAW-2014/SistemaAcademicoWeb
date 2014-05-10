@@ -3,13 +3,16 @@ package view.Model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
+
 import model.Disciplina;
-import model.AcademicFormation;
 
 public class DisciplinaDataModel extends AbstractTableModel {
 
-    private List<Disciplina> linhas;
+	private static final long serialVersionUID = 8931893645918565315L;
+	
+	private List<Disciplina> linhas;
     private String[] colunas = new String[]{
         "Nome Disciplina"};
 

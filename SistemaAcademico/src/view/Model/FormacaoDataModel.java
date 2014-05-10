@@ -8,7 +8,9 @@ import model.AcademicFormation;
 
 public class FormacaoDataModel extends AbstractTableModel {
 
-    private List<AcademicFormation> linhas;
+	private static final long serialVersionUID = 9151447301559780074L;
+	
+	private List<AcademicFormation> linhas;
     private String[] colunas = new String[]{
         "Nome Curso", "Instituição", "Data Inicial", "Data Fim"};
 

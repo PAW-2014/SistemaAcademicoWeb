@@ -7,8 +7,10 @@ import javax.swing.ComboBoxModel;
 import model.Professor;
 
 public class ProfessorComboModel extends AbstractListModel implements ComboBoxModel{
-
-      List<Professor> lista;
+	
+	private static final long serialVersionUID = -4451970250369298647L;
+	
+	List<Professor> lista;
     Professor selecionado;
     
     public ProfessorComboModel(List<Professor> lista) {

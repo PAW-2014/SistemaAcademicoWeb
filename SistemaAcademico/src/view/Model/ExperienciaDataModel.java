@@ -7,8 +7,10 @@ import javax.swing.table.AbstractTableModel;
 import model.ProfessionalExperience;
 
 public class ExperienciaDataModel extends AbstractTableModel {
-
-    private List<ProfessionalExperience> linhas;
+	
+	private static final long serialVersionUID = 1822145651662502013L;
+	
+	private List<ProfessionalExperience> linhas;
     private String[] colunas = new String[]{
         "Empresa", "Instituição", "Data Inicial", "Data Fim"};
 

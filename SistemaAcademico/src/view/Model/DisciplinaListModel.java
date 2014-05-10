@@ -6,7 +6,9 @@ import model.Disciplina;
 
 public class DisciplinaListModel extends AbstractListModel {
 
-    private List<Disciplina> disciplinas;
+	private static final long serialVersionUID = 3161642911906826704L;
+	
+	private List<Disciplina> disciplinas;
 
     public DisciplinaListModel(List<Disciplina> disciplinas) {
         this.disciplinas = disciplinas;

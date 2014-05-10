@@ -1,13 +1,16 @@
 package view.Model;
 
 import java.util.List;
+
 import javax.swing.AbstractListModel;
-import model.Disciplina;
+
 import model.DisciplinaPreferencial;
 
 public class DisciplinaPreferencialListModel extends AbstractListModel {
 
-    private List<DisciplinaPreferencial> disciplinas;
+	private static final long serialVersionUID = -227287167786551115L;
+	
+	private List<DisciplinaPreferencial> disciplinas;
 
     public DisciplinaPreferencialListModel(List<DisciplinaPreferencial> disciplinas) {
         this.disciplinas = disciplinas;
