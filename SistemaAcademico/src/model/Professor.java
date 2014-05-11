@@ -16,8 +16,8 @@ import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import model.Enum.SituProfessor;
-import model.Enum.TypeProfessor;
+import model.enums.SituProfessor;
+import model.enums.TypeProfessor;
 
 @Entity(name="professor")
 @Inheritance(strategy=InheritanceType.JOINED)
