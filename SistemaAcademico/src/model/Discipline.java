@@ -2,11 +2,20 @@ package model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name="discipline")
 public class Discipline implements Comparable<Discipline>, Serializable {
 
     private static final long serialVersionUID = -6913931188543025636L;
     
+    @Id
+    @Column(name="id", nullable=false)
     private Integer id;
+    
+    @Column(name="name", nullable=false)
     private String name;
 
     public Integer getId() {

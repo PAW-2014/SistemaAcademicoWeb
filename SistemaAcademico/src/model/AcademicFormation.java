@@ -3,15 +3,36 @@ package model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name="academicFormation")
 public class AcademicFormation implements Serializable {
 	
     private static final long serialVersionUID = 2793663142281056249L;
     
+    @Id
+    @Column(name="id", nullable=false)
     private Integer id;
+    
+    @Column(name="startDate", nullable=false)
     private Date startDate;
+    
+    @Column(name="endDate", nullable=false)
     private Date endDate;
+    
+    @Column(name="courseName", nullable=false)
     private String courseName;
+    
+    @Column(name="institute", nullable=false)
     private String institute;
+    
+    @JoinColumn(name="professorId", nullable=false)
+    @ManyToOne(fetch=FetchType.LAZY)
     private Professor professor;
 
     public Integer getId() {

@@ -2,12 +2,28 @@ package model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name="preferentialDiscipline")
 public class PreferentialDiscipline implements Serializable {
 
     private static final long serialVersionUID = -4446636618419395435L;
     
+    @Id
+    @Column(name="id", nullable=false)
     private Integer id;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="professorId", nullable=false)
     private Professor professor;
+    
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="disciplineId", nullable=false)
     private Discipline discipline;
 
     public Integer getId() {

@@ -2,17 +2,41 @@ package model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity(name="address")
 public class Address implements Serializable {
 
 	private static final long serialVersionUID = 1214404202282130103L;
 
+	@Id
+	@Column(name="id", nullable=false)
 	private Integer id;
+	
+	@Column(name="street", nullable=false)
 	private String street;
+	
+	@Column(name="number", nullable=false)
 	private Integer number;
+	
+	@Column(name="neighborhood")
 	private String neighborhood;
+	
+	@Column(name="city")
 	private String city;
+	
+	@Column(name="federativeUnit")
 	private String federativeUnit;
+	
+	@Column(name="zipCode", nullable=false)
 	private String zipCode;
+	
+	@OneToOne(mappedBy="address", fetch=FetchType.EAGER)
+	private Professor professor;
 
 	public Integer getId() {
 		return id;
@@ -68,6 +92,14 @@ public class Address implements Serializable {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+	
+	public Professor getProfessor() {
+		return professor;
+	}
+
+	public void setProfessor(Professor professor) {
+		this.professor = professor;
 	}
 	
 	//TODO Equals

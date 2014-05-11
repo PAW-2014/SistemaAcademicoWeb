@@ -4,30 +4,79 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import model.Enum.SituProfessor;
-import model.Enum.TipoProfessor;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import model.Enum.SituProfessor;
+import model.Enum.TypeProfessor;
+
+@Entity(name="professor")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class Professor implements Serializable, Comparable<Professor> {
 
 	private static final long serialVersionUID = 4466417793771253444L;
 
+	@Id
+	@Column(name="id", nullable=false)
 	private Integer id;
-	private String name;
-	private String password;
-	private String login;
-	private String phoneNumber;
-	private String email;
-	private byte[] photo;
-	private String cpf;
-	private Date birthDate;
-	private String generalRegisterNumber;
-	private String otherInformations;
-	private SituProfessor status;
-	private TipoProfessor type;
 	
+	@Column(name="name", nullable=false)
+	private String name;
+	
+	@Column(name="password", nullable=false)
+	private String password;
+
+	@Column(name="login", nullable=false)
+	private String login;
+	
+	@Column(name="phoneNumber", nullable=false)
+	private String phoneNumber;
+	
+	@Column(name="email", nullable=false)
+	private String email;
+	
+	@Column(name="cpf", nullable=false)
+	private String cpf;
+	
+	@Column(name="birthDate", nullable=false)
+	private Date birthDate;
+	
+	@Column(name="generalRegisterNumber", nullable=false)
+	private String generalRegisterNumber;
+	
+	@Column(name="status", nullable=false)
+	private SituProfessor status;
+	
+	@Column(name="type", nullable=false)
+	private TypeProfessor type;
+	
+	@Column(name="otherInformations")
+	private String otherInformations;
+	
+	@Lob
+	@Column(name="photo")
+	private byte[] photo;
+	
+	@OneToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="addressId", nullable=false)
 	private Address address;
+	
+	@OneToMany(mappedBy="professor", fetch=FetchType.LAZY)
 	private List<ProfessionalExperience> professionalExperiences;
+	
+	@OneToMany(mappedBy="professor", fetch=FetchType.LAZY)
 	private List<AcademicFormation> academicFormations;
+	
+	@OneToMany(mappedBy="professor", fetch=FetchType.LAZY)
 	private List<PreferentialDiscipline> preferentialDisciplines;
 
 	public Professor() {
@@ -165,11 +214,11 @@ public class Professor implements Serializable, Comparable<Professor> {
 		this.status = status;
 	}
 
-	public TipoProfessor getType() {
+	public TypeProfessor getType() {
 		return type;
 	}
 
-	public void setType(TipoProfessor type) {
+	public void setType(TypeProfessor type) {
 		this.type = type;
 	}
 

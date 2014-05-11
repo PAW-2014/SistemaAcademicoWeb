@@ -1,6 +1,6 @@
 package model.Enum;
 
-public enum TipoProfessor {
+public enum TypeProfessor {
 	Professor(0), 
 	Coordenador(1),
 	Diretor(2);
@@ -11,7 +11,7 @@ public enum TipoProfessor {
 	
 	private int indice;
 	
-	TipoProfessor(int indice){
+	TypeProfessor(int indice){
 		this.indice = indice;
 	}
 	
@@ -19,7 +19,7 @@ public enum TipoProfessor {
 		return indice;
 	}
 	
-	public static TipoProfessor indice(int i) {
+	public static TypeProfessor indice(int i) {
 		switch (i) {
 		case 0:
 			return Professor;
