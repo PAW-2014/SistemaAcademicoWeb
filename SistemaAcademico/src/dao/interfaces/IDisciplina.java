@@ -1,15 +1,15 @@
 package dao.interfaces;
 
 import java.util.List;
-import model.Disciplina;
-import model.DisciplinaPreferencial;
+import model.Discipline;
+import model.PreferentialDiscipline;
 
 public interface IDisciplina {
 	
-	public List<Disciplina> listarDisciplinas();
+	public List<Discipline> listarDisciplinas();
     
-    public List<DisciplinaPreferencial> getDisiciplinasPreferenciais(Integer idProfessor);
+    public List<PreferentialDiscipline> getDisiciplinasPreferenciais(Integer idProfessor);
     
-    public void salvarDisciplinasPreferenciais(List<DisciplinaPreferencial> disciplinas, List<DisciplinaPreferencial> exclu);
+    public void salvarDisciplinasPreferenciais(List<PreferentialDiscipline> disciplinas, List<PreferentialDiscipline> exclu);
     
 }

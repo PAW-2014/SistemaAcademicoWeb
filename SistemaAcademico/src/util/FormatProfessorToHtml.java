@@ -21,14 +21,14 @@ public class FormatProfessorToHtml extends FormatToHtml {
             
             mainInformationsToHTML(professor);
             
-            if (Util.isValid(professor.getFormacoesAcademicas()))
-                html.append(academicFormationsToHTML(professor.getFormacoesAcademicas()));
+            if (Util.isValid(professor.getAcademicFormations()))
+                html.append(academicFormationsToHTML(professor.getAcademicFormations()));
 
-            if (Util.isValid(professor.getExperienciasProfissionais()))
-                html.append(professionalExperiencesToHTML(professor.getExperienciasProfissionais()));
+            if (Util.isValid(professor.getProfessionalExperiences()))
+                html.append(professionalExperiencesToHTML(professor.getProfessionalExperiences()));
 
-            if (Util.isValid(professor.getOutrasInformacoes()))
-                html.append(otherInformationsToHTML(professor.getOutrasInformacoes()));
+            if (Util.isValid(professor.getOtherInformations()))
+                html.append(otherInformationsToHTML(professor.getOtherInformations()));
                 
             html.append(MessageUtil.endHtml());
         }
@@ -40,13 +40,13 @@ public class FormatProfessorToHtml extends FormatToHtml {
 		
 		StringBuilder mainInformationsHTML = new StringBuilder();
 		
-		mainInformationsHTML.append(HTMLTitle(professor.getNome()));
+		mainInformationsHTML.append(HTMLTitle(professor.getName()));
 	    mainInformationsHTML.append("<div align='center'>");
-	    mainInformationsHTML.append(HTMLFieldAddress(professor.getEndereco()));
+	    mainInformationsHTML.append(HTMLFieldAddress(professor.getAddress()));
 	    mainInformationsHTML.append(NEW_LINE);
 	    mainInformationsHTML.append(HTMLField("Email", professor.getEmail())); // TODO I18N
 	    mainInformationsHTML.append(NEW_LINE);
-	    mainInformationsHTML.append(HTMLField("Telefone", professor.getTelefone())); // TODO I18N
+	    mainInformationsHTML.append(HTMLField("Telefone", professor.getPhoneNumber())); // TODO I18N
 	    mainInformationsHTML.append(NEW_LINE)
 	        .append("</div>");
 		
@@ -57,28 +57,28 @@ public class FormatProfessorToHtml extends FormatToHtml {
 		
 		StringBuilder addressContent = new StringBuilder();
 		
-        addressContent.append(address.getLogradouro())
+        addressContent.append(address.getStreet())
 	        .append(", ")
-	        .append(address.getNumero())
+	        .append(address.getNumber())
 	        .append(" - ")
-	        .append(address.getCidade())
+	        .append(address.getCity())
 	        .append(" - ")
-	        .append(address.getCep());
+	        .append(address.getZipCode());
         
-        return HTMLField("Endereço", addressContent.toString()); // TODO I18N
+        return HTMLField("Endereï¿½o", addressContent.toString()); // TODO I18N
 	}
 	
 	private static String academicFormationsToHTML(List<AcademicFormation> academicFormations){
 		
 		StringBuilder academicFormationsHTML = new StringBuilder();
 		
-		academicFormationsHTML.append(HTMLSubTitle("Formação")); // TODO I18N
+		academicFormationsHTML.append(HTMLSubTitle("Formaï¿½ï¿½o")); // TODO I18N
     
 	    for (AcademicFormation academicFormation : academicFormations)
 	        academicFormationsHTML.append("<li>")
-	        	.append(academicFormation.getNomeCurso())
+	        	.append(academicFormation.getCourseName())
 	        	.append(" na instiuiÃ§Ã£o de ensino ")
-	        	.append(academicFormation.getInstituicao())
+	        	.append(academicFormation.getInstitute())
 	        	.append("</li>");
 	    
 	    academicFormationsHTML.append("</ul>")
@@ -93,18 +93,18 @@ public class FormatProfessorToHtml extends FormatToHtml {
 		StringBuilder professionalExperiencesHTML = new StringBuilder();
 		Calendar cal;
 		
-		professionalExperiencesHTML.append(HTMLSubTitle("Experiências Profissionais")); // TODO I18N
+		professionalExperiencesHTML.append(HTMLSubTitle("Experiï¿½ncias Profissionais")); // TODO I18N
 	
 		for (ProfessionalExperience professionalExperience : professionalExperiences) {
 			
 		    cal = new GregorianCalendar();
-		    cal.setTime(professionalExperience.getDataInicio());
+		    cal.setTime(professionalExperience.getStartDate());
 		    professionalExperiencesHTML.append("<li>")
 		    	.append(cal.get(Calendar.YEAR))
 		    	.append(" - ")
-		    	.append(professionalExperience.getFuncao())
+		    	.append(professionalExperience.getFunction())
 		    	.append(" na empresa ")
-		    	.append(professionalExperience.getEmpresa())
+		    	.append(professionalExperience.getFirm())
 		    	.append("</li>");
 		}
 		
@@ -118,7 +118,7 @@ public class FormatProfessorToHtml extends FormatToHtml {
 	
 		StringBuilder otherInformationsHTML = new StringBuilder();
 		
-		otherInformationsHTML.append(HTMLSubTitle("Outras Informações")) // TODO I18N
+		otherInformationsHTML.append(HTMLSubTitle("Outras Informaï¿½ï¿½es")) // TODO I18N
 		    .append("<ul>")
 		    .append("<li>")
 		    .append(otherInformations)

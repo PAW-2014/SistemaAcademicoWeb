@@ -1,86 +1,75 @@
 package util;
 
+import java.text.MessageFormat;
+
 import model.Enum.HTMLBaseTagsEnum;
 
-import static util.Util.isNotValid;
+import static model.Enum.HTMLBaseTagsEnum.*;
+import static util.Util.*;
 
 public class FormatToHtml {
 	
-	protected static final String NEW_LINE = "<br/>";
-	protected static final String HORIZONTAL_LINE = "<hr/>";
+	public static final String NEW_LINE = "<br/>";
+	public static final String HORIZONTAL_LINE = "<hr/>";
 
-	protected static String HTMLTitle(String description){
+	public static String HTMLTitle(String description){
 		
 		if(isNotValid(description))
 			return "";
 		
-		StringBuilder HTMLTitle = new StringBuilder();
-		
-		HTMLTitle.append("<center>")
-		    .append("<h1>")
-		    .append(description)
-		    .append("</h1>")
-		    .append(HORIZONTAL_LINE)
-		    .append("</center>");
-		
-		return HTMLTitle.toString();
+		return tagWrapper(
+					CENTER
+					, tagWrapper(H1, description) + HORIZONTAL_LINE);
 	}
 	
-	protected static String HTMLSubTitle(String description){
+	public static String HTMLSubTitle(String description){
 		
 		if(isNotValid(description))
 			return "";
 		
-		StringBuilder HTMLSubTitle = new StringBuilder();
-		
-		HTMLSubTitle.append("<center>")
-		    .append("<h2 class='h2'>")
-		    .append(description)
-		    .append("</h2>")
-		    .append("</center>");
-		
-		return HTMLSubTitle.toString();
+		return tagWrapper(
+				CENTER
+				, tagWrapper(H2, "class='h2'", description));
 	}
 	
-	protected static String HTMLField(String fieldName, String fieldContent){
+	public static String HTMLField(String fieldName, String fieldContent){
 		
 		if(isNotValid(fieldName) || isNotValid(fieldContent))
 			return "";
 		
-		StringBuilder HTMLField = new StringBuilder();
+		return tagWrapper(B, fieldName+": ")+fieldContent;
 		
-		HTMLField.append("<b>")
-	    	.append(fieldName)
-	    	.append(": ")
-	        .append("</b>")
-	        .append(fieldContent);
-		
-		return HTMLField.toString();
 	}
 	
-	protected static String TagWrapper(HTMLBaseTagsEnum envelopBase, String content){
+	public static String tagWrapper(HTMLBaseTagsEnum envelopBase, String content){
 		
-		return TagWrapper(envelopBase, "", content);
+		return tagWrapper(envelopBase, "", content);
 	}
 	
-	protected static String TagWrapper(HTMLBaseTagsEnum envelopBase, String tagAtributes, String content){
+	public static String tagWrapper(HTMLBaseTagsEnum tagEnvelopBase, String tagAtributes, String content){
+		
+		if(isNotValid(tagEnvelopBase) || isNotValid(content))
+			return "";
 		
 		StringBuilder envelop = new StringBuilder();
+
+		tagAtributes = formatTagAtributes(tagAtributes);
 		
-		envelop.append(String.format(envelopBase.getValue(), "", tagAtributes));
+		envelop.append(MessageFormat.format(tagEnvelopBase.getValue(), "", tagAtributes));
 		envelop.append(content);
-		envelop.append(String.format(envelopBase.getValue(), "/", ""));
+		envelop.append(MessageFormat.format(tagEnvelopBase.getValue(), "/", ""));
 		
 		return envelop.toString();
 	}
-	
-	/*Template
-	protected static String HTMLField(String fieldName, String fieldContent){
-		
-		StringBuilder HTMLField = new StringBuilder();
-		
-		return HTMLField.toString();
-	} 
-	*/ 
+
+	private static String formatTagAtributes(String tagAtributes){
+		if(isNotValid(tagAtributes))
+			return "";
+		else
+			if(startsWithSpace(tagAtributes))
+				return tagAtributes;
+			else
+				return " "+tagAtributes;
+	}
 	
 }

@@ -27,11 +27,11 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
             rs = stmt.executeQuery();
             while(rs.next()){
                 AcademicFormation form = new AcademicFormation();
-                form.setIdFormacaoAcademica(rs.getInt("idFormacaoAcademica"));
-                form.setDataFim(rs.getDate("dataFim"));
-                form.setDataInicio(rs.getDate("dataInicio"));
-                form.setInstituicao(rs.getString("instituicao"));
-                form.setNomeCurso(rs.getString("nomeCurso"));
+                form.setId(rs.getInt("idFormacaoAcademica"));
+                form.setEndDate(rs.getDate("dataFim"));
+                form.setStartDate(rs.getDate("dataInicio"));
+                form.setInstitute(rs.getString("instituicao"));
+                form.setCourseName(rs.getString("nomeCurso"));
                 form.setProfessor(new Professor());
                 form.getProfessor().setId(rs.getInt("idProfessor"));
                 lista.add(form);
@@ -47,7 +47,7 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
         StringBuilder sql = new StringBuilder();
         try {
             conn = new MySQLDataBaseConnection().getConnection();
-            if (f.getIdFormacaoAcademica() == null) {
+            if (f.getId() == null) {
                 sql.append("INSERT INTO formacaoacademica(dataInicio,dataFim,nomeCurso,instituicao,idProfessor) ")
                         .append("VALUES(?,?,?,?,?)");
                 stmt = conn.prepareStatement(sql.toString());
@@ -56,12 +56,12 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
                 sql.append("UPDATE formacaoacademica SET dataInicio=?,dataFim=?,nomeCurso=?,instituicao=? ")
                         .append("WHERE idFormacaoAcademica=?");
                 stmt = conn.prepareStatement(sql.toString());
-                stmt.setInt(5, f.getIdFormacaoAcademica());
+                stmt.setInt(5, f.getId());
             }
-            stmt.setDate(1, new java.sql.Date(f.getDataInicio().getTime()));
-            stmt.setDate(2, new java.sql.Date(f.getDataFim().getTime()));
-            stmt.setString(3, f.getNomeCurso());
-            stmt.setString(4, f.getInstituicao());
+            stmt.setDate(1, new java.sql.Date(f.getStartDate().getTime()));
+            stmt.setDate(2, new java.sql.Date(f.getEndDate().getTime()));
+            stmt.setString(3, f.getCourseName());
+            stmt.setString(4, f.getInstitute());
             stmt.executeUpdate();
             stmt.close();
         } catch (Exception ex) {
@@ -75,18 +75,18 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
          StringBuilder sql = new StringBuilder();
          sql.append("SELECT idFormacaoAcademica FROM formacaoacademica WHERE UPPER(nomeCurso) = UPPER(?) ")
          .append("AND UPPER(instituicao) = UPPER(?) AND dataInicio=? AND dataFim=? AND idProfessor = ? ");
-         if(form.getIdFormacaoAcademica() != null)
+         if(form.getId() != null)
              sql.append("AND idFormacaoAcademica <> ?");
         try{
             conn = new MySQLDataBaseConnection().getConnection();
             stmt = conn.prepareStatement(sql.toString());
-            stmt.setString(1, form.getNomeCurso());
-            stmt.setString(2, form.getInstituicao());
-            stmt.setDate(3, new java.sql.Date(form.getDataInicio().getTime()));
-            stmt.setDate(4, new java.sql.Date(form.getDataFim().getTime()));
+            stmt.setString(1, form.getCourseName());
+            stmt.setString(2, form.getInstitute());
+            stmt.setDate(3, new java.sql.Date(form.getStartDate().getTime()));
+            stmt.setDate(4, new java.sql.Date(form.getEndDate().getTime()));
             stmt.setInt(5, form.getProfessor().getId());
-            if(form.getIdFormacaoAcademica() != null)
-                 stmt.setInt(4, form.getIdFormacaoAcademica());
+            if(form.getId() != null)
+                 stmt.setInt(4, form.getId());
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -108,7 +108,7 @@ public class FormacaoAcademicaDAO extends MySQLDataBaseConnection implements IFo
         try {
             conn = new MySQLDataBaseConnection().getConnection();
             stmt = conn.prepareStatement(sql.toString());
-            stmt.setInt(1, f.getIdFormacaoAcademica());
+            stmt.setInt(1, f.getId());
             stmt.executeUpdate();
             stmt.close();
             conn.close();

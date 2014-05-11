@@ -59,26 +59,26 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
             while (rs.next()) {
                 p = new Professor();
                 p.setId(rs.getInt("idProfessor"));
-                p.setNome(rs.getString("nome"));
+                p.setName(rs.getString("nome"));
                 p.setLogin(rs.getString("login"));
-                p.setSenha(rs.getString("senha"));
-                p.setTelefone(rs.getString("telefone"));
+                p.setPassword(rs.getString("senha"));
+                p.setPhoneNumber(rs.getString("telefone"));
                 p.setEmail(rs.getString("email"));
-                p.setFoto(rs.getBytes("foto"));
+                p.setPhoto(rs.getBytes("foto"));
                 p.setCpf(rs.getString("cpf"));
-                p.setDataNascimento(rs.getDate("dataNascimento"));
-                p.setRg(rs.getString("rg"));
-                p.setOutrasInformacoes(rs.getString("outrasInformacoes"));
+                p.setBirthDate(rs.getDate("dataNascimento"));
+                p.setGeneralRegisterNumber(rs.getString("rg"));
+                p.setOtherInformations(rs.getString("outrasInformacoes"));
                 p.setStatus(SituProfessor.indice(rs.getInt("status")));
-                p.setTipo(TipoProfessor.indice(rs.getInt("tipo")));
+                p.setType(TipoProfessor.indice(rs.getInt("tipo")));
                 idEnd = rs.getInt("idEndereco");
             }
             rs.close();
             stmt.close();
             conn.close();
-            p.setEndereco(recuperarEndereco(idEnd));
-            if (p.getEndereco() == null) {
-                p.setEndereco(new Address());
+            p.setAddress(recuperarEndereco(idEnd));
+            if (p.getAddress() == null) {
+                p.setAddress(new Address());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,13 +99,13 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
 
             while (rs.next()) {
                 e = new Address();
-                e.setIdEndereco(rs.getInt("idEndereco"));
-                e.setNumero((Integer) rs.getObject("numero"));
-                e.setBairro(rs.getString("bairro"));
-                e.setCep(rs.getString("cep"));
-                e.setCidade(rs.getString("cidade"));
-                e.setLogradouro(rs.getString("logradouro"));
-                e.setUf(rs.getString("uf"));
+                e.setId(rs.getInt("idEndereco"));
+                e.setNumber((Integer) rs.getObject("numero"));
+                e.setNeighborhood(rs.getString("bairro"));
+                e.setZipCode(rs.getString("cep"));
+                e.setCity(rs.getString("cidade"));
+                e.setStreet(rs.getString("logradouro"));
+                e.setFederativeUnit(rs.getString("uf"));
             }
             stmt.close();
             conn.close();
@@ -122,27 +122,27 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
         try {
             conn = new MySQLDataBaseConnection().getConnection();
             conn.setAutoCommit(false);
-            salvarOuAtualizarEndereco(p.getEndereco());
+            salvarOuAtualizarEndereco(p.getAddress());
             sql.append("UPDATE professor SET nome=?,senha=?,login=?,telefone=?,email=?, ")
                     .append("foto=?,cpf=?,dataNascimento=?,rg=?,outrasInformacoes=?,status=? ");
-            if (p.getEndereco() != null && p.getEndereco().getIdEndereco() != null) {
+            if (p.getAddress() != null && p.getAddress().getId() != null) {
                 sql.append(",idEndereco = ? ");
             }
             sql.append("WHERE idProfessor=? ");
             stmt = conn.prepareStatement(sql.toString());
-            stmt.setString(1, p.getNome());
-            stmt.setString(2, p.getSenha());
+            stmt.setString(1, p.getName());
+            stmt.setString(2, p.getPassword());
             stmt.setString(3, p.getLogin());
-            stmt.setString(4, p.getTelefone());
+            stmt.setString(4, p.getPhoneNumber());
             stmt.setString(5, p.getEmail());
-            stmt.setBytes(6, p.getFoto());
+            stmt.setBytes(6, p.getPhoto());
             stmt.setString(7, p.getCpf());
-            stmt.setObject(8, (p.getDataNascimento() != null) ? new java.sql.Date(p.getDataNascimento().getTime()) : null);
-            stmt.setString(9, p.getRg());
-            stmt.setString(10, p.getOutrasInformacoes());
+            stmt.setObject(8, (p.getBirthDate() != null) ? new java.sql.Date(p.getBirthDate().getTime()) : null);
+            stmt.setString(9, p.getGeneralRegisterNumber());
+            stmt.setString(10, p.getOtherInformations());
             stmt.setObject(11, p.getStatus().ordinal());
-            if (p.getEndereco() != null && p.getEndereco().getIdEndereco() != null) {
-                stmt.setInt(12, p.getEndereco().getIdEndereco());
+            if (p.getAddress() != null && p.getAddress().getId() != null) {
+                stmt.setInt(12, p.getAddress().getId());
                 stmt.setInt(13, p.getId());
             } else {
                 stmt.setInt(12, p.getId());
@@ -204,7 +204,7 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
     private void salvarOuAtualizarEndereco(Address e) {
         StringBuilder sql = new StringBuilder();
         try {
-            if (e.getIdEndereco() == null) {
+            if (e.getId() == null) {
                 sql.append("INSERT INTO endereco(logradouro,numero,bairro,cidade,uf,cep) ")
                         .append("VALUES(?,?,?,?,?,?)");
                 stmt = conn.prepareStatement(sql.toString());
@@ -212,22 +212,22 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
                 sql.append("UPDATE endereco SET logradouro=?,numero=?,bairro=?,cidade=?,uf=?,cep=? ")
                         .append("WHERE idEndereco=?");
                 stmt = conn.prepareStatement(sql.toString());
-                stmt.setInt(7, e.getIdEndereco());
+                stmt.setInt(7, e.getId());
             }
-            stmt.setString(1, e.getLogradouro());
-            stmt.setObject(2, e.getNumero());
-            stmt.setString(3, e.getBairro());
-            stmt.setString(4, e.getCidade());
-            stmt.setString(5, e.getUf());
-            stmt.setString(6, e.getCep());
+            stmt.setString(1, e.getStreet());
+            stmt.setObject(2, e.getNumber());
+            stmt.setString(3, e.getNeighborhood());
+            stmt.setString(4, e.getCity());
+            stmt.setString(5, e.getFederativeUnit());
+            stmt.setString(6, e.getZipCode());
             stmt.executeUpdate();
             stmt.close();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        if (e.getIdEndereco() == null) {
-            e.setIdEndereco(getLastIdEndereco());
+        if (e.getId() == null) {
+            e.setId(getLastIdEndereco());
         }
     }
 
@@ -245,7 +245,7 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
 
             while (rs.next()) {
                 p = new Professor();
-                p.setNome(rs.getString("nome"));
+                p.setName(rs.getString("nome"));
                 p.setId(rs.getInt("idProfessor"));
                 p.setStatus(SituProfessor.indice(rs.getInt("status")));
                 professores.add(p);
@@ -272,7 +272,7 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
 
             while (rs.next()) {
                 p = new Professor();
-                p.setNome(rs.getString("nome"));
+                p.setName(rs.getString("nome"));
                 p.setId(rs.getInt("idProfessor"));
                 professores.add(p);
             }

@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import model.Disciplina;
+import model.Discipline;
 import model.Enum.SituProfessor;
 import model.Professor;
 
@@ -31,8 +31,8 @@ public class CoordenadorDAO extends MySQLDataBaseConnection implements ICoordena
             while (rs.next()) {
                 p = new Professor();
                 p.setId(rs.getInt("idProfessor"));
-                p.setNome(rs.getString("nome"));
-                p.setTelefone(rs.getString("telefone"));
+                p.setName(rs.getString("nome"));
+                p.setPhoneNumber(rs.getString("telefone"));
                 p.setEmail(rs.getString("email"));
                 p.setCpf(rs.getString("cpf"));
                 p.setStatus(SituProfessor.indice(rs.getInt("status")));
@@ -48,9 +48,9 @@ public class CoordenadorDAO extends MySQLDataBaseConnection implements ICoordena
     }
 
     @Override
-    public List<Disciplina> filtrarDisciplina(String nome) {
-        Disciplina d = null;
-        List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+    public List<Discipline> filtrarDisciplina(String nome) {
+        Discipline d = null;
+        List<Discipline> disciplinas = new ArrayList<Discipline>();
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT * FROM disciplina WHERE nome LIKE ? ORDER BY nome ASC");
         try {
@@ -60,9 +60,9 @@ public class CoordenadorDAO extends MySQLDataBaseConnection implements ICoordena
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                d = new Disciplina();
-                d.setNome(rs.getString("nome"));
-                d.setIdDisciplina(rs.getInt("idDisciplina"));
+                d = new Discipline();
+                d.setName(rs.getString("nome"));
+                d.setId(rs.getInt("idDisciplina"));
                 disciplinas.add(d);
             }
             rs.close();

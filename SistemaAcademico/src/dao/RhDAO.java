@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Coordenador;
-import model.Diretor;
-import model.Disciplina;
+import model.Coordinator;
+import model.Principal;
+import model.Discipline;
 import model.Professor;
 import model.Enum.SituProfessor;
 import model.Enum.TipoProfessor;
@@ -23,17 +23,17 @@ public class RhDAO {
     }
 
     public static void importarDisciplinas() {
-        List<Disciplina> disciplinas = null;
+        List<Discipline> disciplinas = null;
 
         StringBuilder sql = new StringBuilder();
         sql.append("INSERT INTO disciplina(nome) VALUES(?)");
         disciplinas = criarDisciplinas();
 
-        for (Disciplina disciplina : disciplinas) {
+        for (Discipline disciplina : disciplinas) {
             try {
                 conn = new MySQLDataBaseConnection().getConnection();
                 stmt = conn.prepareStatement(sql.toString());
-                stmt.setString(1, disciplina.getNome());
+                stmt.setString(1, disciplina.getName());
                 stmt.executeUpdate();
                 stmt.close();
                 conn.close();
@@ -58,20 +58,20 @@ public class RhDAO {
 
                 conn = new MySQLDataBaseConnection().getConnection();
                 stmt = conn.prepareStatement(sql.toString());
-                stmt.setString(1, professor.getNome());
+                stmt.setString(1, professor.getName());
                 stmt.setString(2, professor.getLogin());
-                stmt.setString(3, professor.getSenha());
+                stmt.setString(3, professor.getPassword());
                 stmt.setInt(4, professor.getStatus().ordinal());
-                stmt.setInt(5, professor.getTipo().ordinal());
+                stmt.setInt(5, professor.getType().ordinal());
                 stmt.executeUpdate();
-                if (professor.getClass().equals(Coordenador.class)) {
+                if (professor.getClass().equals(Coordinator.class)) {
                     sql = new StringBuilder();
                     sql.append("INSERT INTO coordenador(idCoordenador) VALUES(?)");
                     stmt = conn.prepareStatement(sql.toString());
                     ProfessorDAO dao = new ProfessorDAO();
                     stmt.setInt(1, dao.getLastIdProfessor());
                     stmt.executeUpdate();
-                } else if (professor.getClass().equals(Diretor.class)) {
+                } else if (professor.getClass().equals(Principal.class)) {
                     sql = new StringBuilder();
                     sql.append("INSERT INTO diretor(idDiretor) VALUES(?)");
                     stmt = conn.prepareStatement(sql.toString());
@@ -92,68 +92,68 @@ public class RhDAO {
         }
     }
 
-    public static List<Disciplina> criarDisciplinas() {
-        List<Disciplina> list = new ArrayList<Disciplina>();
+    public static List<Discipline> criarDisciplinas() {
+        List<Discipline> list = new ArrayList<Discipline>();
 
-        Disciplina d = new Disciplina();
-        d.setNome("Introdução ao Cálculo");
+        Discipline d = new Discipline();
+        d.setName("Introdução ao Cálculo");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Cálculo I");
+        d = new Discipline();
+        d.setName("Cálculo I");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Cálculo II");
+        d = new Discipline();
+        d.setName("Cálculo II");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Programação I");
+        d = new Discipline();
+        d.setName("Programação I");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Programação II");
+        d = new Discipline();
+        d.setName("Programação II");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Tópicos Avançados da Programação");
+        d = new Discipline();
+        d.setName("Tópicos Avançados da Programação");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Algebra Linear");
+        d = new Discipline();
+        d.setName("Algebra Linear");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Estrutura de Dados I");
+        d = new Discipline();
+        d.setName("Estrutura de Dados I");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Estrutura de Dados II");
+        d = new Discipline();
+        d.setName("Estrutura de Dados II");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Engenharia de Software I");
+        d = new Discipline();
+        d.setName("Engenharia de Software I");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Engenharia de Software II");
+        d = new Discipline();
+        d.setName("Engenharia de Software II");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Lógica");
+        d = new Discipline();
+        d.setName("Lógica");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Geometria Analática");
+        d = new Discipline();
+        d.setName("Geometria Analática");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Programação II");
+        d = new Discipline();
+        d.setName("Programação II");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Arquitetura de Computadores I");
+        d = new Discipline();
+        d.setName("Arquitetura de Computadores I");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Arquitetura de Computadores II");
+        d = new Discipline();
+        d.setName("Arquitetura de Computadores II");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Introdução � Multimidia Web");
+        d = new Discipline();
+        d.setName("Introdução � Multimidia Web");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Banco de Dados I");
+        d = new Discipline();
+        d.setName("Banco de Dados I");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Banco de Dados II");
+        d = new Discipline();
+        d.setName("Banco de Dados II");
         list.add(d);
-        d = new Disciplina();
-        d.setNome("Introdução à Ciência da Computação");
+        d = new Discipline();
+        d.setName("Introdução à Ciência da Computação");
         list.add(d);
         return list;
     }
@@ -163,67 +163,67 @@ public class RhDAO {
 
         Professor p;
         p = new Professor();
-        p.setTipo(TipoProfessor.Professor);
-        p.setNome("Vinicius Rosalen");
+        p.setType(TipoProfessor.Professor);
+        p.setName("Vinicius Rosalen");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("vinicius");
-        p.setSenha("vinicius");
+        p.setPassword("vinicius");
         list.add(p);
 
         p = new Professor();
-        p.setTipo(TipoProfessor.Professor);
-        p.setNome("Susilea Abreu");
+        p.setType(TipoProfessor.Professor);
+        p.setName("Susilea Abreu");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("susilea");
-        p.setSenha("susilea");
+        p.setPassword("susilea");
         list.add(p);
 
         p = new Professor();
-        p.setTipo(TipoProfessor.Professor);
-        p.setNome("Erlon Pinheiro");
+        p.setType(TipoProfessor.Professor);
+        p.setName("Erlon Pinheiro");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("erlon");
-        p.setSenha("erlon");
+        p.setPassword("erlon");
         list.add(p);
 
         p = new Professor();
-        p.setTipo(TipoProfessor.Professor);
-        p.setNome("Hudson Ramos");
+        p.setType(TipoProfessor.Professor);
+        p.setName("Hudson Ramos");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("hudson");
-        p.setSenha("hudson");
+        p.setPassword("hudson");
         list.add(p);
 
         p = new Professor();
-        p.setTipo(TipoProfessor.Professor);
-        p.setNome("Arnaldo");
+        p.setType(TipoProfessor.Professor);
+        p.setName("Arnaldo");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("arnaldo");
-        p.setSenha("arnaldo");
+        p.setPassword("arnaldo");
         list.add(p);
 
         p = new Professor();
-        p.setTipo(TipoProfessor.Professor);
-        p.setNome("Sandro Tonini");
+        p.setType(TipoProfessor.Professor);
+        p.setName("Sandro Tonini");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("sandro");
-        p.setSenha("sandro");
+        p.setPassword("sandro");
         list.add(p);
 
-        Coordenador c = new Coordenador();
-        c.setTipo(TipoProfessor.Coordenador);
-        c.setNome("Cristiano Biancardi");
+        Coordinator c = new Coordinator();
+        c.setType(TipoProfessor.Coordenador);
+        c.setName("Cristiano Biancardi");
         c.setStatus(SituProfessor.Ativo);
         c.setLogin("cristiano");
-        c.setSenha("cristiano");
+        c.setPassword("cristiano");
         list.add(c);
 
-        Diretor d = new Diretor();
-        d.setTipo(TipoProfessor.Diretor);
-        d.setNome("Diretor");
+        Principal d = new Principal();
+        d.setType(TipoProfessor.Diretor);
+        d.setName("Diretor");
         d.setStatus(SituProfessor.Ativo);
         d.setLogin("diretor");
-        d.setSenha("diretor");
+        d.setPassword("diretor");
         list.add(d);
 
         return list;

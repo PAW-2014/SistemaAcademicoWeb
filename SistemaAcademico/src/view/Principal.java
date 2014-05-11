@@ -22,8 +22,8 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.text.html.HTMLEditorKit;
 
 import model.AcademicFormation;
-import model.Disciplina;
-import model.DisciplinaPreferencial;
+import model.Discipline;
+import model.PreferentialDiscipline;
 import model.ProfessionalExperience;
 import model.Professor;
 import model.Enum.EnumStates;
@@ -55,9 +55,9 @@ public class Principal extends javax.swing.JFrame {
     private boolean isEdit = false;
     private boolean isExcluir = false;
     private boolean isPromover = false;
-    private List<Disciplina> disciplinas;
-    private DisciplinaPreferencial disciplinaPreferencial;
-    private Disciplina disciplina;
+    private List<Discipline> disciplinas;
+    private PreferentialDiscipline disciplinaPreferencial;
+    private Discipline disciplina;
     private Professor profSele;
     private boolean gerarCurriculo = false;
     
@@ -76,9 +76,9 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void controlePermissao() {
-        if (prof.getTipo().equals(TipoProfessor.Professor)) {
+        if (prof.getType().equals(TipoProfessor.Professor)) {
             MenuBar.setVisible(false);
-        } else if (prof.getTipo().equals(TipoProfessor.Coordenador)) {
+        } else if (prof.getType().equals(TipoProfessor.Coordenador)) {
             Importar.setVisible(false);
             Situ.setVisible(false);
             ExcluirPro.setVisible(false);
@@ -103,43 +103,43 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void carregarDadosProfessor() {
-        cNome.setText(prof.getNome());
-        cRg.setText(prof.getRg());
+        cNome.setText(prof.getName());
+        cRg.setText(prof.getGeneralRegisterNumber());
 //        cDataNascimento.setDate(prof.getDataNascimento());
-        cBairro.setText(prof.getEndereco().getBairro());
-        cCep.setText(prof.getEndereco().getCep());
-        cCidade.setText(prof.getEndereco().getCidade());
-        cUf.setSelectedItem(prof.getEndereco().getUf());
-        cCep.setText(prof.getEndereco().getCep());
+        cBairro.setText(prof.getAddress().getNeighborhood());
+        cCep.setText(prof.getAddress().getZipCode());
+        cCidade.setText(prof.getAddress().getCity());
+        cUf.setSelectedItem(prof.getAddress().getFederativeUnit());
+        cCep.setText(prof.getAddress().getZipCode());
         cCpf.setText(prof.getCpf());
         cEmail.setText(prof.getEmail());
-        cTelefone.setText(prof.getTelefone());
-        if (prof.getFoto() != null) {
-            cImg.setIcon(new ImageIcon(prof.getFoto()));
+        cTelefone.setText(prof.getPhoneNumber());
+        if (prof.getPhoto() != null) {
+            cImg.setIcon(new ImageIcon(prof.getPhoto()));
         }
-        cLogradouro.setText(prof.getEndereco().getLogradouro());
+        cLogradouro.setText(prof.getAddress().getStreet());
         try {
-            cNumero.setText(prof.getEndereco().getNumero().toString());
+            cNumero.setText(prof.getAddress().getNumber().toString());
         } catch (NullPointerException e) {
             cNumero.setText("");
         }
-        cObserva.setText(prof.getOutrasInformacoes());
+        cObserva.setText(prof.getOtherInformations());
     }
 
     public void setarDados() {
-        prof.setNome(getNome());
-        prof.setRg(getRg());
+        prof.setName(getNome());
+        prof.setGeneralRegisterNumber(getRg());
         prof.setCpf(getCpf());
         prof.setEmail(getEmail());
 //        prof.setDataNascimento(getDataNascimento());
-        prof.setTelefone(getTelefone());
-        prof.getEndereco().setLogradouro(getEndereco());
-        prof.getEndereco().setBairro(getBairro());
-        prof.getEndereco().setCidade(getCidade());
-        prof.getEndereco().setNumero(getNumero());
-        prof.getEndereco().setUf(getUf());
-        prof.getEndereco().setCep(getCep());
-        prof.setOutrasInformacoes(getObservacoes());
+        prof.setPhoneNumber(getTelefone());
+        prof.getAddress().setStreet(getEndereco());
+        prof.getAddress().setNeighborhood(getBairro());
+        prof.getAddress().setCity(getCidade());
+        prof.getAddress().setNumber(getNumero());
+        prof.getAddress().setFederativeUnit(getUf());
+        prof.getAddress().setZipCode(getCep());
+        prof.setOtherInformations(getObservacoes());
     }
 
     public void criarMascaras() {
@@ -194,16 +194,16 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void setarFormacao() {
-        formacao.setNomeCurso(getNomeCurso());
-        formacao.setInstituicao(getInstituicao());
+        formacao.setCourseName(getNomeCurso());
+        formacao.setInstitute(getInstituicao());
 //        formacao.setDataInicio(getDataInicial());
 //        formacao.setDataFim(getDataFim());
     }
 
     public void carregarFormacoes() {
         try {
-            prof.setFormacoesAcademicas(CtrFormacaoAcademica.getFormacoes(prof.getId()));
-            FormacaoDataModel tf = new FormacaoDataModel(prof.getFormacoesAcademicas());
+            prof.setAcademicFormations(CtrFormacaoAcademica.getFormacoes(prof.getId()));
+            FormacaoDataModel tf = new FormacaoDataModel(prof.getAcademicFormations());
             cTabela.setModel(tf);
         } catch (Exception e) {
             e.printStackTrace();
@@ -211,8 +211,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void preencherCamposFormacao() {
-        cNomeFormacao.setText(formacao.getNomeCurso());
-        cInstituicao.setText(formacao.getInstituicao());
+        cNomeFormacao.setText(formacao.getCourseName());
+        cInstituicao.setText(formacao.getInstitute());
 //        cDataInicial.setDate(formacao.getDataInicio());
 //        cDataFim.setDate(formacao.getDataFim());
     }
@@ -239,16 +239,16 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void setarExperiencia() {
-        experiencia.setEmpresa(getEmpresa());
-        experiencia.setFuncao(getFuncao());
+        experiencia.setFirm(getEmpresa());
+        experiencia.setFunction(getFuncao());
 //        experiencia.setDataInicio(getDataInicialExp());
 //        experiencia.setDataFim(getDataFimExp());
     }
 
     public void carregarExperiencias() {
         try {
-            prof.setExperienciasProfissionais(CtrExperienciaProfissional.getExperiencias(prof.getId()));
-            ExperienciaDataModel ed = new ExperienciaDataModel(prof.getExperienciasProfissionais());
+            prof.setProfessionalExperiences(CtrExperienciaProfissional.getExperiencias(prof.getId()));
+            ExperienciaDataModel ed = new ExperienciaDataModel(prof.getProfessionalExperiences());
             cTabelaExp.setModel(ed);
         } catch (Exception e) {
             e.printStackTrace();
@@ -256,8 +256,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void preencherCamposExperiencia() {
-        cEmpresa.setText(experiencia.getEmpresa());
-        cFuncao.setText(experiencia.getFuncao());
+        cEmpresa.setText(experiencia.getFirm());
+        cFuncao.setText(experiencia.getFunction());
 //        cDataInicialExp.setDate(experiencia.getDataInicio());
 //        cDataFImExp.setDate(experiencia.getDataFim());
     }
@@ -272,13 +272,13 @@ public class Principal extends javax.swing.JFrame {
 
     // ##################################### DISCIPLINA ########################################## 
     public void initDisciplinas() {
-        disciplinaPreferencial = new DisciplinaPreferencial();
+        disciplinaPreferencial = new PreferentialDiscipline();
         disciplinas = CtrDisciplina.listarDisciplinas();
-        prof.setDisciplinasPreferenciais(CtrDisciplina.getDisciplinas(prof.getId()));
+        prof.setPreferentialDisciplines(CtrDisciplina.getDisciplinas(prof.getId()));
         intersecaoListas();
         DisciplinaListModel dlm = new DisciplinaListModel(disciplinas);
         cListaAll.setModel(dlm);
-        DisciplinaPreferencialListModel dplm = new DisciplinaPreferencialListModel(prof.getDisciplinasPreferenciais());
+        DisciplinaPreferencialListModel dplm = new DisciplinaPreferencialListModel(prof.getPreferentialDisciplines());
         cListaSele.setModel(dplm);
     }
 
@@ -1218,7 +1218,7 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel1.setText("Formações Cadastradas:");
 
-        cTabela.setModel(new FormacaoDataModel(prof.getFormacoesAcademicas()));
+        cTabela.setModel(new FormacaoDataModel(prof.getAcademicFormations()));
         cTabela.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         cTabela.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         cTabela.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1999,9 +1999,9 @@ public class Principal extends javax.swing.JFrame {
         if (cSeleProfCurricu.getSelectedItem() != null) {
             profSele = (Professor) cSeleProfCurricu.getModel().getSelectedItem();
             profSele = CtrProfessor.getProfessor(profSele.getId());
-            profSele.setDisciplinasPreferenciais(CtrDisciplina.getDisciplinas(profSele.getId()));
-            profSele.setExperienciasProfissionais(CtrExperienciaProfissional.getExperiencias(profSele.getId()));
-            profSele.setFormacoesAcademicas(CtrFormacaoAcademica.getFormacoes(profSele.getId()));
+            profSele.setPreferentialDisciplines(CtrDisciplina.getDisciplinas(profSele.getId()));
+            profSele.setProfessionalExperiences(CtrExperienciaProfissional.getExperiencias(profSele.getId()));
+            profSele.setAcademicFormations(CtrFormacaoAcademica.getFormacoes(profSele.getId()));
             HTMLEditorKit kit = new HTMLEditorKit();
             editor.setEditorKit(kit);
             String html = FormatProfessorToHtml.format(profSele);
@@ -2019,8 +2019,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void bSalvarPDFMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSalvarPDFMousePressed
         if (profSele != null && gerarCurriculo) {
-            if (CtrCoordenador.generatePDFFromHtml(profSele.getNome(), FormatProfessorToHtml.format(profSele))) {
-                JOptionPane.showMessageDialog(dialogoCurriculo, MessageUtil.msgCurriculoCriadoSucesso(profSele.getNome()));
+            if (CtrCoordenador.generatePDFFromHtml(profSele.getName(), FormatProfessorToHtml.format(profSele))) {
+                JOptionPane.showMessageDialog(dialogoCurriculo, MessageUtil.msgCurriculoCriadoSucesso(profSele.getName()));
                 gerarCurriculo = false;
             }
             dialogoProgressBar.setVisible(false);
@@ -2050,18 +2050,18 @@ public class Principal extends javax.swing.JFrame {
         profSele = (Professor) cListaProfessores.getModel().getSelectedItem();
         if (profSele != null) {
             if (isPromover) {
-                if (JOptionPane.showConfirmDialog(dialogoAcao, MessageUtil.msgAcao(profSele.getNome(), "promover")) == 0) {
+                if (JOptionPane.showConfirmDialog(dialogoAcao, MessageUtil.msgAcao(profSele.getName(), "promover")) == 0) {
                     if (CtrDiretor.promoverProfessor(profSele)) {
-                        JOptionPane.showMessageDialog(dialogoAcao, MessageUtil.msgSucesso(profSele.getNome(), "promovido"));
+                        JOptionPane.showMessageDialog(dialogoAcao, MessageUtil.msgSucesso(profSele.getName(), "promovido"));
                         dialogoAcao.setVisible(false);
                     }
                 }
             }
             if (isExcluir) {
                 profSele = CtrProfessor.getProfessor(profSele.getId());
-                if (JOptionPane.showConfirmDialog(dialogoAcao, MessageUtil.msgAcao(profSele.getNome(), "excluir")) == 0) {
+                if (JOptionPane.showConfirmDialog(dialogoAcao, MessageUtil.msgAcao(profSele.getName(), "excluir")) == 0) {
                     if (CtrDiretor.excluirProfessor(profSele)) {
-                        JOptionPane.showMessageDialog(dialogoAcao, MessageUtil.msgSucesso(profSele.getNome(), "excluído"));
+                        JOptionPane.showMessageDialog(dialogoAcao, MessageUtil.msgSucesso(profSele.getName(), "excluído"));
                     }
                     dialogoAcao.setVisible(false);
                 }
@@ -2129,9 +2129,9 @@ public class Principal extends javax.swing.JFrame {
                 msg = "ativado";
             }
 
-            if (JOptionPane.showConfirmDialog(dialogoStatus, MessageUtil.msgConfirmacao(profSele.getNome(), acao)) == 0) {
+            if (JOptionPane.showConfirmDialog(dialogoStatus, MessageUtil.msgConfirmacao(profSele.getName(), acao)) == 0) {
                 if (CtrProfessor.alterarProfessor(profSele)) {
-                    JOptionPane.showMessageDialog(dialogoStatus, MessageUtil.msgSucesso(profSele.getNome(), msg));
+                    JOptionPane.showMessageDialog(dialogoStatus, MessageUtil.msgSucesso(profSele.getName(), msg));
                 }
             }
         }
@@ -2174,11 +2174,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_tabsStateChanged
 
     private void bGravarDisciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bGravarDisciActionPerformed
-        if (prof.getDisciplinasPreferenciais().size() > 0 || CtrDisciplina.getDisciplinas(prof.getId()).size() > 0) {
-            List<DisciplinaPreferencial> listaExcluir = new ArrayList<DisciplinaPreferencial>();
+        if (prof.getPreferentialDisciplines().size() > 0 || CtrDisciplina.getDisciplinas(prof.getId()).size() > 0) {
+            List<PreferentialDiscipline> listaExcluir = new ArrayList<PreferentialDiscipline>();
             listaExcluir = CtrDisciplina.getDisciplinas(prof.getId());
-            listaExcluir.removeAll(prof.getDisciplinasPreferenciais());
-            if (CtrDisciplina.salvarDisciplinasPreferenciais(prof.getDisciplinasPreferenciais(), listaExcluir)) {
+            listaExcluir.removeAll(prof.getPreferentialDisciplines());
+            if (CtrDisciplina.salvarDisciplinasPreferenciais(prof.getPreferentialDisciplines(), listaExcluir)) {
                 JOptionPane.showMessageDialog(null, MessageUtil.msgSucessoMult("incluídos"));
             }
             initDisciplinas();
@@ -2186,23 +2186,23 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_bGravarDisciActionPerformed
 
     private void bCancelarDisciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarDisciActionPerformed
-        prof.setDisciplinasPreferenciais(CtrDisciplina.getDisciplinas(prof.getId()));
+        prof.setPreferentialDisciplines(CtrDisciplina.getDisciplinas(prof.getId()));
         initDisciplinas();
     }//GEN-LAST:event_bCancelarDisciActionPerformed
 
     private void bVoltarAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoltarAllActionPerformed
-        prof.getDisciplinasPreferenciais().clear();
+        prof.getPreferentialDisciplines().clear();
         DisciplinaListModel dlm = new DisciplinaListModel(disciplinas);
         cListaAll.setModel(dlm);
-        DisciplinaPreferencialListModel dplm = new DisciplinaPreferencialListModel(prof.getDisciplinasPreferenciais());
+        DisciplinaPreferencialListModel dplm = new DisciplinaPreferencialListModel(prof.getPreferentialDisciplines());
         cListaSele.setModel(dplm);
     }//GEN-LAST:event_bVoltarAllActionPerformed
 
     private void bVoltarOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bVoltarOneActionPerformed
-        disciplinaPreferencial = new DisciplinaPreferencial();
-        disciplinaPreferencial = (DisciplinaPreferencial) cListaSele.getSelectedValue();
+        disciplinaPreferencial = new PreferentialDiscipline();
+        disciplinaPreferencial = (PreferentialDiscipline) cListaSele.getSelectedValue();
         if (disciplinaPreferencial != null) {
-            disciplina = disciplinaPreferencial.getDisciplina();
+            disciplina = disciplinaPreferencial.getDiscipline();
             prof.removeDisciplinaPreferencial(disciplinaPreferencial);
             disciplinas.add(disciplina);
             atualizarListsDisciplinas();
@@ -2210,21 +2210,21 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_bVoltarOneActionPerformed
 
     private void bPassarOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPassarOneActionPerformed
-        disciplina = new Disciplina();
-        disciplina = (Disciplina) cListaAll.getSelectedValue();
+        disciplina = new Discipline();
+        disciplina = (Discipline) cListaAll.getSelectedValue();
         if (disciplina != null) {
             disciplinas.remove(disciplina);
-            disciplinaPreferencial = new DisciplinaPreferencial();
-            disciplinaPreferencial.setDisciplina(disciplina);
+            disciplinaPreferencial = new PreferentialDiscipline();
+            disciplinaPreferencial.setDiscipline(disciplina);
             prof.addDisciplinaPreferencial(disciplinaPreferencial);
             atualizarListsDisciplinas();
         }
     }//GEN-LAST:event_bPassarOneActionPerformed
 
     private void bPassarAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPassarAllActionPerformed
-        for (Disciplina disci : disciplinas) {
-            disciplinaPreferencial = new DisciplinaPreferencial();
-            disciplinaPreferencial.setDisciplina(disci);
+        for (Discipline disci : disciplinas) {
+            disciplinaPreferencial = new PreferentialDiscipline();
+            disciplinaPreferencial.setDiscipline(disci);
             prof.addDisciplinaPreferencial(disciplinaPreferencial);
         }
 
@@ -2248,7 +2248,7 @@ public class Principal extends javax.swing.JFrame {
                 if (CtrExperienciaProfissional.verificarExperiencia(experiencia)) {
                     JOptionPane.showMessageDialog(null, MessageUtil.msgJaCadastrada("Experiência Profissional"));
                 } else if (CtrExperienciaProfissional.salvarOuAtualizarExperiencia(experiencia)) {
-                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getEmpresa(), "editado"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getFirm(), "editado"));
                     initExpProfissional();
                 }
             }
@@ -2258,7 +2258,7 @@ public class Principal extends javax.swing.JFrame {
                 if (CtrExperienciaProfissional.verificarExperiencia(experiencia)) {
                     JOptionPane.showMessageDialog(null, MessageUtil.msgJaCadastrada("Experiência Profissional"));
                 } else if (CtrExperienciaProfissional.salvarOuAtualizarExperiencia(experiencia)) {
-                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getEmpresa(), "incluído"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getFirm(), "incluído"));
                     initExpProfissional();
                 }
             }
@@ -2290,9 +2290,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void bExcluirExpSeleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirExpSeleActionPerformed
         if (experiencia != null) {
-            if (JOptionPane.showConfirmDialog(null, MessageUtil.msgConfirmacao(experiencia.getEmpresa(), "excluir")) == 0) {
+            if (JOptionPane.showConfirmDialog(null, MessageUtil.msgConfirmacao(experiencia.getFirm(), "excluir")) == 0) {
                 if (CtrExperienciaProfissional.excluir(experiencia)) {
-                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getEmpresa(), "excluido"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(experiencia.getFirm(), "excluido"));
                     CtrProfessor.alterarProfessor(prof);
                     limparCamposExperiencia();
                     carregarExperiencias();
@@ -2324,7 +2324,7 @@ public class Principal extends javax.swing.JFrame {
                 if (CtrFormacaoAcademica.verificarFormacao(formacao)) {
                     JOptionPane.showMessageDialog(null, MessageUtil.msgJaCadastrada("Formação"));
                 } else if (CtrFormacaoAcademica.salvarOuAtualizarFormacao(formacao)) {
-                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getNomeCurso(), "editado"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getCourseName(), "editado"));
                     initFormacaoAcademica();
                 }
             }
@@ -2334,7 +2334,7 @@ public class Principal extends javax.swing.JFrame {
                 if (CtrFormacaoAcademica.verificarFormacao(formacao)) {
                     JOptionPane.showMessageDialog(null, MessageUtil.msgJaCadastrada("Formação"));
                 } else if (CtrFormacaoAcademica.salvarOuAtualizarFormacao(formacao)) {
-                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getNomeCurso(), "incluído"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getCourseName(), "incluído"));
                     initFormacaoAcademica();
                 }
             }
@@ -2366,9 +2366,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void bExcluirFormaSeleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirFormaSeleActionPerformed
         if (formacao != null) {
-            if (JOptionPane.showConfirmDialog(null, MessageUtil.msgConfirmacao(formacao.getNomeCurso(), "excluir")) == 0) {
+            if (JOptionPane.showConfirmDialog(null, MessageUtil.msgConfirmacao(formacao.getCourseName(), "excluir")) == 0) {
                 if (CtrFormacaoAcademica.excluir(formacao)) {
-                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getNomeCurso(), "excluido"));
+                    JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(formacao.getCourseName(), "excluido"));
                     carregarFormacoes();
                     limparCamposFormacao();
                     formacao = new AcademicFormation();
@@ -2414,7 +2414,7 @@ public class Principal extends javax.swing.JFrame {
         if (validarCamposDados()) {
             setarDados();
             if (CtrProfessor.alterarProfessor(prof)) {
-                JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(prof.getNome(), "editado"));
+                JOptionPane.showMessageDialog(null, MessageUtil.msgSucesso(prof.getName(), "editado"));
                 if (prof instanceof Professor) {
                     rendCamposDados();
                 }
@@ -2451,7 +2451,7 @@ public class Principal extends javax.swing.JFrame {
         if (!(getTipoConsulta() == null)) {
             if (getTipoConsulta().toString().equals("Disciplina")) {
                 DisciplinaDataModel model;
-                model = new DisciplinaDataModel(new ArrayList<Disciplina>());
+                model = new DisciplinaDataModel(new ArrayList<Discipline>());
                 cTabelaConsulta.setModel(model);
             } else if (getTipoConsulta().equals("Professor")) {
                 ProfessorDataModel model;
@@ -2671,9 +2671,9 @@ public class Principal extends javax.swing.JFrame {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(bImage, "jpg", baos);
             byte[] res = baos.toByteArray();
-            prof.setFoto(res);
+            prof.setPhoto(res);
         } catch (Exception ex) {
-            prof.setFoto(null);
+            prof.setPhoto(null);
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -3116,15 +3116,15 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void atualizarListsDisciplinas() {
-        cListaSele.setModel(new DisciplinaPreferencialListModel(prof.getDisciplinasPreferenciais()));
+        cListaSele.setModel(new DisciplinaPreferencialListModel(prof.getPreferentialDisciplines()));
         Collections.sort(disciplinas);
         cListaAll.setModel(new DisciplinaListModel(disciplinas));
     }
 
     public void intersecaoListas() {
-        List<Disciplina> lista = new ArrayList<Disciplina>();
-        for (DisciplinaPreferencial dp : prof.getDisciplinasPreferenciais()) {
-            lista.add(dp.getDisciplina());
+        List<Discipline> lista = new ArrayList<Discipline>();
+        for (PreferentialDiscipline dp : prof.getPreferentialDisciplines()) {
+            lista.add(dp.getDiscipline());
         }
         disciplinas.removeAll(lista);
     }
@@ -3143,8 +3143,8 @@ public class Principal extends javax.swing.JFrame {
         return cPesquisa.getText().trim();
     }
 
-    public List<Disciplina> filtroDisciplinas(String filtro) {
-       List<Disciplina> lista = null;
+    public List<Discipline> filtroDisciplinas(String filtro) {
+       List<Discipline> lista = null;
         lista = CtrCoordenador.consultarDisciplina(filtro);
         return lista;
     }

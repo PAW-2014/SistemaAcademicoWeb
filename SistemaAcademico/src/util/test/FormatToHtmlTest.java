@@ -1,16 +1,20 @@
 package util.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static util.FormatToHtml.HTMLField;
+import static util.FormatToHtml.HTMLSubTitle;
+import static util.FormatToHtml.HTMLTitle;
+import static util.FormatToHtml.tagWrapper;
+import model.Enum.HTMLBaseTagsEnum;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import util.FormatToHtml;
+public class FormatToHtmlTest{
 
-public class FormatToHtmlTest extends FormatToHtml {
-
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	@Test
-	public void testHTMLTitleGoodCase() {
+	public void testHTMLTitle_GoodCase() {
 		
 		String expected = "<center><h1>Teste</h1><hr/></center>";
 		
@@ -18,7 +22,7 @@ public class FormatToHtmlTest extends FormatToHtml {
 	}
 	
 	@Test
-	public void testHTMLTitleEmptyCase() {
+	public void testHTMLTitle_CaseEmpty() {
 		
 		String expected = "";
 		
@@ -26,15 +30,17 @@ public class FormatToHtmlTest extends FormatToHtml {
 	}
 	
 	@Test
-	public void testHTMLTitleNullCase() {
+	public void testHTMLTitle_CaseNull() {
 		
 		String expected = "";
 		
 		assertEquals(expected, HTMLTitle(null));
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	@Test
-	public void testHTMLSubTitleGoodCase() {
+	public void testHTMLSubTitle_GoodCase() {
 		
 		String expected = "<center><h2 class='h2'>Teste</h2></center>";
 		
@@ -42,7 +48,7 @@ public class FormatToHtmlTest extends FormatToHtml {
 	}
 	
 	@Test
-	public void testHTMLSubTitleEmptyCase() {
+	public void testHTMLSubTitle_CaseEmpty() {
 		
 		String expected = "";
 		
@@ -50,29 +56,147 @@ public class FormatToHtmlTest extends FormatToHtml {
 	}
 	
 	@Test
-	public void testHTMLSubTitleNullCase() {
+	public void testHTMLSubTitle_CaseNull() {
 		
 		String expected = "";
 		
 		assertEquals(expected, HTMLSubTitle(null));
 	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	@Ignore
 	@Test
-	public void testHTMLField() {
-		fail("Not yet implemented");
+	public void testHTMLField_GoodCase() {
+		
+		String expected = "<b>Nome: </b>Arthur";
+		
+		assertEquals(expected, HTMLField("Nome", "Arthur"));
+	}
+	
+	@Test
+	public void testHTMLField_CaseEmptyFirstField() {
+		
+		String expected = "";
+		
+		assertEquals(expected, HTMLField("", "Arthur"));
+	}
+	
+	@Test
+	public void testHTMLField_CaseEmptySecondField() {
+		
+		String expected = "";
+		
+		assertEquals(expected, HTMLField("Nome", ""));
+	}
+	
+	@Test
+	public void testHTMLField_CaseNullFirstField() {
+		
+		String expected = "";
+		
+		assertEquals(expected, HTMLField("Nome", null));
+	}
+	
+	@Test
+	public void testHTMLField_CaseNullSecondField() {
+		
+		String expected = "";
+		
+		assertEquals(expected, HTMLField(null, "Arthur"));
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Test
+	public void testTagWrapper_HTMLBaseTagsEnum_String_GoodCase() {
+
+		String expected  = "<b>Testing</b>";
+		
+		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "Testing"));
+		
+	}
+	
+	@Test
+	public void testTagWrapper_HTMLBaseTagsEnum_String_CaseEmpty() {
+
+		String expected  = "";
+		
+		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, ""));
+		
+	}
+	
+	@Test
+	public void testTagWrapper_HTMLBaseTagsEnum_String_CaseNullFirstField() {
+
+		String expected  = "";
+		
+		assertEquals(expected, tagWrapper(null, "Testing"));
+		
+	}
+	
+	@Test
+	public void testTagWrapper_HTMLBaseTagsEnum_String_CaseNullSecondField() {
+
+		String expected  = "";
+		
+		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, null));
+		
 	}
 
-	@Ignore
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	@Test
-	public void testTagWrapperHTMLBaseTagsEnumString() {
-		fail("Not yet implemented");
+	public void testTagWrapper_HTMLBaseTagsEnum_String_String_GoodCase() {
+		
+		String expected  = "<b class='test'>Testing</b>";
+		
+		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "class='test'", "Testing"));
+		
 	}
-
-	@Ignore
+	
 	@Test
-	public void testTagWrapperHTMLBaseTagsEnumStringString() {
-		fail("Not yet implemented");
+	public void testTagWrapper_HTMLBaseTagsEnum_String_String_CaseEmptySecondField() {
+		
+		String expected  = "<b>Testing</b>";
+		
+		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "", "Testing"));
+		
+	}
+	
+	@Test
+	public void testTagWrapper_HTMLBaseTagsEnum_String_String_CaseEmptyThirdField() {
+		
+		String expected  = "";
+		
+		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "class='test'", ""));
+		
+	}
+	
+	@Test
+	public void testTagWrapper_HTMLBaseTagsEnum_String_String_CaseNullFirstField() {
+		
+		String expected  = "";
+		
+		assertEquals(expected, tagWrapper(null, "", "Testing"));
+		
+	}
+	
+	@Test
+	public void testTagWrapper_HTMLBaseTagsEnum_String_String_CaseNullSecondField() {
+		
+		String expected  = "<b>Testing</b>";
+		
+		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, null, "Testing"));
+		
+	}
+	
+	@Test
+	public void testTagWrapper_HTMLBaseTagsEnum_String_String_CaseNullThirdField() {
+		
+		String expected  = "";
+		
+		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "class='test'", null));
+		
 	}
 
 }

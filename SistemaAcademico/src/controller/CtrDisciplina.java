@@ -3,8 +3,8 @@ package controller;
 import dao.DisciplinaDAO;
 import dao.interfaces.IDisciplina;
 import java.util.List;
-import model.Disciplina;
-import model.DisciplinaPreferencial;
+import model.Discipline;
+import model.PreferentialDiscipline;
 
 public class CtrDisciplina {
     private static IDisciplina dao = new DisciplinaDAO();
@@ -12,7 +12,7 @@ public class CtrDisciplina {
      * Método que recupera todas as disciplinas cadastradas no sistema
      * @return 
      */
-    public static List<Disciplina> listarDisciplinas(){
+    public static List<Discipline> listarDisciplinas(){
         try{
           return dao.listarDisciplinas();
         }catch(Exception e){
@@ -25,7 +25,7 @@ public class CtrDisciplina {
      * Método que recupera todas as disciplinas cadastradas no sistema
      * @return 
      */
-    public static List<DisciplinaPreferencial> getDisciplinas(Integer idProfessor){
+    public static List<PreferentialDiscipline> getDisciplinas(Integer idProfessor){
         try{
           return dao.getDisiciplinasPreferenciais(idProfessor);
         }catch(Exception e){
@@ -34,7 +34,7 @@ public class CtrDisciplina {
         return null;
     }
     
-    public static boolean salvarDisciplinasPreferenciais(List<DisciplinaPreferencial> list, List<DisciplinaPreferencial> exclu){
+    public static boolean salvarDisciplinasPreferenciais(List<PreferentialDiscipline> list, List<PreferentialDiscipline> exclu){
         try{
            dao.salvarDisciplinasPreferenciais(list,exclu);
           return true;

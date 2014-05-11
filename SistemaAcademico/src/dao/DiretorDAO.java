@@ -61,8 +61,8 @@ public class DiretorDAO extends MySQLDataBaseConnection implements IDiretor {
         try {
             conn = new MySQLDataBaseConnection().getConnection();
             conn.setAutoCommit(false);
-            if (p.getEndereco() != null && p.getEndereco().getIdEndereco() != null) {
-                excluirEndereco(p.getEndereco().getIdEndereco());
+            if (p.getAddress() != null && p.getAddress().getId() != null) {
+                excluirEndereco(p.getAddress().getId());
             }
             excluirFormacoes(p.getId());
             excluirDisciplinasPreferenciais(p.getId());

@@ -58,13 +58,13 @@ public class ExperienciaDataModel extends AbstractTableModel {
         ProfessionalExperience experiencia = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return experiencia.getEmpresa();
+                return experiencia.getFirm();
             case 1:
-                return experiencia.getFuncao();
+                return experiencia.getFunction();
             case 2:
-                return experiencia.getDataInicio();
+                return experiencia.getStartDate();
             case 3:
-                return experiencia.getDataFim();
+                return experiencia.getEndDate();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }

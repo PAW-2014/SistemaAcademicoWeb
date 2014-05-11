@@ -10,6 +10,13 @@ public class Util {
 	protected Util(){
 	}
 	
+	public static boolean startsWithSpace(String string){
+		if(isNotValid(string))
+			return false;
+		
+		return (string.charAt(0) == ' ');
+	}
+	
 	public static boolean isNotValid(Collection<? extends Object> list){
 		return !isValid(list);
 	}
@@ -18,12 +25,12 @@ public class Util {
 		return (!list.isEmpty());
 	}
 	
-	public static boolean isNotValid(String string){
-		return !isValid(string);
+	public static boolean isNotValid(Object object){
+		return !isValid(object);
 	}
 
-	public static boolean isValid(String string){
-		return (string != null && !"".equals(string));
+	public static boolean isValid(Object object){
+		return (object != null && !"".equals(object.toString()));
 	}
 	
 }

@@ -1,6 +1,6 @@
 package util;
 
-public class MessageUtil {
+public class MessageUtil { // TODO Rewrite
 
     public static String initHtml() {
         return "<html><body>";

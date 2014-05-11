@@ -6,22 +6,22 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import model.Disciplina;
+import model.Discipline;
 
 public class DisciplinaDataModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 8931893645918565315L;
 	
-	private List<Disciplina> linhas;
+	private List<Discipline> linhas;
     private String[] colunas = new String[]{
         "Nome Disciplina"};
 
     public DisciplinaDataModel() {
-        linhas = new ArrayList<Disciplina>();
+        linhas = new ArrayList<Discipline>();
     }
 
-    public DisciplinaDataModel(List<Disciplina> lista) {
-        linhas = new ArrayList<Disciplina>(lista);
+    public DisciplinaDataModel(List<Discipline> lista) {
+        linhas = new ArrayList<Discipline>(lista);
     }
 
     @Override
@@ -59,20 +59,20 @@ public class DisciplinaDataModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Disciplina disciplina = linhas.get(rowIndex);
+        Discipline disciplina = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return disciplina.getNome();
+                return disciplina.getName();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
     
-    public Disciplina getFormacao(int indiceLinha) {
+    public Discipline getFormacao(int indiceLinha) {
         return linhas.get(indiceLinha);
     }
 
-    public void addFormacao(Disciplina forma) {
+    public void addFormacao(Discipline forma) {
         linhas.add(forma);
         int ultimoIndice = getRowCount() - 1;
         fireTableRowsInserted(ultimoIndice, ultimoIndice);
@@ -83,7 +83,7 @@ public class DisciplinaDataModel extends AbstractTableModel {
         fireTableRowsDeleted(indiceLinha, indiceLinha);
     }
 
-    public void addListaDeFormacao(List<Disciplina> disciplinas) {
+    public void addListaDeFormacao(List<Discipline> disciplinas) {
         int tamanhoAntigo = getRowCount();
         linhas.addAll(disciplinas);
         fireTableRowsInserted(tamanhoAntigo, getRowCount() - 1);

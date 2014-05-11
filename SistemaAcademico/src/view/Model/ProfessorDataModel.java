@@ -62,13 +62,13 @@ public class ProfessorDataModel extends AbstractTableModel {
         Professor prof = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return prof.getNome();
+                return prof.getName();
                 case 1:
                 return prof.getCpf();
             case 2:
                 return prof.getEmail();
             case 3:
-                return prof.getTelefone();
+                return prof.getPhoneNumber();
              case 4:
                 return prof.getStatus();
             default:

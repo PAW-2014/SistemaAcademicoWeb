@@ -17,7 +17,7 @@ public class CtrProfessor {
      */
     public static boolean alterarSenha(Professor pro, String senha) {
         try {
-            pro.setSenha(senha);
+            pro.setPassword(senha);
             pd.updateData(pro);
             return true;
         } catch (Exception e) {

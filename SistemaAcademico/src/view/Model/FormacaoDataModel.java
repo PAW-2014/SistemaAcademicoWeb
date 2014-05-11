@@ -60,13 +60,13 @@ public class FormacaoDataModel extends AbstractTableModel {
         AcademicFormation formacao = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return formacao.getNomeCurso();
+                return formacao.getCourseName();
             case 1:
-                return formacao.getInstituicao();
+                return formacao.getInstitute();
             case 2:
-                return formacao.getDataInicio();
+                return formacao.getStartDate();
             case 3:
-                return formacao.getDataFim();
+                return formacao.getEndDate();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }

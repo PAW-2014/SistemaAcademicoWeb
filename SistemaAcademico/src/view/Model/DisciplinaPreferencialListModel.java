@@ -4,15 +4,15 @@ import java.util.List;
 
 import javax.swing.AbstractListModel;
 
-import model.DisciplinaPreferencial;
+import model.PreferentialDiscipline;
 
 public class DisciplinaPreferencialListModel extends AbstractListModel {
 
 	private static final long serialVersionUID = -227287167786551115L;
 	
-	private List<DisciplinaPreferencial> disciplinas;
+	private List<PreferentialDiscipline> disciplinas;
 
-    public DisciplinaPreferencialListModel(List<DisciplinaPreferencial> disciplinas) {
+    public DisciplinaPreferencialListModel(List<PreferentialDiscipline> disciplinas) {
         this.disciplinas = disciplinas;
     }
 
@@ -26,7 +26,7 @@ public class DisciplinaPreferencialListModel extends AbstractListModel {
     }
 
     @Override
-    public DisciplinaPreferencial getElementAt(int index) {
+    public PreferentialDiscipline getElementAt(int index) {
         try {
             return disciplinas.get(index);
         } catch (Exception e) {

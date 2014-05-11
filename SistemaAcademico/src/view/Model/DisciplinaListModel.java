@@ -2,15 +2,15 @@ package view.Model;
 
 import java.util.List;
 import javax.swing.AbstractListModel;
-import model.Disciplina;
+import model.Discipline;
 
 public class DisciplinaListModel extends AbstractListModel {
 
 	private static final long serialVersionUID = 3161642911906826704L;
 	
-	private List<Disciplina> disciplinas;
+	private List<Discipline> disciplinas;
 
-    public DisciplinaListModel(List<Disciplina> disciplinas) {
+    public DisciplinaListModel(List<Discipline> disciplinas) {
         this.disciplinas = disciplinas;
     }
 
@@ -24,7 +24,7 @@ public class DisciplinaListModel extends AbstractListModel {
     }
 
     @Override
-    public Disciplina getElementAt(int index) {
+    public Discipline getElementAt(int index) {
         try {
             return disciplinas.get(index);
         } catch (Exception e) {

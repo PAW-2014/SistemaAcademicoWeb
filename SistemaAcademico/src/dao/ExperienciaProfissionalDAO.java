@@ -26,11 +26,11 @@ private Connection conn = null;
             rs = stmt.executeQuery();
             while(rs.next()){
                 ProfessionalExperience exp = new ProfessionalExperience();
-                exp.setIdExperiencia(rs.getInt("idExperienciaProfissional"));
-                exp.setDataFim(rs.getDate("dataFim"));
-                exp.setDataInicio(rs.getDate("dataInicio"));
-                exp.setEmpresa(rs.getString("empresa"));
-                exp.setFuncao(rs.getString("funcao"));
+                exp.setId(rs.getInt("idExperienciaProfissional"));
+                exp.setEndDate(rs.getDate("dataFim"));
+                exp.setStartDate(rs.getDate("dataInicio"));
+                exp.setFirm(rs.getString("empresa"));
+                exp.setFunction(rs.getString("funcao"));
                 exp.setProfessor(new Professor());
                 exp.getProfessor().setId(rs.getInt("idProfessor"));
                 lista.add(exp);
@@ -46,7 +46,7 @@ private Connection conn = null;
         StringBuilder sql = new StringBuilder();
         try {
             conn = new MySQLDataBaseConnection().getConnection();
-            if (ep.getIdExperiencia() == null) {
+            if (ep.getId() == null) {
                 sql.append("INSERT INTO experienciaprofissional(dataInicio,dataFim,empresa,funcao,idProfessor) ")
                         .append("VALUES(?,?,?,?,?)");
                 stmt = conn.prepareStatement(sql.toString());
@@ -55,12 +55,12 @@ private Connection conn = null;
                 sql.append("UPDATE experienciaprofissional SET dataInicio=?,dataFim=?,empresa=?,funcao=? ")
                         .append("WHERE idExperienciaProfissional=?");
                 stmt = conn.prepareStatement(sql.toString());
-                stmt.setInt(5, ep.getIdExperiencia());
+                stmt.setInt(5, ep.getId());
             }
-            stmt.setDate(1, new java.sql.Date(ep.getDataInicio().getTime()));
-            stmt.setDate(2, new java.sql.Date(ep.getDataFim().getTime()));
-            stmt.setString(3, ep.getEmpresa());
-            stmt.setString(4, ep.getFuncao());
+            stmt.setDate(1, new java.sql.Date(ep.getStartDate().getTime()));
+            stmt.setDate(2, new java.sql.Date(ep.getEndDate().getTime()));
+            stmt.setString(3, ep.getFirm());
+            stmt.setString(4, ep.getFunction());
             stmt.executeUpdate();
             stmt.close();
         } catch (Exception ex) {
@@ -74,18 +74,18 @@ private Connection conn = null;
          StringBuilder sql = new StringBuilder();
          sql.append("SELECT idExperienciaProfissional FROM experienciaprofissional WHERE UPPER(empresa) = UPPER(?) ")
          .append("AND UPPER(funcao) = UPPER(?) AND dataInicio=? AND dataFim=? AND idProfessor = ? ");
-         if(exp.getIdExperiencia() != null)
+         if(exp.getId() != null)
              sql.append("AND idExperienciaProfissional <> ?");
         try{
             conn = new MySQLDataBaseConnection().getConnection();
             stmt = conn.prepareStatement(sql.toString());
-            stmt.setString(1, exp.getEmpresa());
-            stmt.setString(2, exp.getFuncao());
-            stmt.setDate(3, new java.sql.Date(exp.getDataInicio().getTime()));
-            stmt.setDate(4, new java.sql.Date(exp.getDataFim().getTime()));
+            stmt.setString(1, exp.getFirm());
+            stmt.setString(2, exp.getFunction());
+            stmt.setDate(3, new java.sql.Date(exp.getStartDate().getTime()));
+            stmt.setDate(4, new java.sql.Date(exp.getEndDate().getTime()));
             stmt.setInt(5, exp.getProfessor().getId());
-            if(exp.getIdExperiencia() != null)
-                 stmt.setInt(6, exp.getIdExperiencia());
+            if(exp.getId() != null)
+                 stmt.setInt(6, exp.getId());
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -107,7 +107,7 @@ private Connection conn = null;
         try {
             conn = new MySQLDataBaseConnection().getConnection();
             stmt = conn.prepareStatement(sql.toString());
-            stmt.setInt(1, ep.getIdExperiencia());
+            stmt.setInt(1, ep.getId());
             stmt.executeUpdate();
             stmt.close();
             conn.close();
