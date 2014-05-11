@@ -1,25 +1,25 @@
-package view.Model;
+package view.model;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.AcademicFormation;
+import model.ProfessionalExperience;
 
-public class FormacaoDataModel extends AbstractTableModel {
-
-	private static final long serialVersionUID = 9151447301559780074L;
+public class ExperienciaDataModel extends AbstractTableModel {
 	
-	private List<AcademicFormation> linhas;
+	private static final long serialVersionUID = 1822145651662502013L;
+	
+	private List<ProfessionalExperience> linhas;
     private String[] colunas = new String[]{
-        "Nome Curso", "Instituição", "Data Inicial", "Data Fim"};
+        "Empresa", "Instituição", "Data Inicial", "Data Fim"};
 
-    public FormacaoDataModel() {
-        linhas = new ArrayList<AcademicFormation>();
+    public ExperienciaDataModel() {
+        linhas = new ArrayList<ProfessionalExperience>();
     }
 
-    public FormacaoDataModel(List<AcademicFormation> lista) {
-        linhas = new ArrayList<AcademicFormation>(lista);
+    public ExperienciaDataModel(List<ProfessionalExperience> lista) {
+        linhas = new ArrayList<ProfessionalExperience>(lista);
     }
 
     @Override
@@ -37,9 +37,7 @@ public class FormacaoDataModel extends AbstractTableModel {
         return colunas[columnIndex];
     }
 
-    ;
-
-	@Override
+@Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case 0:
@@ -57,39 +55,39 @@ public class FormacaoDataModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        AcademicFormation formacao = linhas.get(rowIndex);
+        ProfessionalExperience experiencia = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return formacao.getCourseName();
+                return experiencia.getFirm();
             case 1:
-                return formacao.getInstitute();
+                return experiencia.getFunction();
             case 2:
-                return formacao.getStartDate();
+                return experiencia.getStartDate();
             case 3:
-                return formacao.getEndDate();
+                return experiencia.getEndDate();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
     
-    public AcademicFormation getFormacao(int indiceLinha) {
+    public ProfessionalExperience getExperiencia(int indiceLinha) {
         return linhas.get(indiceLinha);
     }
 
-    public void addFormacao(AcademicFormation forma) {
-        linhas.add(forma);
+    public void addExperiencia(ProfessionalExperience exp) {
+        linhas.add(exp);
         int ultimoIndice = getRowCount() - 1;
         fireTableRowsInserted(ultimoIndice, ultimoIndice);
     }
 
-    public void removeFormacao(int indiceLinha) {
+    public void removeExperiencia(int indiceLinha) {
         linhas.remove(indiceLinha);
         fireTableRowsDeleted(indiceLinha, indiceLinha);
     }
 
-    public void addListaDeFormacao(List<AcademicFormation> formacoes) {
+    public void addListaDeFormacao(List<ProfessionalExperience> experiencias) {
         int tamanhoAntigo = getRowCount();
-        linhas.addAll(formacoes);
+        linhas.addAll(experiencias);
         fireTableRowsInserted(tamanhoAntigo, getRowCount() - 1);
     }
 

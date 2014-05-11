@@ -1,25 +1,27 @@
-package view.Model;
+package view.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
-import model.ProfessionalExperience;
 
-public class ExperienciaDataModel extends AbstractTableModel {
+import model.enums.SituProfessor;
+import model.Professor;
+
+public class ProfessorDataModel extends AbstractTableModel {
+
+	private static final long serialVersionUID = -563358903351006439L;
 	
-	private static final long serialVersionUID = 1822145651662502013L;
-	
-	private List<ProfessionalExperience> linhas;
+	private List<Professor> linhas;
     private String[] colunas = new String[]{
-        "Empresa", "Instituição", "Data Inicial", "Data Fim"};
+        "Nome", "CPF", "Email", "Telefone", "Status" };
 
-    public ExperienciaDataModel() {
-        linhas = new ArrayList<ProfessionalExperience>();
+    public ProfessorDataModel() {
+        linhas = new ArrayList<Professor>();
     }
 
-    public ExperienciaDataModel(List<ProfessionalExperience> lista) {
-        linhas = new ArrayList<ProfessionalExperience>(lista);
+    public ProfessorDataModel(List<Professor> lista) {
+        linhas = new ArrayList<Professor>(lista);
     }
 
     @Override
@@ -37,7 +39,9 @@ public class ExperienciaDataModel extends AbstractTableModel {
         return colunas[columnIndex];
     }
 
-@Override
+    ;
+
+	@Override
     public Class<?> getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case 0:
@@ -45,9 +49,11 @@ public class ExperienciaDataModel extends AbstractTableModel {
             case 1:
                 return String.class;
             case 2:
-                return Date.class;
+                return String.class;
             case 3:
-                return Date.class;
+                return String.class;
+            case 4:
+                return SituProfessor.class;
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
@@ -55,39 +61,41 @@ public class ExperienciaDataModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ProfessionalExperience experiencia = linhas.get(rowIndex);
+        Professor prof = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return experiencia.getFirm();
-            case 1:
-                return experiencia.getFunction();
+                return prof.getName();
+                case 1:
+                return prof.getCpf();
             case 2:
-                return experiencia.getStartDate();
+                return prof.getEmail();
             case 3:
-                return experiencia.getEndDate();
+                return prof.getPhoneNumber();
+             case 4:
+                return prof.getStatus();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
     
-    public ProfessionalExperience getExperiencia(int indiceLinha) {
+    public Professor get(int indiceLinha) {
         return linhas.get(indiceLinha);
     }
 
-    public void addExperiencia(ProfessionalExperience exp) {
-        linhas.add(exp);
+    public void add(Professor forma) {
+        linhas.add(forma);
         int ultimoIndice = getRowCount() - 1;
         fireTableRowsInserted(ultimoIndice, ultimoIndice);
     }
 
-    public void removeExperiencia(int indiceLinha) {
+    public void remove(int indiceLinha) {
         linhas.remove(indiceLinha);
         fireTableRowsDeleted(indiceLinha, indiceLinha);
     }
 
-    public void addListaDeFormacao(List<ProfessionalExperience> experiencias) {
+    public void addLista(List<Professor> professores) {
         int tamanhoAntigo = getRowCount();
-        linhas.addAll(experiencias);
+        linhas.addAll(professores);
         fireTableRowsInserted(tamanhoAntigo, getRowCount() - 1);
     }
 

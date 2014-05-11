@@ -1,25 +1,25 @@
-package view.Model;
+package view.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import model.Enum.SituProfessor;
-import model.Professor;
+import model.AcademicFormation;
 
-public class ProfessorDataModel extends AbstractTableModel {
+public class FormacaoDataModel extends AbstractTableModel {
 
-	private static final long serialVersionUID = -563358903351006439L;
+	private static final long serialVersionUID = 9151447301559780074L;
 	
-	private List<Professor> linhas;
+	private List<AcademicFormation> linhas;
     private String[] colunas = new String[]{
-        "Nome", "CPF", "Email", "Telefone", "Status" };
+        "Nome Curso", "Instituição", "Data Inicial", "Data Fim"};
 
-    public ProfessorDataModel() {
-        linhas = new ArrayList<Professor>();
+    public FormacaoDataModel() {
+        linhas = new ArrayList<AcademicFormation>();
     }
 
-    public ProfessorDataModel(List<Professor> lista) {
-        linhas = new ArrayList<Professor>(lista);
+    public FormacaoDataModel(List<AcademicFormation> lista) {
+        linhas = new ArrayList<AcademicFormation>(lista);
     }
 
     @Override
@@ -47,11 +47,9 @@ public class ProfessorDataModel extends AbstractTableModel {
             case 1:
                 return String.class;
             case 2:
-                return String.class;
+                return Date.class;
             case 3:
-                return String.class;
-            case 4:
-                return SituProfessor.class;
+                return Date.class;
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
@@ -59,41 +57,39 @@ public class ProfessorDataModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Professor prof = linhas.get(rowIndex);
+        AcademicFormation formacao = linhas.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return prof.getName();
-                case 1:
-                return prof.getCpf();
+                return formacao.getCourseName();
+            case 1:
+                return formacao.getInstitute();
             case 2:
-                return prof.getEmail();
+                return formacao.getStartDate();
             case 3:
-                return prof.getPhoneNumber();
-             case 4:
-                return prof.getStatus();
+                return formacao.getEndDate();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
     }
     
-    public Professor get(int indiceLinha) {
+    public AcademicFormation getFormacao(int indiceLinha) {
         return linhas.get(indiceLinha);
     }
 
-    public void add(Professor forma) {
+    public void addFormacao(AcademicFormation forma) {
         linhas.add(forma);
         int ultimoIndice = getRowCount() - 1;
         fireTableRowsInserted(ultimoIndice, ultimoIndice);
     }
 
-    public void remove(int indiceLinha) {
+    public void removeFormacao(int indiceLinha) {
         linhas.remove(indiceLinha);
         fireTableRowsDeleted(indiceLinha, indiceLinha);
     }
 
-    public void addLista(List<Professor> professores) {
+    public void addListaDeFormacao(List<AcademicFormation> formacoes) {
         int tamanhoAntigo = getRowCount();
-        linhas.addAll(professores);
+        linhas.addAll(formacoes);
         fireTableRowsInserted(tamanhoAntigo, getRowCount() - 1);
     }
 
