@@ -9,227 +9,234 @@ import model.Enum.TipoProfessor;
 
 public class Professor implements Serializable, Comparable<Professor> {
 
-    private static final long serialVersionUID = 4466417793771253444L;
-    
-    private Integer id;
-    private String nome;
-    private String senha;
-    private String login;
-    private String telefone;
-    private String email;
-    private byte[] foto;
-    private String cpf;
-    private Date dataNascimento;
-    private String rg;
-    private String outrasInformacoes;
-    private SituProfessor status;
-    private TipoProfessor tipo;
-    private Address endereco;
-    private List<ProfessionalExperience> experienciasProfissionais;
-    private List<AcademicFormation> formacoesAcademicas;
-    private List<DisciplinaPreferencial> disciplinasPreferenciais;
+	private static final long serialVersionUID = 4466417793771253444L;
 
-    public Professor() {
-        this.experienciasProfissionais = new ArrayList<ProfessionalExperience>();
-        this.formacoesAcademicas = new ArrayList<AcademicFormation>();
-        this.endereco = new Address();
-        this.disciplinasPreferenciais = new ArrayList<DisciplinaPreferencial>();
-    }
-    
-    public boolean addDisciplinaPreferencial(DisciplinaPreferencial disciplina) {
-        boolean result;
-        try {
-            if (disciplina != null && !disciplinasPreferenciais.contains(disciplina)) {
-                result = disciplinasPreferenciais.add(disciplina);
-                disciplina.setProfessor(this);
-                return result;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+	private Integer id;
+	private String name;
+	private String password;
+	private String login;
+	private String phoneNumber;
+	private String email;
+	private byte[] photo;
+	private String cpf;
+	private Date birthDate;
+	private String generalRegisterNumber;
+	private String otherInformations;
+	private SituProfessor status;
+	private TipoProfessor type;
+	
+	private Address address;
+	private List<ProfessionalExperience> professionalExperiences;
+	private List<AcademicFormation> academicFormations;
+	private List<PreferentialDiscipline> preferentialDisciplines;
 
-    public boolean removeDisciplinaPreferencial(DisciplinaPreferencial disciplina) {
-        boolean result;
-        try {
-            if (disciplina != null && disciplinasPreferenciais.contains(disciplina)) {
-                result = disciplinasPreferenciais.remove(disciplina);
-                disciplina.setProfessor(null);
-                disciplina.setDisciplina(null);
-                return result;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+	public Professor() {
+		this.professionalExperiences = new ArrayList<ProfessionalExperience>();
+		this.academicFormations = new ArrayList<AcademicFormation>();
+		this.address = new Address();
+		this.preferentialDisciplines = new ArrayList<PreferentialDiscipline>();
+	}
 
-    @Override
-    public String toString() {
-        return nome;
-    }
+	public boolean addDisciplinaPreferencial(PreferentialDiscipline disciplina) {
+		boolean result;
+		try {
+			if (disciplina != null
+					&& !preferentialDisciplines.contains(disciplina)) {
+				result = preferentialDisciplines.add(disciplina);
+				disciplina.setProfessor(this);
+				return result;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	public boolean removeDisciplinaPreferencial(
+			PreferentialDiscipline disciplina) {
+		boolean result;
+		try {
+			if (disciplina != null
+					&& preferentialDisciplines.contains(disciplina)) {
+				result = preferentialDisciplines.remove(disciplina);
+				disciplina.setProfessor(null);
+				disciplina.setDiscipline(null);
+				return result;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public String getLogin() {
-        return login;
-    }
+	public String getLogin() {
+		return login;
+	}
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public byte[] getFoto() {
-        return foto;
-    }
+	public byte[] getPhoto() {
+		return photo;
+	}
 
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
 
-    public String getCpf() {
-        return cpf;
-    }
+	public String getCpf() {
+		return cpf;
+	}
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
+	public Date getBirthDate() {
+		return birthDate;
+	}
 
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
 
-    public String getRg() {
-        return rg;
-    }
+	public String getGeneralRegisterNumber() {
+		return generalRegisterNumber;
+	}
 
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
+	public void setGeneralRegisterNumber(String generalRegisterNumber) {
+		this.generalRegisterNumber = generalRegisterNumber;
+	}
 
-    public String getOutrasInformacoes() {
-        return outrasInformacoes;
-    }
+	public String getOtherInformations() {
+		return otherInformations;
+	}
 
-    public void setOutrasInformacoes(String outrasInformacoes) {
-        this.outrasInformacoes = outrasInformacoes;
-    }
+	public void setOtherInformations(String otherInformations) {
+		this.otherInformations = otherInformations;
+	}
 
-    public SituProfessor getStatus() {
-        return status;
-    }
+	public SituProfessor getStatus() {
+		return status;
+	}
 
-    public void setStatus(SituProfessor status) {
-        this.status = status;
-    }
+	public void setStatus(SituProfessor status) {
+		this.status = status;
+	}
 
-    public TipoProfessor getTipo() {
-        return tipo;
-    }
+	public TipoProfessor getType() {
+		return type;
+	}
 
-    public void setTipo(TipoProfessor tipo) {
-        this.tipo = tipo;
-    }
+	public void setType(TipoProfessor type) {
+		this.type = type;
+	}
 
-    public Address getEndereco() {
-        return endereco;
-    }
+	public Address getAddress() {
+		return address;
+	}
 
-    public void setEndereco(Address endereco) {
-        this.endereco = endereco;
-    }
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
-    public List<ProfessionalExperience> getExperienciasProfissionais() {
-        return experienciasProfissionais;
-    }
+	public List<ProfessionalExperience> getProfessionalExperiences() {
+		return professionalExperiences;
+	}
 
-    public void setExperienciasProfissionais(
-            List<ProfessionalExperience> experienciasProfissionais) {
-        this.experienciasProfissionais = experienciasProfissionais;
-    }
+	public void setProfessionalExperiences(List<ProfessionalExperience> professionalExperiences) {
+		this.professionalExperiences = professionalExperiences;
+	}
 
-    public List<AcademicFormation> getFormacoesAcademicas() {
-        return formacoesAcademicas;
-    }
+	public List<AcademicFormation> getAcademicFormations() {
+		return academicFormations;
+	}
 
-    public void setFormacoesAcademicas(List<AcademicFormation> formacoesAcademicas) {
-        this.formacoesAcademicas = formacoesAcademicas;
-    }
+	public void setAcademicFormations(
+			List<AcademicFormation> academicFormations) {
+		this.academicFormations = academicFormations;
+	}
 
-    public List<DisciplinaPreferencial> getDisciplinasPreferenciais() {
-        return disciplinasPreferenciais;
-    }
+	public List<PreferentialDiscipline> getPreferentialDisciplines() {
+		return preferentialDisciplines;
+	}
 
-    public void setDisciplinasPreferenciais(
-            List<DisciplinaPreferencial> disciplinasPreferenciais) {
-        this.disciplinasPreferenciais = disciplinasPreferenciais;
-    }
+	public void setPreferentialDisciplines(
+			List<PreferentialDiscipline> preferentialDisciplines) {
+		this.preferentialDisciplines = preferentialDisciplines;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public int hashCode() { // TODO hashCode
+		int hash = 7;
+		hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
+		return hash;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Professor other = (Professor) obj;
-        return this.id == other.getId();
-    }
-    
+	@Override
+	public boolean equals(Object obj) { // TODO equals
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Professor other = (Professor) obj;
+		return this.id == other.getId();
+	}
 
-    @Override
-    public int compareTo(Professor o) {
-        return this.id.compareTo(o.getId());
-    }
+	@Override
+	public int compareTo(Professor o) { // TODO compareTo
+		try {
+			return this.id.compareTo(o.getId());
+		} catch (Exception exception) {
+			return 1;
+		}
+	}
 }

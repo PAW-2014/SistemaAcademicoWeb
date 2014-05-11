@@ -6,43 +6,52 @@ import java.util.Date;
 public class AcademicFormation implements Serializable {
 	
     private static final long serialVersionUID = 2793663142281056249L;
-    private Integer idFormacaoAcademica;
-    private Date dataInicio;
-    private Date dataFim;
-    private String nomeCurso;
-    private String instituicao;
+    
+    private Integer id;
+    private Date startDate;
+    private Date endDate;
+    private String courseName;
+    private String institute;
     private Professor professor;
 
-    public Date getDataInicio() {
-        return dataInicio;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public Date getDataFim() {
-        return dataFim;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public String getNomeCurso() {
-        return nomeCurso;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public void setNomeCurso(String nomeCurso) {
-        this.nomeCurso = nomeCurso;
+    public String getCourseName() {
+        return courseName;
     }
 
-    public String getInstituicao() {
-        return instituicao;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public void setInstituicao(String instituicao) {
-        this.instituicao = instituicao;
+    public String getInstitute() {
+        return institute;
+    }
+
+    public void setInstitute(String institute) {
+        this.institute = institute;
     }
 
     public Professor getProfessor() {
@@ -53,22 +62,14 @@ public class AcademicFormation implements Serializable {
         this.professor = professor;
     }
 
-    public Integer getIdFormacaoAcademica() {
-        return idFormacaoAcademica;
-    }
-
-    public void setIdFormacaoAcademica(Integer idFormacaoAcademica) {
-        this.idFormacaoAcademica = idFormacaoAcademica;
-    }
-
     @Override
-    public int hashCode() {
+    public int hashCode() { // TODO Adjust hash Code
         int hash = 5;
-        hash = 67 * hash + (this.idFormacaoAcademica != null ? this.idFormacaoAcademica.hashCode() : 0);
-        hash = 67 * hash + (this.dataInicio != null ? this.dataInicio.hashCode() : 0);
-        hash = 67 * hash + (this.dataFim != null ? this.dataFim.hashCode() : 0);
-        hash = 67 * hash + (this.nomeCurso != null ? this.nomeCurso.hashCode() : 0);
-        hash = 67 * hash + (this.instituicao != null ? this.instituicao.hashCode() : 0);
+        hash = 67 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 67 * hash + (this.startDate != null ? this.startDate.hashCode() : 0);
+        hash = 67 * hash + (this.endDate != null ? this.endDate.hashCode() : 0);
+        hash = 67 * hash + (this.courseName != null ? this.courseName.hashCode() : 0);
+        hash = 67 * hash + (this.institute != null ? this.institute.hashCode() : 0);
         return hash;
     }
 

@@ -2,56 +2,74 @@ package model;
 
 import java.io.Serializable;
 
-public class Address implements Serializable{
+public class Address implements Serializable {
+
 	private static final long serialVersionUID = 1214404202282130103L;
-	private Integer idEndereco;
-	private String logradouro;
-	private Integer numero;
-	private String bairro;
-	private String cidade;
-	private String uf;
-	private String cep;
+
+	private Integer id;
+	private String street;
+	private Integer number;
+	private String neighborhood;
+	private String city;
+	private String federativeUnit;
+	private String zipCode;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public String getNeighborhood() {
+		return neighborhood;
+	}
+
+	public void setNeighborhood(String neighborhood) {
+		this.neighborhood = neighborhood;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getFederativeUnit() {
+		return federativeUnit;
+	}
+
+	public void setFederativeUnit(String federativeUnit) {
+		this.federativeUnit = federativeUnit;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
 	
-	public String getLogradouro() {
-		return logradouro;
-	}
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-	public Integer getNumero() {
-		return numero;
-	}
-	public void setNumero(Integer numero) {
-		this.numero = numero;
-	}
-	public String getBairro() {
-		return bairro;
-	}
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-	public String getCidade() {
-		return cidade;
-	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-	public String getUf() {
-		return uf;
-	}
-	public void setUf(String uf) {
-		this.uf = uf;
-	}
-	public String getCep() {
-		return cep;
-	}
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-	public Integer getIdEndereco() {
-		return idEndereco;
-	}
-	public void setIdEndereco(Integer idEndereco) {
-		this.idEndereco = idEndereco;
-	}
+	//TODO Equals
+	//TODO HashCode
 }

@@ -6,43 +6,53 @@ import java.util.Date;
 public class ProfessionalExperience implements Serializable {
 
     private static final long serialVersionUID = 4936612376428359672L;
-    private Integer idExperiencia;
-    private String empresa;
-    private Date dataInicio;
-    private Date dataFim;
-    private String funcao;
+    
+    private Integer id;
+    private String firm;
+    private Date startDate;
+    private Date endDate;
+    private String function;
+    
     private Professor professor;
 
-    public String getEmpresa() {
-        return empresa;
+    public Integer getId() {
+        return id;
     }
 
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    public String getFirm() {
+        return firm;
     }
 
-    public Date getDataInicio() {
-        return dataInicio;
+    public void setFirm(String firm) {
+        this.firm = firm;
     }
 
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public Date getDataFim() {
-        return dataFim;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
-    public void setDataFim(Date dataFim) {
-        this.dataFim = dataFim;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public String getFuncao() {
-        return funcao;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
+    public String getFunction() {
+        return function;
+    }
+
+    public void setFunction(String function) {
+        this.function = function;
     }
 
     public Professor getProfessor() {
@@ -53,11 +63,6 @@ public class ProfessionalExperience implements Serializable {
         this.professor = professor;
     }
 
-    public Integer getIdExperiencia() {
-        return idExperiencia;
-    }
-
-    public void setIdExperiencia(Integer idExperiencia) {
-        this.idExperiencia = idExperiencia;
-    }
+	//TODO Equals
+	//TODO HashCode
 }
