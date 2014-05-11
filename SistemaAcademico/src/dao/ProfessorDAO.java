@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Address;
 import model.Enum.SituProfessor;
-import model.Enum.TipoProfessor;
+import model.Enum.TypeProfessor;
 import model.Professor;
 
 public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor {
@@ -70,7 +70,7 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
                 p.setGeneralRegisterNumber(rs.getString("rg"));
                 p.setOtherInformations(rs.getString("outrasInformacoes"));
                 p.setStatus(SituProfessor.indice(rs.getInt("status")));
-                p.setType(TipoProfessor.indice(rs.getInt("tipo")));
+                p.setType(TypeProfessor.indice(rs.getInt("tipo")));
                 idEnd = rs.getInt("idEndereco");
             }
             rs.close();
@@ -240,7 +240,7 @@ public class ProfessorDAO extends MySQLDataBaseConnection implements IProfessor 
         try {
             conn = new MySQLDataBaseConnection().getConnection();
             stmt = conn.prepareStatement(sql.toString());
-            stmt.setInt(1, TipoProfessor.Professor.ordinal());
+            stmt.setInt(1, TypeProfessor.Professor.ordinal());
             rs = stmt.executeQuery();
 
             while (rs.next()) {

@@ -28,7 +28,7 @@ import model.ProfessionalExperience;
 import model.Professor;
 import model.Enum.EnumStates;
 import model.Enum.SituProfessor;
-import model.Enum.TipoProfessor;
+import model.Enum.TypeProfessor;
 import util.FormatProfessorToHtml;
 import util.MessageUtil;
 import view.Model.DisciplinaDataModel;
@@ -76,9 +76,9 @@ public class Principal extends javax.swing.JFrame {
     }
 
     public void controlePermissao() {
-        if (prof.getType().equals(TipoProfessor.Professor)) {
+        if (prof.getType().equals(TypeProfessor.Professor)) {
             MenuBar.setVisible(false);
-        } else if (prof.getType().equals(TipoProfessor.Coordenador)) {
+        } else if (prof.getType().equals(TypeProfessor.Coordenador)) {
             Importar.setVisible(false);
             Situ.setVisible(false);
             ExcluirPro.setVisible(false);

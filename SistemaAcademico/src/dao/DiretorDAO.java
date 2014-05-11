@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import model.Professor;
-import model.Enum.TipoProfessor;
+import model.Enum.TypeProfessor;
 import dao.interfaces.IDiretor;
 
 public class DiretorDAO extends MySQLDataBaseConnection implements IDiretor {
@@ -24,7 +24,7 @@ public class DiretorDAO extends MySQLDataBaseConnection implements IDiretor {
             conn = new MySQLDataBaseConnection().getConnection();
             conn.setAutoCommit(false);
             stmt = conn.prepareStatement(sql.toString());
-            stmt.setInt(1, TipoProfessor.Coordenador.ordinal());
+            stmt.setInt(1, TypeProfessor.Coordenador.ordinal());
             stmt.setInt(2, idProfessor);
             stmt.executeUpdate();
 

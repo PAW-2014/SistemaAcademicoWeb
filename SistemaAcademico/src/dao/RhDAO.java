@@ -10,7 +10,7 @@ import model.Principal;
 import model.Discipline;
 import model.Professor;
 import model.Enum.SituProfessor;
-import model.Enum.TipoProfessor;
+import model.Enum.TypeProfessor;
 
 public class RhDAO {
 
@@ -163,7 +163,7 @@ public class RhDAO {
 
         Professor p;
         p = new Professor();
-        p.setType(TipoProfessor.Professor);
+        p.setType(TypeProfessor.Professor);
         p.setName("Vinicius Rosalen");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("vinicius");
@@ -171,7 +171,7 @@ public class RhDAO {
         list.add(p);
 
         p = new Professor();
-        p.setType(TipoProfessor.Professor);
+        p.setType(TypeProfessor.Professor);
         p.setName("Susilea Abreu");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("susilea");
@@ -179,7 +179,7 @@ public class RhDAO {
         list.add(p);
 
         p = new Professor();
-        p.setType(TipoProfessor.Professor);
+        p.setType(TypeProfessor.Professor);
         p.setName("Erlon Pinheiro");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("erlon");
@@ -187,7 +187,7 @@ public class RhDAO {
         list.add(p);
 
         p = new Professor();
-        p.setType(TipoProfessor.Professor);
+        p.setType(TypeProfessor.Professor);
         p.setName("Hudson Ramos");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("hudson");
@@ -195,7 +195,7 @@ public class RhDAO {
         list.add(p);
 
         p = new Professor();
-        p.setType(TipoProfessor.Professor);
+        p.setType(TypeProfessor.Professor);
         p.setName("Arnaldo");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("arnaldo");
@@ -203,7 +203,7 @@ public class RhDAO {
         list.add(p);
 
         p = new Professor();
-        p.setType(TipoProfessor.Professor);
+        p.setType(TypeProfessor.Professor);
         p.setName("Sandro Tonini");
         p.setStatus(SituProfessor.Ativo);
         p.setLogin("sandro");
@@ -211,7 +211,7 @@ public class RhDAO {
         list.add(p);
 
         Coordinator c = new Coordinator();
-        c.setType(TipoProfessor.Coordenador);
+        c.setType(TypeProfessor.Coordenador);
         c.setName("Cristiano Biancardi");
         c.setStatus(SituProfessor.Ativo);
         c.setLogin("cristiano");
@@ -219,7 +219,7 @@ public class RhDAO {
         list.add(c);
 
         Principal d = new Principal();
-        d.setType(TipoProfessor.Diretor);
+        d.setType(TypeProfessor.Diretor);
         d.setName("Diretor");
         d.setStatus(SituProfessor.Ativo);
         d.setLogin("diretor");

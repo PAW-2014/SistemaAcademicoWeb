@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.MessageFormat;
 
-import dao.interfaces.DataBaseConnection;
+import dao.interfaces.IDataBaseConnection;
 
-public class MySQLDataBaseConnection implements DataBaseConnection {
+public class MySQLDataBaseConnection implements IDataBaseConnection {
 	
 	private static String host = "localhost";
 	private static String port = "3306";
