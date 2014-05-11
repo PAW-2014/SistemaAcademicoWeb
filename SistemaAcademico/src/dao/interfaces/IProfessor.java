@@ -1,18 +1,8 @@
 package dao.interfaces;
 
-import java.util.List;
 import model.Professor;
+import model.filter.ProfessorFilter;
 
-public interface IProfessor {
-	
-    public Professor validateLogin(String login, String senha);
+public interface IProfessor extends CRUD<Professor, ProfessorFilter>{
 
-    public void updateData(Professor pro);
-
-    public Professor recoverProfessor(Integer id);
-    
-    public List<Professor> listProfessors();
-
-    public List<Professor> listAll();
-    
 }
