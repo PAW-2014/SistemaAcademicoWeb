@@ -5,7 +5,7 @@ import static util.FormatToHtml.HTMLField;
 import static util.FormatToHtml.HTMLSubTitle;
 import static util.FormatToHtml.HTMLTitle;
 import static util.FormatToHtml.tagWrapper;
-import model.Enum.HTMLBaseTagsEnum;
+import model.enums.EnumHTMLBaseTags;
 
 import org.junit.Test;
 
@@ -112,7 +112,7 @@ public class FormatToHtmlTest{
 
 		String expected  = "<b>Testing</b>";
 		
-		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "Testing"));
+		assertEquals(expected, tagWrapper(EnumHTMLBaseTags.B, "Testing"));
 		
 	}
 	
@@ -121,7 +121,7 @@ public class FormatToHtmlTest{
 
 		String expected  = "";
 		
-		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, ""));
+		assertEquals(expected, tagWrapper(EnumHTMLBaseTags.B, ""));
 		
 	}
 	
@@ -139,7 +139,7 @@ public class FormatToHtmlTest{
 
 		String expected  = "";
 		
-		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, null));
+		assertEquals(expected, tagWrapper(EnumHTMLBaseTags.B, null));
 		
 	}
 
@@ -150,7 +150,7 @@ public class FormatToHtmlTest{
 		
 		String expected  = "<b class='test'>Testing</b>";
 		
-		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "class='test'", "Testing"));
+		assertEquals(expected, tagWrapper(EnumHTMLBaseTags.B, "class='test'", "Testing"));
 		
 	}
 	
@@ -159,7 +159,7 @@ public class FormatToHtmlTest{
 		
 		String expected  = "<b>Testing</b>";
 		
-		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "", "Testing"));
+		assertEquals(expected, tagWrapper(EnumHTMLBaseTags.B, "", "Testing"));
 		
 	}
 	
@@ -168,7 +168,7 @@ public class FormatToHtmlTest{
 		
 		String expected  = "";
 		
-		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "class='test'", ""));
+		assertEquals(expected, tagWrapper(EnumHTMLBaseTags.B, "class='test'", ""));
 		
 	}
 	
@@ -186,7 +186,7 @@ public class FormatToHtmlTest{
 		
 		String expected  = "<b>Testing</b>";
 		
-		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, null, "Testing"));
+		assertEquals(expected, tagWrapper(EnumHTMLBaseTags.B, null, "Testing"));
 		
 	}
 	
@@ -195,7 +195,7 @@ public class FormatToHtmlTest{
 		
 		String expected  = "";
 		
-		assertEquals(expected, tagWrapper(HTMLBaseTagsEnum.B, "class='test'", null));
+		assertEquals(expected, tagWrapper(EnumHTMLBaseTags.B, "class='test'", null));
 		
 	}
 

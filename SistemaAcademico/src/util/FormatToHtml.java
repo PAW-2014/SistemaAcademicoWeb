@@ -2,9 +2,8 @@ package util;
 
 import java.text.MessageFormat;
 
-import model.Enum.HTMLBaseTagsEnum;
-
-import static model.Enum.HTMLBaseTagsEnum.*;
+import model.enums.EnumHTMLBaseTags;
+import static model.enums.EnumHTMLBaseTags.*;
 import static util.Util.*;
 
 public class FormatToHtml {
@@ -41,12 +40,12 @@ public class FormatToHtml {
 		
 	}
 	
-	public static String tagWrapper(HTMLBaseTagsEnum envelopBase, String content){
+	public static String tagWrapper(EnumHTMLBaseTags envelopBase, String content){
 		
 		return tagWrapper(envelopBase, "", content);
 	}
 	
-	public static String tagWrapper(HTMLBaseTagsEnum tagEnvelopBase, String tagAtributes, String content){
+	public static String tagWrapper(EnumHTMLBaseTags tagEnvelopBase, String tagAtributes, String content){
 		
 		if(isNotValid(tagEnvelopBase) || isNotValid(content))
 			return "";
