@@ -2,7 +2,7 @@ package dao.interfaces;
 
 import java.sql.Connection;
 
-public interface DataBaseConnection {
+public interface IDataBaseConnection {
 	
 	public Connection getConnection() throws Exception;
 	
