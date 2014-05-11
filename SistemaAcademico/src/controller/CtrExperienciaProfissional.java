@@ -1,12 +1,12 @@
 package controller;
 
-import dao.ExperienciaProfissionalDAO;
+import dao.ProfessionalExperienceDAO;
 import dao.interfaces.IExperienciaProfissional;
 import java.util.List;
 import model.ProfessionalExperience;
 
 public class CtrExperienciaProfissional {
-    private static IExperienciaProfissional dao = new ExperienciaProfissionalDAO();
+    private static IExperienciaProfissional dao = new ProfessionalExperienceDAO();
     /**
      * Método para atualizar as experiências profissionais do professor
      * @param exp

@@ -1,13 +1,13 @@
 package controller;
 
-import dao.DisciplinaDAO;
+import dao.DisciplineDAO;
 import dao.interfaces.IDisciplina;
 import java.util.List;
 import model.Discipline;
 import model.PreferentialDiscipline;
 
 public class CtrDisciplina {
-    private static IDisciplina dao = new DisciplinaDAO();
+    private static IDisciplina dao = new DisciplineDAO();
      /**
      * Método que recupera todas as disciplinas cadastradas no sistema
      * @return 

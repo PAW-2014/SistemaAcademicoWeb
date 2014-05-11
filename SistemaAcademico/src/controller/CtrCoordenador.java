@@ -4,7 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 import dao.CoordenadorDAO;
-import dao.interfaces.ICoordenador;
+import dao.interfaces.ICoordinator;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,7 +15,7 @@ import model.Discipline;
 import model.Professor;
 
 public class CtrCoordenador {
-	private static ICoordenador coordenadorDAO = new CoordenadorDAO();
+	private static ICoordinator coordenadorDAO = new CoordenadorDAO();
 
 	/**
 	 * Método para gerar o currículo do Professor em formato PDF

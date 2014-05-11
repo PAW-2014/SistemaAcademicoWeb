@@ -1,11 +1,11 @@
 package controller;
 
-import dao.DiretorDAO;
+import dao.PrincipalDAO;
 import dao.interfaces.IDiretor;
 import model.Professor;
 
 public class CtrDiretor {
-private static IDiretor dao = new DiretorDAO();
+private static IDiretor dao = new PrincipalDAO();
     /**
      * Método para excluir um professor do sistema
      * @param pro
