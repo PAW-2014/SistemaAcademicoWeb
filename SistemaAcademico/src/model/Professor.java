@@ -21,7 +21,7 @@ import model.enums.TypeProfessor;
 
 @Entity(name="professor")
 @Inheritance(strategy=InheritanceType.JOINED)
-public class Professor implements Serializable, Comparable<Professor> {
+public class Professor implements Serializable {
 
 	private static final long serialVersionUID = 4466417793771253444L;
 
@@ -262,30 +262,28 @@ public class Professor implements Serializable, Comparable<Professor> {
 	}
 
 	@Override
-	public int hashCode() { // TODO hashCode
-		int hash = 7;
-		hash = 59 * hash + (this.id != null ? this.id.hashCode() : 0);
-		return hash;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) { // TODO equals
-		if (obj == null) {
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
 			return false;
-		}
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
-		final Professor other = (Professor) obj;
-		return this.id == other.getId();
+		Professor other = (Professor) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
-	@Override
-	public int compareTo(Professor o) { // TODO compareTo
-		try {
-			return this.id.compareTo(o.getId());
-		} catch (Exception exception) {
-			return 1;
-		}
-	}
 }

@@ -15,13 +15,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-public class HibernateSingleton { // TODO Needs to clean up
+public final class HibernateSingleton { // TODO Needs to clean up
 	
-	private HibernateSingleton(){}
-	
-	public final static Configuration configuration = buildNewConfiguration();
-	public final static ServiceRegistry serviceRegistry = buildNewServiceRegistry();
-	public final static SessionFactory sessionFactory = buildNewSessionFactory();
+	private HibernateSingleton(){
+	}
 	
 	private final static String host = "localhost";
 	private final static String port = "3306";
@@ -32,7 +29,7 @@ public class HibernateSingleton { // TODO Needs to clean up
 	private final static String url = MessageFormat.format(baseUrl, host, port, schemaName);
 	private final static String driverClass = "com.mysql.jdbc.Driver";
 	
-	private final static String user = "root";
+	private final static String username = "root";
 	private final static String password = "toor";
 	
 	public final static String PROPERTY_URL = "hibernate.connection.url";
@@ -61,15 +58,19 @@ public class HibernateSingleton { // TODO Needs to clean up
 	/**Just validate the Schema, don't changing the data in it.*/
 	public final static String HIBERNTE_SCHEMA_VALIDATE_MODE = "validate";
 	
+	public static final Configuration configuration = buildNewConfiguration();
+	public static final ServiceRegistry serviceRegistry = buildNewServiceRegistry();
+	public static final SessionFactory sessionFactory = buildNewSessionFactory(configuration, serviceRegistry);
+	
 	private static Configuration buildNewConfiguration(){
 		Configuration configuration = new Configuration();
-		addClasses();
-		addProperties();
+		addClasses(configuration);
+		addProperties(configuration);
 		
 		return configuration;
 	}
 	
-	private static void addClasses(){
+	private static void addClasses(Configuration configuration){
 		configuration.addAnnotatedClass(Discipline.class);
 		configuration.addAnnotatedClass(AcademicFormation.class);
 		configuration.addAnnotatedClass(Address.class);
@@ -81,9 +82,9 @@ public class HibernateSingleton { // TODO Needs to clean up
 		configuration.addAnnotatedClass(Professor.class);
 	}
 	
-	private static void addProperties(){
+	private static void addProperties(Configuration configuration){
 		configuration.setProperty(PROPERTY_URL, url);
-		configuration.setProperty(PROPERTY_USERNAME, user);
+		configuration.setProperty(PROPERTY_USERNAME, username);
 		configuration.setProperty(PROPERTY_PASSWORD, password);
 		configuration.setProperty(PROPERTY_DRIVER_CLASS, driverClass);
 		configuration.setProperty(PROPERTY_DIALECT, HIBERNTE_MYSQL_DIALECT);
@@ -94,8 +95,11 @@ public class HibernateSingleton { // TODO Needs to clean up
 		return null;
 	}
 	
-	private static SessionFactory buildNewSessionFactory(){
-		return configuration.buildSessionFactory(serviceRegistry);
+	private static SessionFactory buildNewSessionFactory(Configuration configuration, ServiceRegistry serviceRegistry){
+		if(serviceRegistry != null)
+			return configuration.buildSessionFactory(serviceRegistry);
+		
+		return configuration.buildSessionFactory();
 	}
 	
 }

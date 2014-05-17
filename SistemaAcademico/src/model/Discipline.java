@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity(name="discipline")
-public class Discipline implements Comparable<Discipline>, Serializable {
+public class Discipline implements Serializable {
 
     private static final long serialVersionUID = -6913931188543025636L;
     
@@ -38,27 +38,29 @@ public class Discipline implements Comparable<Discipline>, Serializable {
         return name;
     }
 
-    @Override
-    public int compareTo(Discipline o) {
-        return this.name.compareTo(o.getName());
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
-    @Override
-    public int hashCode() {//TODO HashCode
-        int hash = 3;
-        hash = 71 * hash + (this.id != null ? this.id.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Discipline other = (Discipline) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 
-    @Override
-    public boolean equals(Object obj) {//TODO Equals
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Discipline other = (Discipline) obj;
-        return this.id == other.getId();
-    }
 }

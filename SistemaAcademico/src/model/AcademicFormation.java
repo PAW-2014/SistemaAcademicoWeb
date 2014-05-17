@@ -83,27 +83,63 @@ public class AcademicFormation implements Serializable {
         this.professor = professor;
     }
 
-    @Override
-    public int hashCode() { // TODO Adjust hash Code
-        int hash = 5;
-        hash = 67 * hash + (this.id != null ? this.id.hashCode() : 0);
-        hash = 67 * hash + (this.startDate != null ? this.startDate.hashCode() : 0);
-        hash = 67 * hash + (this.endDate != null ? this.endDate.hashCode() : 0);
-        hash = 67 * hash + (this.courseName != null ? this.courseName.hashCode() : 0);
-        hash = 67 * hash + (this.institute != null ? this.institute.hashCode() : 0);
-        return hash;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((courseName == null) ? 0 : courseName.hashCode());
+		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result
+				+ ((institute == null) ? 0 : institute.hashCode());
+		result = prime * result
+				+ ((professor == null) ? 0 : professor.hashCode());
+		result = prime * result
+				+ ((startDate == null) ? 0 : startDate.hashCode());
+		return result;
+	}
 
-    @Override
-    public boolean equals(Object obj) { // TODO Adjust the Equals Function
-    	
-        if (obj == null)
-            return false;
-        
-        if (getClass() != obj.getClass())
-            return false;
-        
-        return true;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AcademicFormation other = (AcademicFormation) obj;
+		if (courseName == null) {
+			if (other.courseName != null)
+				return false;
+		} else if (!courseName.equals(other.courseName))
+			return false;
+		if (endDate == null) {
+			if (other.endDate != null)
+				return false;
+		} else if (!endDate.equals(other.endDate))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (institute == null) {
+			if (other.institute != null)
+				return false;
+		} else if (!institute.equals(other.institute))
+			return false;
+		if (professor == null) {
+			if (other.professor != null)
+				return false;
+		} else if (!professor.equals(other.professor))
+			return false;
+		if (startDate == null) {
+			if (other.startDate != null)
+				return false;
+		} else if (!startDate.equals(other.startDate))
+			return false;
+		return true;
+	}
 
 }
